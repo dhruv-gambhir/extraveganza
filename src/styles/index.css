@@ -26,6 +26,26 @@ body {
     color: #FFFFFF;
 }
 
+.middle-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.middle-container-left-sidebar {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-sidebar-button {
+    width: 50px;
+    height: 50px;
+}
+
+.middle-container-right-side {
+    width: 75%;
+}
+
 .bottom-container {
     height: 15%;
     background-color: var(--green, #0f0);
