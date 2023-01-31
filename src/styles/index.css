@@ -56,3 +56,26 @@ body {
     width: 100%;
     text-align: center;
 }
+
+.bot-img
+{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    top:25%;
+}
+
+.map
+{
+    left:12.5%;
+}
+
+.network
+{
+    right:12.5%
+}
+
+.search
+{
+    margin:0 auto;
+}
