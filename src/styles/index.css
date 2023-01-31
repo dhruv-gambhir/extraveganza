@@ -1,13 +1,38 @@
 :root {
-    --green: #0f0;
+    --green: #8CE149;
+
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
 }
 
 .top-container {
-    height: 81px;
-    background-color: var(--green, #0f0) ;
+    height: 10%;
+    padding: 30px;
+    background: #8CE149;
+}
+
+.top-title {
+    width: 100%;
+    text-align: center;
+
+    font-family: Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px; 
+
+    color: #FFFFFF;
 }
 
 .bottom-container {
-    height: 81px;
+    height: 15%;
     background-color: var(--green, #0f0);
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
