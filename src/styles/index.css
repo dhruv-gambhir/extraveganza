@@ -1,0 +1,13 @@
+:root {
+    --green: #0f0;
+}
+
+.top-container {
+    height: 81px;
+    background-color: var(--green, #0f0) ;
+}
+
+.bottom-container {
+    height: 81px;
+    background-color: var(--green, #0f0);
+}
