@@ -33,56 +33,112 @@ body {
 
 .middle-container-left-sidebar {
     width: 25%;
+    height: 70%;
     display: flex;
     flex-direction: column;
 
     padding: 10px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-right: 10px;
     border-right: 2px solid black;
 }
 
 .left-buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
 .left-sidebar-button {
-    width: 50px;
-    height: 50px;
+    margin: 15px;
+    width: 100px;
+    height: 100px;
 
     border: 2px solid black;
     border-radius: 10%;
+
+    text-align: center;
+    padding: auto;
+}
+
+.left-img {
+    width: 70px;
+    height: 70px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.left-checkbox {
+    height: 30%;
 }
 
 .searchbar {
     width: 50%;
-    height: 50px;
+    height: 40px;
+
+    margin: 10px;
 
     border: 2px solid black;
     border-radius: 10px;
 }
 
 .right-buttons {
+    margin: 10px;
+    height: 70px;
     display: flex;
     flex-direction: row;   
+    justify-content: center;
+    align-items: center;
 }
 
 .right-sidebar-button {
-    width: 50px;
-    height: 50px;
+    margin: 10px;
+    width: 60px;
+    height: 100%;
 
+    display: flex;
 
     border: 2px solid black;
-    border-radius: 10%;
+    border-radius: 50%;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.right-img {
+    width: 40px;
+    height: 40px;
+    width: auto;
+    border-radius: 50%;
 }
 
 .searchbar-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .middle-container-right-side {
     width: 75%;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.google-map-frame {
+    width: 90%;
+    height: 60%;
+
+    margin: 20px;
+
+    border: 2px solid black;
+
+    border-radius: 20px;
 }
 
 .bottom-container {
