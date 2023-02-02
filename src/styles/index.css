@@ -68,8 +68,8 @@ body {
 
 .left-side-button {
     margin: 15px;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
 
     display: flex;
     flex-direction: column;
@@ -82,11 +82,18 @@ body {
 
 .left-img {
     display: block;
-    max-width: 70%;
-    max-height: 70%;
+    max-width: 65%;
+    max-height: 65%;
     width: auto;
     border-radius: 50%;
     align-self: center;
+}
+
+.left-desc {
+    font-family: Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .left-checkbox {
@@ -204,7 +211,7 @@ body {
 .bottom-buttons {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
     width: 80%;
@@ -213,7 +220,7 @@ body {
 
 .right-side-button {
     margin: 15px;
-    width: 33.3333%;
+    width: 80px;
     height: 80px;
 
     display: flex;
@@ -223,14 +230,14 @@ body {
 
     text-align: center;
     padding: auto;
+    background: white;
+    border-radius: 50%;
 }
 
 .bot-img {
     margin: 15px;
-    width: 80px;
-    height: 80px;
-
-    border-radius: 10%;
+    width: 60px;
+    height: 60px;
 
     display: block;
     max-width: 70%;
