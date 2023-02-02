@@ -1,7 +1,9 @@
 /* Global */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
 :root {
     --green: #8CE149;
-
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -23,7 +25,6 @@ body {
     width: 100%;
     text-align: center;
 
-    font-family: Helvetica, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
@@ -90,7 +91,6 @@ body {
 }
 
 .left-desc {
-    font-family: Helvetica, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
@@ -142,7 +142,6 @@ body {
     border-radius: 30px;
     padding-left: 1rem;
 
-    font-family: Helvetica, sans-serif;
     font-style: normal;
     font-size: 20px;
 }
