@@ -23,52 +23,58 @@ function createHeaderHTML() {
 		</div>);
 }
 
-function createMiddleContentMap() {
-	return (<React.Fragment>
-		<div class="middle-container-left-side">
-			<div class="left-buttons">
-				<div class="left-side-button">
-					<img class="left-img" src="images/vegan.png" alt="button 1"></img>
-					<div class="left-desc">vegan</div>
-					<input class="left-checkbox" type="checkbox"></input>
+function createMiddleContent(props) {
+	if (props.state === "map") {
+		return createMiddleContentMap();
+	}
+}
+
+function createMiddleContentMap(props) {
+	return <React.Fragment>
+		<div className="middle-container-left-side">
+			<div className="left-buttons">
+				<div className="left-side-button">
+					<img className="left-img" src="images/vegan.png" alt="button 1"></img>
+					<div className="left-desc">vegan</div>
+					<input className="left-checkbox" type="checkbox"></input>
 				</div>
-				<div class="left-side-button">
-					<img class="left-img" src="images/vegetarian.png" alt="button 2"></img>
-					<div class="left-desc">vegetarian</div>
-					<input class="left-checkbox" type="checkbox"></input>
+				<div className="left-side-button">
+					<img className="left-img" src="images/vegetarian.png" alt="button 2"></img>
+					<div className="left-desc">vegetarian</div>
+					<input className="left-checkbox" type="checkbox"></input>
 				</div>
-				<div class="left-side-button">
-					<img class="left-img" src="images/lactose-free.png" alt="button 3"></img>
-					<div class="left-desc">lactose-free</div>
-					<input class="left-checkbox" type="checkbox"></input>
+				<div className="left-side-button">
+					<img className="left-img" src="images/lactose-free.png" alt="button 3"></img>
+					<div className="left-desc">lactose-free</div>
+					<input className="left-checkbox" type="checkbox"></input>
 				</div>
-				<div class="left-side-button">
-					<img class="left-img" src="images/gluten-free.png" alt="button 4"></img>
-					<div class="left-desc">gluten-free</div>
-					<input class="left-checkbox" type="checkbox"></input>
+				<div className="left-side-button">
+					<img className="left-img" src="images/gluten-free.png" alt="button 4"></img>
+					<div className="left-desc">gluten-free</div>
+					<input className="left-checkbox" type="checkbox"></input>
 				</div>
 			</div>
 		</div>
 
-		<div class="middle-container-right-side">
-			<div class="nav-container">
-				<div class="searchbar-container">
-					<input class="searchbar" type="text" placeholder="Search"></input>
+		<div className="middle-container-right-side">
+			<div className="nav-container">
+				<div className="searchbar-container">
+					<input className="searchbar" type="text" placeholder="Search"></input>
 				</div>
-				<div class="right-buttons">
-					<div class="right-sidebar-button">
-						<img class="right-img" src="images/account.png" alt="button 1"></img>
+				<div className="right-buttons">
+					<div className="right-sidebar-button">
+						<img className="right-img" src="images/account.png" alt="button 1"></img>
 					</div>
-					<div class="right-sidebar-button">
-						<img class="right-img" src="images/help.png" alt="button 1"></img>
+					<div className="right-sidebar-button">
+						<img className="right-img" src="images/help.png" alt="button 1"></img>
 					</div>
-					<div class="right-sidebar-button">
-						<img class="right-img" src="images/settings.png" alt="button 1"></img>
+					<div className="right-sidebar-button">
+						<img className="right-img" src="images/settings.png" alt="button 1"></img>
 					</div>
 				</div>
 			</div>
 
-			<div class="main-content-container">
+			<div className="main-content-container">
 				google map
 				<br></br>
 				list of stuff
@@ -76,11 +82,11 @@ function createMiddleContentMap() {
 				others idk
 			</div>
 		</div>
-	</React.Fragment>);
+	</React.Fragment>;
 }
 
 function createMiddleContentList() {
-	
+
 }
 
 function createMiddleContentCommunity() {
@@ -92,23 +98,23 @@ function createMiddleContentLogin() {
 		<div>
 			LOGIN HERE pwease
 		</div>
-	)
+	);
 }
 
 
 function createFooterHTML() {
-	return (<div class="bottom-container">
-		<div class="bottom-buttons">
-			<div class="right-side-button">
-				<img class="bot-img map" src="images/map.png" alt="map button"></img>
+	return (<div className="bottom-container">
+		<div className="bottom-button-container">
+			<div className="bottom-button">
+				<img className="bot-img map" src="images/map.png" alt="map button" id="map-button"></img>
 			</div>
 
-			<div class="right-side-button">
-				<img class="bot-img network" src="images/list.png" alt="list button"></img>
+			<div className="bottom-button">
+				<img className="bot-img network" src="images/list.png" alt="list button" id="list-button"></img>
 			</div>
 
-			<div class="right-side-button">
-				<img class="bot-img search" src="images/community.png" alt="community button"></img>
+			<div className="bottom-button">
+				<img className="bot-img search" src="images/community.png" alt="community button" id="community-button"></img>
 			</div>
 		</div>
 	</div>);

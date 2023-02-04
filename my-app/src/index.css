@@ -221,7 +221,7 @@ body {
 }
 
 /* The container for the buttons at the footer */
-.bottom-buttons {
+.bottom-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -230,8 +230,7 @@ body {
     width: 80%;
 }
 
-
-.right-side-button {
+.bottom-button {
     margin: 15px;
     width: 80px;
     height: 80px;
@@ -245,6 +244,8 @@ body {
     padding: auto;
     background: white;
     border-radius: 50%;
+
+    cursor: pointer;
 }
 
 .bot-img {
