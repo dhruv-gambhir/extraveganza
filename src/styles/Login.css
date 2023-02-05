@@ -183,12 +183,19 @@ body {
 .main-content-container {
     width: 80%;
     height: 75%;
+    margin: 0 auto 0 auto;
+    position: relative;
+}
 
-    margin-bottom: 50px;
+.form1
+{
+    width: 100%;
+    position: absolute;
+    left:25%;
+    right:25%;
+    top:25%;
+    bottom: 25%;
 
-    border: 2px solid black;
-
-    border-radius: 20px;
 }
 
 /* Bottom container */
@@ -259,3 +266,8 @@ body {
 .search {
     margin: 0 auto;
 } */
+
+.textboxclass{
+    width: 35%;
+    border: 5px solid black;
+}
