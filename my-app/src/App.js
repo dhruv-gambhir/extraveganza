@@ -1,4 +1,5 @@
 import './App.css';
+import './login.css'
 import React, { Component } from 'react';
 
 const AppState = {
@@ -58,22 +59,28 @@ class App extends Component {
 		</div>);
 	}
 
-	createFooter() {
-		return (<div className="bottom-container">
-			<div className="bottom-button-container">
-				<div className="bottom-button">
-					<img className="bot-img map" src="images/map.png" alt="map button" id="map-button" onClick={this.handleMapButton}></img>
-				</div>
+	createFooter(buttons = true) {
+		if (buttons) {
+			return (<div className="bottom-container">
+				<div className="bottom-button-container">
+					<div className="bottom-button">
+						<img className="bot-img map" src="images/map.png" alt="map button" id="map-button" onClick={this.handleMapButton}></img>
+					</div>
 
-				<div className="bottom-button">
-					<img className="bot-img network" src="images/list.png" alt="list button" id="list-button" onClick={this.handleListButton}></img>
-				</div>
+					<div className="bottom-button">
+						<img className="bot-img network" src="images/list.png" alt="list button" id="list-button" onClick={this.handleListButton}></img>
+					</div>
 
-				<div className="bottom-button">
-					<img className="bot-img search" src="images/community.png" alt="community button" id="community-button" onClick={this.handleCommunityButton}></img>
+					<div className="bottom-button">
+						<img className="bot-img search" src="images/community.png" alt="community button" id="community-button" onClick={this.handleCommunityButton}></img>
+					</div>
 				</div>
-			</div>
-		</div>);
+			</div>);
+		}
+		else {
+			return (<div className="bottom-container">
+			</div>);
+		}
 	}
 
 	createDietaryRestrictionsHTML() {
@@ -153,12 +160,21 @@ class App extends Component {
 					</div>
 				</div>
 
-				<div className="main-content-container">
-					googleasdf
-					<br></br>
-					list of stuff
-					<br></br>
-					others idk
+				<div className="main-content-container login-container">
+					<div className='login-content-container'>
+						<div className='login-element-container'>
+							<div className='login-container-label'>Username: </div>
+							<input type={'text'} className='login-textbox' placeholder='Username'></input>
+						</div>
+						<div className='login-element-container'>
+							<div className='login-container-label'>Password: </div>
+							<input type={'password'} className='login-textbox' placeholder='Password' ></input>
+						</div>
+						<div className='login-submit-container'>
+				  			<div className='login-submit-button'>Submit</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</React.Fragment>;
@@ -186,7 +202,7 @@ class App extends Component {
 							{this.createMiddleContentLogin()}
 						</div>
 
-						{this.createFooter()}
+						{this.createFooter(false)}
 					</React.Fragment>);
 			default:
 				return (

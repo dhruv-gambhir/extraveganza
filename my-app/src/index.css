@@ -209,6 +209,10 @@ body {
     border-radius: 20px;
 }
 
+.login-container {
+    border: none !important;
+}
+
 /* Bottom container */
 .bottom-container {
     height: 15vh;

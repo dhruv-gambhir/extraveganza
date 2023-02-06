@@ -1,48 +1,23 @@
-.App {
-	text-align: center;
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.App-logo {
-	height: 40vmin;
-	pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	.App-logo {
-		animation: App-logo-spin infinite 20s linear;
-	}
-}
-
-.App-header {
-	background-color: #282c34;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: calc(10px + 2vmin);
-	color: white;
-}
-
-.App-link {
-	color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(360deg);
-	}
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
 }
 
 /* Global */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
 :root {
-    --green: #8CE149;
+    --extra-green: #8CE149;
+    --more-green: #0B963A;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -54,7 +29,7 @@ body {
 /* Top container */
 .top-container {
     height: 10vh;
-    background: var(--green);
+    background: var(--extra-green);
 
     display: flex;
     align-items: center;
@@ -165,6 +140,10 @@ body {
     align-items: center;
 }
 
+.nav-container-right-align {
+    justify-content: flex-end !important;
+}
+
 /* The searchbar (dropdown menu / filter / sort) container */
 .searchbar-container {
     width: 100%;
@@ -208,6 +187,8 @@ body {
 
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .right-img {
@@ -229,10 +210,20 @@ body {
     border-radius: 20px;
 }
 
+.login-container {
+    border: none !important;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-items: center;
+}
+
 /* Bottom container */
 .bottom-container {
     height: 15vh;
-    background-color: var(--green, #0f0);
+    background-color: var(--extra-green, #0f0);
 
     position: fixed;
     left: 0;
@@ -247,7 +238,7 @@ body {
 }
 
 /* The container for the buttons at the footer */
-.bottom-buttons {
+.bottom-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -256,8 +247,7 @@ body {
     width: 80%;
 }
 
-
-.right-side-button {
+.bottom-button {
     margin: 15px;
     width: 80px;
     height: 80px;
@@ -271,6 +261,8 @@ body {
     padding: auto;
     background: white;
     border-radius: 50%;
+
+    cursor: pointer;
 }
 
 .bot-img {
