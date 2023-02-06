@@ -1,7 +1,7 @@
 @import './App.css';
 
 .login-content-container {
-    width: 60%;
+    width: 50%;
     height: 80%;
 
     display: flex;
@@ -13,37 +13,66 @@
     justify-self: center;
 
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 24px;
     color: white;
 
     border: 2px solid var(--extra-green);
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: var(--extra-green);
 }
 
 .login-element-container {
+    width: 60%;
     margin: 10px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
 }
 
 .login-container-label {
+    width: 50%;
     margin-bottom: 10px;
+    padding-right: 30px;
+    text-align: right;
 }
 
 .login-textbox {
-    width: 200px;
+    padding-left: 10px;
+    width: 50%;
     height: 30px;
-    border: 1px solid black;
+    border: 0px solid black;
     border-radius: 5px;
 }
 
-.login-submit-container {
-    margin-top: 20px;
-    border-radius: 10px;
-    padding: 10px 90px;
-    background-color: var(--more-green);
+.login-bottom-container {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: right;
 }
 
-.login-submit-button {
+.forgot-password-label {
+    margin-left: 10%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: white;
 
+    cursor: pointer;
+}
+
+.login-submit-container {
+    margin-left: 20px;
+    border-radius: 10px;
+    width: 3rem;
+    height: auto;
+    background-color: var(--more-green);
+    cursor: pointer;
+    text-align: center;
 }

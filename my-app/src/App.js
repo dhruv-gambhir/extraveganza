@@ -1,5 +1,5 @@
 import './App.css';
-import './login.css'
+import './login.css';
 import React, { Component } from 'react';
 
 const AppState = {
@@ -145,7 +145,7 @@ class App extends Component {
 
 	createMiddleContentLogin() {
 		return <React.Fragment>
-			<div className='middle-container-right-side'>
+			<div className='middle-container-right-side middle-container-full-width'>
 				<div className="nav-container nav-container-right-align">
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
@@ -163,15 +163,16 @@ class App extends Component {
 				<div className="main-content-container login-container">
 					<div className='login-content-container'>
 						<div className='login-element-container'>
-							<div className='login-container-label'>Username: </div>
+							<div className='login-container-label'>Username : </div>
 							<input type={'text'} className='login-textbox' placeholder='Username'></input>
 						</div>
 						<div className='login-element-container'>
-							<div className='login-container-label'>Password: </div>
+							<div className='login-container-label'>Password : </div>
 							<input type={'password'} className='login-textbox' placeholder='Password' ></input>
 						</div>
-						<div className='login-submit-container'>
-				  			<div className='login-submit-button'>Submit</div>
+						<div className='login-bottom-container'>
+							<div className='forgot-password-label'>Forgot password?</div>
+							<div className='login-submit-container'>→</div>
 						</div>
 					</div>
 
