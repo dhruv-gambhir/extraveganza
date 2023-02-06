@@ -1,0 +1,49 @@
+@import './App.css';
+
+.login-content-container {
+    width: 60%;
+    height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    align-self: center;
+    justify-self: center;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: white;
+
+    border: 2px solid var(--extra-green);
+    border-radius: 10px;
+    background-color: var(--extra-green);
+}
+
+.login-element-container {
+    margin: 10px;
+}
+
+.login-container-label {
+    margin-bottom: 10px;
+}
+
+.login-textbox {
+    width: 200px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.login-submit-container {
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px 90px;
+    background-color: var(--more-green);
+}
+
+.login-submit-button {
+
+}

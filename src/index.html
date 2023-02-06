@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>extraVEGANza</title>
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/login.css">
     <link rel="icon" href="images/favicon.ico"> <!--Icon is used for favicon formatting-->
-
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 </head>
 
 <body>
@@ -20,7 +23,7 @@
     </div>
 
     <!-- A container for the middle part of the webpage -->
-    <div class="middle-container">
+    <div class="middle-container" id="middle-container">
         <!-- The left side of the middle container -->
         <div class="middle-container-left-side">
             <!-- A div of all the "buttons" on the left side -->
@@ -83,17 +86,17 @@
 
     <!-- A container for the footer -->
     <div class="bottom-container">
-        <div class="bottom-buttons">
-            <div class="right-side-button">
-                <img class="bot-img map" src="images/map.png" alt="map button">
+        <div class="bottom-button-container">
+            <div class="bottom-button">
+                <img class="bot-img map" src="images/map.png" alt="map button" id="map-button">
             </div>
 
-            <div class="right-side-button">
-                <img class="bot-img network" src="images/list.png" alt="list button">
+            <div class="bottom-button">
+                <img class="bot-img network" src="images/list.png" alt="list button" id="list-button">
             </div>
 
-            <div class="right-side-button">
-                <img class="bot-img search" src="images/community.png" alt="community button">
+            <div class="bottom-button">
+                <img class="bot-img search" src="images/community.png" alt="community button" id="community-button">
             </div>
         </div>
     </div>
