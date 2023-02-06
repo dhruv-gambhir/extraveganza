@@ -139,6 +139,10 @@ body {
     align-items: center;
 }
 
+.nav-container-right-align {
+    justify-content: flex-end !important;
+}
+
 /* The searchbar (dropdown menu / filter / sort) container */
 .searchbar-container {
     width: 100%;
@@ -182,6 +186,8 @@ body {
 
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .right-img {
