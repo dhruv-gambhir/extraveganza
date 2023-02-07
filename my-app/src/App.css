@@ -1,8 +1,23 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
 /* Global */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
 :root {
-    --green: #8CE149;
+    --extra-green: #8CE149;
+    --more-green: #0B963A;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -14,7 +29,7 @@ body {
 /* Top container */
 .top-container {
     height: 10vh;
-    background: var(--green);
+    background: var(--extra-green);
 
     display: flex;
     align-items: center;
@@ -114,6 +129,10 @@ body {
     align-items: center;
 }
 
+.middle-container-full-width {
+    width: 100%;
+}
+
 /* The navigation bar container */
 .nav-container {
     width: 80%;
@@ -123,6 +142,10 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.nav-container-right-align {
+    justify-content: flex-end !important;
 }
 
 /* The searchbar (dropdown menu / filter / sort) container */
@@ -168,6 +191,8 @@ body {
 
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .right-img {
@@ -191,12 +216,18 @@ body {
 
 .login-container {
     border: none !important;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-items: center;
 }
 
 /* Bottom container */
 .bottom-container {
     height: 15vh;
-    background-color: var(--green, #0f0);
+    background-color: var(--extra-green, #0f0);
 
     position: fixed;
     left: 0;
@@ -211,7 +242,7 @@ body {
 }
 
 /* The container for the buttons at the footer */
-.bottom-buttons {
+.bottom-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -220,8 +251,7 @@ body {
     width: 80%;
 }
 
-
-.right-side-button {
+.bottom-button {
     margin: 15px;
     width: 80px;
     height: 80px;
@@ -235,6 +265,8 @@ body {
     padding: auto;
     background: white;
     border-radius: 50%;
+
+    cursor: pointer;
 }
 
 .bot-img {
@@ -248,16 +280,3 @@ body {
     width: auto;
     align-self: center;
 }
-
-/* paiseh nigel */
-/* .map {
-    left: 12.5%;
-}
-
-.network {
-    right: 12.5%
-}
-
-.search {
-    margin: 0 auto;
-} */
