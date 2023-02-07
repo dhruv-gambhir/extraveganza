@@ -129,6 +129,10 @@ body {
     align-items: center;
 }
 
+.middle-container-full-width {
+    width: 100%;
+}
+
 /* The navigation bar container */
 .nav-container {
     width: 80%;

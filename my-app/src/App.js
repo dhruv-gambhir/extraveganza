@@ -1,5 +1,5 @@
 import './App.css';
-import './login.css'
+import './login.css';
 import React, { Component } from 'react';
 
 const AppState = {
@@ -15,10 +15,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			appState: AppState.Login
+			appState: AppState.Map
 		};
-
-		// this.handleAccountButton = this.handleAccountButton.bind(this);
 	}
 
 	handleAccountButton = () => {
@@ -108,10 +106,105 @@ class App extends Component {
 		</div>);
 	}
 
-	createMiddleContentMap() {
-		return <React.Fragment>
+	render() {
+		console.log(this.state.appState);
+		switch (this.state.appState) {
+			case AppState.Map:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<MapPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</MapPage>
+						{this.createFooter()}
+					</React.Fragment>
+				);
+			case AppState.Login:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<LoginPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}>
+						</LoginPage>
+						{this.createFooter(false)}
+					</React.Fragment>);
+			case AppState.Help:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<HelpPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</HelpPage>
+						{this.createFooter()}
+					</React.Fragment>);
+			case AppState.Settings:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<SettingsPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</SettingsPage>
+						{this.createFooter()}
+					</React.Fragment>);
+			case AppState.List:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<ListPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</ListPage>
+						{this.createFooter()}
+					</React.Fragment>);
+			case AppState.Community:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<CommunityPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</CommunityPage>
+						{this.createFooter()}
+					</React.Fragment>);
+			default:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<MapPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+						</MapPage>
+
+						{this.createFooter()}
+					</React.Fragment>
+				);
+		}
+	}
+
+}
+
+class MapPage extends Component {
+	render() {
+		return (<div className='middle-container'>
 			<div className="middle-container-left-side">
-				{this.createDietaryRestrictionsHTML()}
+				{this.props.createDietaryRestrictionsHTML()}
 			</div>
 
 			<div className="middle-container-right-side">
@@ -121,41 +214,43 @@ class App extends Component {
 					</div>
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={() => this.handleAccountButton()}></img>
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
 						</div>
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.handleHelpButton}></img>
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
 						</div>
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.handleSettingsButton}></img>
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
 						</div>
 					</div>
 				</div>
 
 				<div className="main-content-container">
-					google map
+					google
 					<br></br>
 					list of stuff
 					<br></br>
 					others idk
 				</div>
 			</div>
-		</React.Fragment>;
+		</div>);
 	}
+}
 
-	createMiddleContentLogin() {
-		return <React.Fragment>
-			<div className='middle-container-right-side'>
+class LoginPage extends Component {
+	render() {
+		return <div className='middle-container'>
+			<div className='middle-container-right-side middle-container-full-width'>
 				<div className="nav-container nav-container-right-align">
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.handleAccountButton}></img>
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
 						</div>
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.handleHelpButton}></img>
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
 						</div>
 						<div className="right-sidebar-button">
-							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.handleSettingsButton}></img>
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
 						</div>
 					</div>
 				</div>
@@ -163,61 +258,155 @@ class App extends Component {
 				<div className="main-content-container login-container">
 					<div className='login-content-container'>
 						<div className='login-element-container'>
-							<div className='login-container-label'>Username: </div>
+							<div className='login-container-label'>Username : </div>
 							<input type={'text'} className='login-textbox' placeholder='Username'></input>
 						</div>
 						<div className='login-element-container'>
-							<div className='login-container-label'>Password: </div>
+							<div className='login-container-label'>Password : </div>
 							<input type={'password'} className='login-textbox' placeholder='Password' ></input>
 						</div>
-						<div className='login-submit-container'>
-				  			<div className='login-submit-button'>Submit</div>
+						<div className='login-bottom-container'>
+							<div className='forgot-password-label'>Forgot password?</div>
+							<div className='login-submit-container'>→</div>
 						</div>
 					</div>
 
 				</div>
 			</div>
-		</React.Fragment>;
+		</div>;
 	}
+}
 
+class HelpPage extends Component {
 	render() {
-		console.log(this.state.appState);
-		switch (this.state.appState) {
-			case AppState.Map:
-				return (
-					<React.Fragment>
-						{this.createHeader()}
-						<div className="middle-container">
-							{this.createMiddleContentMap()}
-						</div>
+		return (<div className='middle-container'>
+			<div className="middle-container-left-side">
+				{this.props.createDietaryRestrictionsHTML()}
+			</div>
 
-						{this.createFooter()}
-					</React.Fragment>
-				);
-			case AppState.Login:
-				return (
-					<React.Fragment>
-						{this.createHeader()}
-						<div className="middle-container">
-							{this.createMiddleContentLogin()}
+			<div className="middle-container-right-side">
+				<div className="nav-container">
+					<div className="searchbar-container">
+						<input className="searchbar" type="text" placeholder="Search"></input>
+					</div>
+					<div className="right-buttons">
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
 						</div>
-
-						{this.createFooter(false)}
-					</React.Fragment>);
-			default:
-				return (
-					<React.Fragment>
-						{this.createHeader()}
-						<div className="middle-container">
-							{this.createMiddleContentMap()}
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
 						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
+						</div>
+					</div>
+				</div>
 
-						{this.createFooter()}
-					</React.Fragment>
-				);
-		}
+				<div className="main-content-container">
+					help me pwease
+				</div>
+			</div>
+		</div>);
 	}
+}
 
+class SettingsPage extends Component {
+	render() {
+		return (<div className='middle-container'>
+			<div className="middle-container-left-side">
+				{this.props.createDietaryRestrictionsHTML()}
+			</div>
+
+			<div className="middle-container-right-side">
+				<div className="nav-container">
+					<div className="searchbar-container">
+						<input className="searchbar" type="text" placeholder="Search"></input>
+					</div>
+					<div className="right-buttons">
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
+						</div>
+					</div>
+				</div>
+
+				<div className="main-content-container">
+					Settings
+				</div>
+			</div>
+		</div>);
+	}
+}
+
+class ListPage extends Component {
+	render() {
+		return (<div className='middle-container'>
+			<div className="middle-container-left-side">
+				{this.props.createDietaryRestrictionsHTML()}
+			</div>
+
+			<div className="middle-container-right-side">
+				<div className="nav-container">
+					<div className="searchbar-container">
+						<input className="searchbar" type="text" placeholder="Search"></input>
+					</div>
+					<div className="right-buttons">
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
+						</div>
+					</div>
+				</div>
+
+				<div className="main-content-container">
+					I identify as a list
+				</div>
+			</div>
+		</div>);
+	}
+}
+
+class CommunityPage extends Component {
+	render() {
+		return (<div className='middle-container'>
+			<div className="middle-container-left-side">
+				{this.props.createDietaryRestrictionsHTML()}
+			</div>
+
+			<div className="middle-container-right-side">
+				<div className="nav-container">
+					<div className="searchbar-container">
+						<input className="searchbar" type="text" placeholder="Search"></input>
+					</div>
+					<div className="right-buttons">
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/help.png" alt="help button" id="help-button" onClick={this.props.handleHelpButton}></img>
+						</div>
+						<div className="right-sidebar-button">
+							<img className="right-img" src="images/settings.png" alt="settings button" id="settings-button" onClick={this.props.handleSettingsButton}></img>
+						</div>
+					</div>
+				</div>
+
+				<div className="main-content-container">
+					This is definitely a community page
+				</div>
+			</div>
+		</div>);
+	}
 }
 
 export default App;
