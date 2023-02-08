@@ -1,7 +1,7 @@
 @import './App.css';
 
 * {
-    transition: ease 0.5s;
+    transition: ease 0.1s;
 }
 
 .login-content-container {
@@ -83,11 +83,13 @@
     /* background-color: var(--more-green); */
     cursor: pointer;
     text-align: center;
+    
+    transition: ease 0.4s;
 }
 
 .login-submit-container:hover {
     background-color: black;
     color: white;
 
-    transition: ease 0.5s;
+    transition: ease 0.4s;
 }

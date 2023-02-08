@@ -212,6 +212,8 @@ body {
     border: 2px solid black;
 
     border-radius: 20px;
+
+    padding: 1%;
 }
 
 .login-container {
@@ -255,6 +257,7 @@ body {
     margin: 15px;
     width: 80px;
     height: 80px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
@@ -267,6 +270,10 @@ body {
     border-radius: 50%;
 
     cursor: pointer;
+}
+
+.bottom-button-bordered {
+    border: 3px solid black;
 }
 
 .bot-img {

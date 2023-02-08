@@ -1,6 +1,7 @@
 import './App.css';
 import './login.css';
 import React, { Component } from 'react';
+import DropdownMenu from './dropdown';
 
 const AppState = {
 	Login: 1,
@@ -11,11 +12,20 @@ const AppState = {
 	Community: 6,
 };
 
+const DietaryRestrictions = {
+	vegan: 0,
+	vegetarian: 1,
+	lactoseFree: 2,
+	glutenFree: 3
+};
+
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			appState: AppState.Map
+			appState: AppState.List,
+			dietaryRestrictions: [false, false, false, false],
+			sortingChoices: ['A-Z', 'Z-A', "Rating"]
 		};
 	}
 
@@ -57,20 +67,20 @@ class App extends Component {
 		</div>);
 	}
 
-	createFooter(buttons = true) {
+	createFooter(active = '', buttons = true) {
 		if (buttons) {
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
-					<div className="bottom-button">
-						<img className="bot-img map" src="images/map.png" alt="map button" id="map-button" onClick={this.handleMapButton}></img>
+					<div className={`bottom-button ${active === 'map' ? 'bottom-button-bordered' : ''}`} onClick={this.handleMapButton}>
+						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
 					</div>
 
-					<div className="bottom-button">
-						<img className="bot-img network" src="images/list.png" alt="list button" id="list-button" onClick={this.handleListButton}></img>
+					<div className={`bottom-button ${active === 'list' ? 'bottom-button-bordered' : ''}`} onClick={this.handleListButton}>
+						<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
 					</div>
 
-					<div className="bottom-button">
-						<img className="bot-img search" src="images/community.png" alt="community button" id="community-button" onClick={this.handleCommunityButton}></img>
+					<div className={`bottom-button ${active === 'community' ? 'bottom-button-bordered' : ''}`} onClick={this.handleCommunityButton}>
+						<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
 					</div>
 				</div>
 			</div>);
@@ -119,7 +129,7 @@ class App extends Component {
 							handleSettingsButton={this.handleSettingsButton}
 							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
 						</MapPage>
-						{this.createFooter()}
+						{this.createFooter('map')}
 					</React.Fragment>
 				);
 			case AppState.Login:
@@ -131,7 +141,7 @@ class App extends Component {
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}>
 						</LoginPage>
-						{this.createFooter(false)}
+						{this.createFooter('')}
 					</React.Fragment>);
 			case AppState.Help:
 				return (
@@ -165,9 +175,10 @@ class App extends Component {
 							handleAccountButton={this.handleAccountButton}
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}
-							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
+							sortingChoices={this.state.sortingChoices}>
 						</ListPage>
-						{this.createFooter()}
+						{this.createFooter('list')}
 					</React.Fragment>);
 			case AppState.Community:
 				return (
@@ -179,7 +190,7 @@ class App extends Component {
 							handleSettingsButton={this.handleSettingsButton}
 							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
 						</CommunityPage>
-						{this.createFooter()}
+						{this.createFooter('community')}
 					</React.Fragment>);
 			default:
 				return (
@@ -354,6 +365,11 @@ class ListPage extends Component {
 				<div className="nav-container">
 					<div className="searchbar-container">
 						<input className="searchbar" type="text" placeholder="Search"></input>
+						<DropdownMenu
+							title={"Sort"}
+							list={this.props.sortingChoices}>
+
+						</DropdownMenu>
 					</div>
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
