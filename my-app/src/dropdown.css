@@ -1,0 +1,48 @@
+* {
+    transition: ease 0.1s;
+}
+
+.searchbar-container {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+.searchbar-smaller {
+    width: 80% !important;
+}
+
+.dropdown-wrapper {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.dropdown-header {
+    width: 100%;
+}
+
+.dropdown-header-title {
+
+}
+
+.dropdown-list {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-list-item {
+    width: 100%;
+}
+
+
+

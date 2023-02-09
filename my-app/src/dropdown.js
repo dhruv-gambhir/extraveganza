@@ -1,4 +1,5 @@
 import { Component } from "react";
+import FontAwesome from 'react-fontawesome';
 
 export default class DropdownMenu extends Component {
     constructor(props) {
@@ -9,10 +10,39 @@ export default class DropdownMenu extends Component {
         };
     }
 
+    close = () => {
+        this.setState({
+            isListOpen: false,
+        });
+    };
+
+    componentDidUpdate() {
+        const { isListOpen } = this.state;
+
+        setTimeout(() => {
+            if (isListOpen) {
+                window.addEventListener('click', this.close);
+            }
+            else {
+                window.removeEventListener('click', this.close);
+            }
+        }, 0);
+    }
+
     toggleList = () => {
         this.setState(prevState => ({
             isListOpen: !prevState.isListOpen
         }));
+    };
+
+    selectItem = (item) => {
+        const { resetThenSet } = this.props;
+        const { title, id, key } = item;
+
+        this.setState({
+            headerTitle: title,
+            isListOpen: false,
+        }, () => resetThenSet(id, key));
     };
 
     render() {
@@ -23,6 +53,9 @@ export default class DropdownMenu extends Component {
             <div className='dropdown-wrapper'>
                 <button className='dropdown-header' onClick={this.toggleList}>
                     <div className='dropdown-header-title'>{headerTitle}</div>
+                    {isListOpen
+                        ? <FontAwesome name="angle-up" size="2x" />
+                        : <FontAwesome name="angle-down" size="2x" />}
                 </button>
                 {isListOpen && (
                     <div
@@ -31,12 +64,12 @@ export default class DropdownMenu extends Component {
                         {list.map((item) => (
                             <button
                                 type="button"
-                                className="dropdwon-list-item"
+                                className="dropdown-list-item"
                                 key={item.id}
                                 onClick={() => this.selectItem(item)} >
-                                {item}
+                                {item.title}
                                 {' '}
-                                {/* {item.selected && <FontAwesome name="check" />} */}
+                                {item.selected && <FontAwesome name="check" />}
                             </button>
                         ))}
                     </div>

@@ -1,5 +1,6 @@
 import './App.css';
 import './login.css';
+import './dropdown.css';
 import React, { Component } from 'react';
 import DropdownMenu from './dropdown';
 
@@ -25,7 +26,12 @@ class App extends Component {
 		this.state = {
 			appState: AppState.List,
 			dietaryRestrictions: [false, false, false, false],
-			sortingChoices: ['A-Z', 'Z-A', "Rating"]
+			sortingChoices: [
+				{ id: 0, title: 'A-Z', selected: true, key: 'sort' },
+				{ id: 1, title: 'Z-A', selected: false, key: 'sort' },
+				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
+			],
+			sortingChoice: ''
 		};
 	}
 
@@ -57,6 +63,17 @@ class App extends Component {
 	handleCommunityButton = () => {
 		console.log("Clicked community button");
 		this.setState({ appState: AppState.Community });
+	};
+
+	resetThenSet = (id, key) => {
+		const temp = this.state.sortingChoices;
+
+		temp.forEach((item) => item.selected = false);
+		temp[id].selected = true;
+
+		this.setState({
+			[key]: temp,
+		});
 	};
 
 	createHeader() {
@@ -117,7 +134,7 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.state.appState);
+		console.log(this.state);
 		switch (this.state.appState) {
 			case AppState.Map:
 				return (
@@ -176,7 +193,8 @@ class App extends Component {
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}
 							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
-							sortingChoices={this.state.sortingChoices}>
+							sortingChoices={this.state.sortingChoices}
+							resetThenSet={this.resetThenSet}>
 						</ListPage>
 						{this.createFooter('list')}
 					</React.Fragment>);
@@ -364,11 +382,12 @@ class ListPage extends Component {
 			<div className="middle-container-right-side">
 				<div className="nav-container">
 					<div className="searchbar-container">
-						<input className="searchbar" type="text" placeholder="Search"></input>
+						<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
 						<DropdownMenu
-							title={"Sort"}
-							list={this.props.sortingChoices}>
-
+							className="uid"
+							title={"A-Z"}
+							list={this.props.sortingChoices}
+							resetThenSet={this.props.resetThenSet}>
 						</DropdownMenu>
 					</div>
 					<div className="right-buttons">
