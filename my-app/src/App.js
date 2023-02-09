@@ -13,13 +13,6 @@ const AppState = {
 	Community: 6,
 };
 
-const DietaryRestrictions = {
-	vegan: 0,
-	vegetarian: 1,
-	lactoseFree: 2,
-	glutenFree: 3
-};
-
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -89,6 +82,10 @@ class App extends Component {
 		if (buttons) {
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
+					{/* <div className={`bottom-button ${active === 'map' ? 'bottom-button-bordered' : ''}`} onClick={this.handleMapButton}>
+						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
+					</div> */}
+
 					<div className={`bottom-button ${active === 'map' ? 'bottom-button-bordered' : ''}`} onClick={this.handleMapButton}>
 						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
 					</div>
@@ -256,11 +253,7 @@ class MapPage extends Component {
 				</div>
 
 				<div className="main-content-container">
-					google
-					<br></br>
-					list of stuff
-					<br></br>
-					others idk
+					Hey Google, take me to some vegan cafe
 				</div>
 			</div>
 		</div>);
@@ -310,15 +303,8 @@ class LoginPage extends Component {
 class HelpPage extends Component {
 	render() {
 		return (<div className='middle-container'>
-			<div className="middle-container-left-side">
-				{this.props.createDietaryRestrictionsHTML()}
-			</div>
-
-			<div className="middle-container-right-side">
-				<div className="nav-container">
-					<div className="searchbar-container">
-						<input className="searchbar" type="text" placeholder="Search"></input>
-					</div>
+			<div className="middle-container-right-side middle-container-full-width">
+				<div className="nav-container nav-container-right-align">
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
 							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
@@ -333,7 +319,7 @@ class HelpPage extends Component {
 				</div>
 
 				<div className="main-content-container">
-					help me pwease
+					help me pwease senpai &gt;_&lt;
 				</div>
 			</div>
 		</div>);
@@ -343,15 +329,8 @@ class HelpPage extends Component {
 class SettingsPage extends Component {
 	render() {
 		return (<div className='middle-container'>
-			<div className="middle-container-left-side">
-				{this.props.createDietaryRestrictionsHTML()}
-			</div>
-
-			<div className="middle-container-right-side">
-				<div className="nav-container">
-					<div className="searchbar-container">
-						<input className="searchbar" type="text" placeholder="Search"></input>
-					</div>
+			<div className="middle-container-right-side middle-container-full-width">
+				<div className="nav-container nav-container-right-align">
 					<div className="right-buttons">
 						<div className="right-sidebar-button">
 							<img className="right-img" src="images/account.png" alt="account button" id="account-button" onClick={this.props.handleAccountButton}></img>
@@ -366,7 +345,7 @@ class SettingsPage extends Component {
 				</div>
 
 				<div className="main-content-container">
-					Settings
+					This should be settings
 				</div>
 			</div>
 		</div>);

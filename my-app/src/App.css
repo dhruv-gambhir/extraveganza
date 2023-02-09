@@ -19,6 +19,7 @@ code {
     --extra-green: #8CE149;
     --more-green: #0B963A;
     font-family: 'Roboto', sans-serif;
+    transition: 0.1s ease;
 }
 
 body {
