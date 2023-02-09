@@ -27,8 +27,8 @@ class App extends Component {
 			appState: AppState.List,
 			dietaryRestrictions: [false, false, false, false],
 			sortingChoices: [
-				{ id: 0, title: 'A-Z', selected: true, key: 'sort' },
-				{ id: 1, title: 'Z-A', selected: false, key: 'sort' },
+				{ id: 0, title: 'A - Z', selected: true, key: 'sort' },
+				{ id: 1, title: 'Z - A', selected: false, key: 'sort' },
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
 			sortingChoice: ''
@@ -73,6 +73,7 @@ class App extends Component {
 
 		this.setState({
 			[key]: temp,
+			sortingChoice: temp[id].title
 		});
 	};
 
@@ -385,7 +386,7 @@ class ListPage extends Component {
 						<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
 						<DropdownMenu
 							className="uid"
-							title={"A-Z"}
+							title={"A - Z"}
 							list={this.props.sortingChoices}
 							resetThenSet={this.props.resetThenSet}>
 						</DropdownMenu>

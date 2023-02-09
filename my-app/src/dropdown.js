@@ -51,18 +51,18 @@ export default class DropdownMenu extends Component {
 
         return (
             <div className='dropdown-wrapper'>
-                <button className='dropdown-header' onClick={this.toggleList}>
+                <div className='dropdown-header' onClick={this.toggleList}>
                     <div className='dropdown-header-title'>{headerTitle}</div>
                     {isListOpen
-                        ? <FontAwesome name="angle-up" size="2x" />
-                        : <FontAwesome name="angle-down" size="2x" />}
-                </button>
+                        ? <FontAwesome name="angle-up" size="1x" />
+                        : <FontAwesome name="angle-down" size="1x" />}
+                </div>
                 {isListOpen && (
                     <div
                         role="list"
                         className="dropdown-list">
                         {list.map((item) => (
-                            <button
+                            <div
                                 type="button"
                                 className="dropdown-list-item"
                                 key={item.id}
@@ -70,7 +70,7 @@ export default class DropdownMenu extends Component {
                                 {item.title}
                                 {' '}
                                 {item.selected && <FontAwesome name="check" />}
-                            </button>
+                            </div>
                         ))}
                     </div>
                 )}
