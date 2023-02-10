@@ -144,21 +144,6 @@ class App extends Component {
 	render() {
 		console.log(this.state);
 		switch (this.state.appState) {
-			case AppState.Map:
-				return (
-					<React.Fragment>
-						{this.createHeader()}
-						<MapPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
-							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
-							dietaryRestrictions={this.state.dietaryRestrictions}
-							setDietaryRestrictions={this.setDietaryRestrictions}>
-						</MapPage>
-						{this.createFooter('map')}
-					</React.Fragment>
-				);
 			case AppState.Login:
 				return (
 					<React.Fragment>
@@ -211,6 +196,22 @@ class App extends Component {
 						</ListPage>
 						{this.createFooter('list')}
 					</React.Fragment>);
+			case AppState.Map:
+				return (
+					<React.Fragment>
+						{this.createHeader()}
+						<MapPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
+
+							dietaryRestrictions={this.state.dietaryRestrictions}
+							setDietaryRestrictions={this.setDietaryRestrictions}>
+						</MapPage>
+						{this.createFooter('map')}
+					</React.Fragment>
+				);
 			case AppState.Community:
 				return (
 					<React.Fragment>
@@ -219,7 +220,11 @@ class App extends Component {
 							handleAccountButton={this.handleAccountButton}
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}
-							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
+
+							dietaryRestrictions={this.state.dietaryRestrictions}
+							setDietaryRestrictions={this.setDietaryRestrictions}
+						>
 						</CommunityPage>
 						{this.createFooter('community')}
 					</React.Fragment>);
@@ -246,7 +251,11 @@ class MapPage extends Component {
 	render() {
 		return (<div className='middle-container'>
 			<div className="middle-container-left-side">
-				{this.props.createDietaryRestrictionsHTML()}
+				<DietaryRestrictionsSidebar
+					className='uid'
+					list={this.props.dietaryRestrictions}
+					resetThenSet={this.props.setDietaryRestrictions}>
+				</DietaryRestrictionsSidebar>
 			</div>
 
 			<div className="middle-container-right-side">
@@ -414,7 +423,11 @@ class CommunityPage extends Component {
 	render() {
 		return (<div className='middle-container'>
 			<div className="middle-container-left-side">
-				{this.props.createDietaryRestrictionsHTML()}
+				<DietaryRestrictionsSidebar
+					className='uid'
+					list={this.props.dietaryRestrictions}
+					resetThenSet={this.props.setDietaryRestrictions}>
+				</DietaryRestrictionsSidebar>
 			</div>
 
 			<div className="middle-container-right-side">
