@@ -94,6 +94,8 @@ body {
     border-radius: 10%;
 
     text-align: center;
+    align-items: center;
+    justify-content: center;
     padding: auto;
 }
 
@@ -113,7 +115,17 @@ body {
 }
 
 .left-checkbox {
-    height: 20%;
+    margin-top: 2px;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 15px;
+    height: 15px;
+
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Middle container right side */

@@ -1,8 +1,10 @@
 import './App.css';
-import './login.css';
-import './dropdown.css';
+import './styles/login.css';
+import './styles/dropdown.css';
 import React, { Component } from 'react';
-import DropdownMenu from './dropdown';
+import DropdownMenu from './scripts/dropdown';
+import DietaryRestrictionsSidebar from './scripts/DietaryRestrictionsSidebar';
+import FontAwesome from 'react-fontawesome';
 
 const AppState = {
 	Login: 1,
@@ -18,55 +20,63 @@ class App extends Component {
 		super(props);
 		this.state = {
 			appState: AppState.List,
-			dietaryRestrictions: [false, false, false, false],
+			dietaryRestrictions: [
+				{ id: 0, title: 'vegan', selected: false, key: 'diet', imagePath: 'images/vegan.png' },
+				{ id: 1, title: 'vegetarian', selected: false, key: 'diet', imagePath: 'images/vegetarian.png' },
+				{ id: 2, title: 'lactose-free', selected: false, key: 'diet', imagePath: 'images/lactose-free.png' },
+				{ id: 3, title: 'gluten-free', selected: false, key: 'diet', imagePath: 'images/gluten-free.png' },
+			],
 			sortingChoices: [
 				{ id: 0, title: 'A - Z', selected: true, key: 'sort' },
 				{ id: 1, title: 'Z - A', selected: false, key: 'sort' },
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
-			sortingChoice: ''
+			sortingChoice: 'A - Z'
 		};
 	}
 
 	handleAccountButton = () => {
-		console.log("Clicked account button");
 		this.setState({ appState: AppState.Login });
 	};
 
 	handleHelpButton = () => {
-		console.log("Clicked help button");
 		this.setState({ appState: AppState.Help });
 	};
 
 	handleSettingsButton = () => {
-		console.log("Clicked settings button");
 		this.setState({ appState: AppState.Settings });
 	};
 
 	handleMapButton = () => {
-		console.log("Clicked map button");
 		this.setState({ appState: AppState.Map });
 	};
 
 	handleListButton = () => {
-		console.log("Clicked list button");
 		this.setState({ appState: AppState.List });
 	};
 
 	handleCommunityButton = () => {
-		console.log("Clicked community button");
 		this.setState({ appState: AppState.Community });
 	};
 
-	resetThenSet = (id, key) => {
+	resetThenSetSortingChoices = (id, key) => {
 		const temp = this.state.sortingChoices;
 
 		temp.forEach((item) => item.selected = false);
 		temp[id].selected = true;
-
 		this.setState({
 			[key]: temp,
 			sortingChoice: temp[id].title
+		});
+	};
+
+	setDietaryRestrictions = (id, key) => {
+		const temp = this.state.dietaryRestrictions;
+
+		temp[id].selected = !temp[id].selected;
+
+		this.setState({
+			[key]: temp
 		});
 	};
 
@@ -82,10 +92,6 @@ class App extends Component {
 		if (buttons) {
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
-					{/* <div className={`bottom-button ${active === 'map' ? 'bottom-button-bordered' : ''}`} onClick={this.handleMapButton}>
-						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
-					</div> */}
-
 					<div className={`bottom-button ${active === 'map' ? 'bottom-button-bordered' : ''}`} onClick={this.handleMapButton}>
 						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
 					</div>
@@ -111,6 +117,10 @@ class App extends Component {
 			<div className="left-side-button">
 				<img className="left-img" src="images/vegan.png" alt="vegan button"></img>
 				<div className="left-desc">vegan</div>
+				<div
+					className={`left-checkbox`}>
+					{<FontAwesome name="check" />}
+				</div>
 				<input className="left-checkbox" type="checkbox"></input>
 			</div>
 			<div className="left-side-button">
@@ -142,7 +152,9 @@ class App extends Component {
 							handleAccountButton={this.handleAccountButton}
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}
-							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}>
+							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
+							dietaryRestrictions={this.state.dietaryRestrictions}
+							setDietaryRestrictions={this.setDietaryRestrictions}>
 						</MapPage>
 						{this.createFooter('map')}
 					</React.Fragment>
@@ -190,9 +202,12 @@ class App extends Component {
 							handleAccountButton={this.handleAccountButton}
 							handleHelpButton={this.handleHelpButton}
 							handleSettingsButton={this.handleSettingsButton}
-							createDietaryRestrictionsHTML={this.createDietaryRestrictionsHTML}
+
 							sortingChoices={this.state.sortingChoices}
-							resetThenSet={this.resetThenSet}>
+							resetThenSetSortingChoices={this.resetThenSetSortingChoices}
+
+							dietaryRestrictions={this.state.dietaryRestrictions}
+							setDietaryRestrictions={this.setDietaryRestrictions}>
 						</ListPage>
 						{this.createFooter('list')}
 					</React.Fragment>);
@@ -356,7 +371,11 @@ class ListPage extends Component {
 	render() {
 		return (<div className='middle-container'>
 			<div className="middle-container-left-side">
-				{this.props.createDietaryRestrictionsHTML()}
+				<DietaryRestrictionsSidebar
+					className='uid'
+					list={this.props.dietaryRestrictions}
+					resetThenSet={this.props.setDietaryRestrictions}>
+				</DietaryRestrictionsSidebar>
 			</div>
 
 			<div className="middle-container-right-side">
@@ -365,9 +384,9 @@ class ListPage extends Component {
 						<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
 						<DropdownMenu
 							className="uid"
-							title={"A - Z"}
+							title={this.props.sortingChoices.find(x => x.selected).title}
 							list={this.props.sortingChoices}
-							resetThenSet={this.props.resetThenSet}>
+							resetThenSet={this.props.resetThenSetSortingChoices}>
 						</DropdownMenu>
 					</div>
 					<div className="right-buttons">

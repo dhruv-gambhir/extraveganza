@@ -51,8 +51,22 @@
 }
 
 .dropdown-list-item {
-    width: 100%;
+    width: 90%;
     height: 2rem;
+
+    padding-left: 5%;
+    padding-right: 5%;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-list-item-selected {
+    background-color: lightgray;
+    overflow: hidden;
 }
 
 

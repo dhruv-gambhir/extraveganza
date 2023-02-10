@@ -63,8 +63,7 @@ export default class DropdownMenu extends Component {
                         className="dropdown-list">
                         {list.map((item) => (
                             <div
-                                type="button"
-                                className="dropdown-list-item"
+                                className={`dropdown-list-item  ${item.selected ? 'dropdown-list-item-selected' : ''}`}
                                 key={item.id}
                                 onClick={() => this.selectItem(item)} >
                                 {item.title}
