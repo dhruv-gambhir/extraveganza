@@ -46,6 +46,8 @@ body {
     font-size: 32px;
 
     color: #FFFFFF;
+
+    cursor: pointer;
 }
 
 /* Middle container */

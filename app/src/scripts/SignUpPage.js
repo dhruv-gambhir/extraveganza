@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-export default class LoginPage extends Component {
+export default class SignUpPage extends Component {
     render() {
         return <div className='middle-container'>
             <div className='middle-container-right-side middle-container-full-width'>
@@ -26,11 +26,13 @@ export default class LoginPage extends Component {
                         </div>
                         <div className='login-element-container'>
                             <div className='login-container-label'>Password : </div>
-                            <input type={'password'} className='login-textbox' placeholder='Password' ></input>
+                            <input type={'password'} className='login-textbox' placeholder='Enter New Password' ></input>
+                        </div>
+
+                        <div className='login-element-container'>
+                            <input type={'password'} className='login-textbox' placeholder='Enter Password Again' ></input>
                         </div>
                         <div className='login-bottom-container'>
-                            <div className='sign-up-label' onClick={this.props.handleSignUpButton}>Sign up!</div>
-                            <div className='forgot-password-label'>Forgot password?</div>
                             <div className='login-submit-container'>→</div>
                         </div>
                     </div>

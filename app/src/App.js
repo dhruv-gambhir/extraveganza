@@ -10,6 +10,8 @@ import CommunityPage from './scripts/CommunityPage';
 import LoginPage from './scripts/LoginPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
+import SignUpPage from './scripts/SignUpPage';
+import HomePage from './scripts/HomePage';
 
 const AppState = {
 	Login: 1,
@@ -18,6 +20,8 @@ const AppState = {
 	Map: 4,
 	List: 5,
 	Community: 6,
+	SignUp: 7,
+	Home: 69
 };
 
 class App extends Component {
@@ -40,8 +44,16 @@ class App extends Component {
 		};
 	}
 
+	handleHomePageButton = () => {
+		this.setState({ appState: AppState.Home });
+	};
+
 	handleAccountButton = () => {
 		this.setState({ appState: AppState.Login });
+	};
+
+	handleSignUpButton = () => {
+		this.setState({ appState: AppState.SignUp });
 	};
 
 	handleHelpButton = () => {
@@ -87,8 +99,8 @@ class App extends Component {
 
 	createHeader() {
 		return (<div className="top-container">
-			<div className="top-title"><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
-				style={{ color: "black" }}>ZA</span>
+			<div className="top-title" onClick={this.handleHomePageButton}><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
+				style={{ color: "black" }} >ZA</span>
 			</div>
 		</div>);
 	}
@@ -120,6 +132,18 @@ class App extends Component {
 	render() {
 		console.log(this.state);
 		switch (this.state.appState) {
+			case AppState.Home:
+				return (
+					<Fragment>
+						{this.createHeader()}
+						<HomePage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}>
+						</HomePage>
+						{this.createFooter('')}
+					</Fragment>
+				);
 			case AppState.Login:
 				return (
 					<Fragment>
@@ -127,8 +151,20 @@ class App extends Component {
 						<LoginPage
 							handleAccountButton={this.handleAccountButton}
 							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
+							handleSettingsButton={this.handleSettingsButton}
+							handleSignUpButton={this.handleSignUpButton}>
 						</LoginPage>
+						{this.createFooter('')}
+					</Fragment>);
+			case AppState.SignUp:
+				return (
+					<Fragment>
+						{this.createHeader()}
+						<SignUpPage
+							handleAccountButton={this.handleAccountButton}
+							handleHelpButton={this.handleHelpButton}
+							handleSettingsButton={this.handleSettingsButton}>
+						</SignUpPage>
 						{this.createFooter('')}
 					</Fragment>);
 			case AppState.Help:
