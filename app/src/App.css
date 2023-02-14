@@ -286,10 +286,16 @@ body {
     border-radius: 50%;
 
     cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
 .bottom-button-bordered {
     border: 3px solid black;
+}
+
+.bottom-button-unbordered {
+    border: none;
 }
 
 .bot-img {

@@ -6,7 +6,6 @@ export default class CommunityPage extends PageTemplate {
 	render() {
 		return (
 			<Fragment>
-				{this.props.createHeader()}
 				<div className='middle-container'>
 					<div className="middle-container-left-side">
 						<DietaryRestrictionsSidebar
@@ -39,7 +38,6 @@ export default class CommunityPage extends PageTemplate {
 						</div>
 					</div>
 				</div>
-				{this.props.createFooter('community')}
 			</Fragment>
 		);
 	}

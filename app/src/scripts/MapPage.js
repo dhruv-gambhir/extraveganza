@@ -6,7 +6,6 @@ export default class MapPage extends PageTemplate {
     render() {
         return (
             <Fragment>
-                {this.props.createHeader()}
                 <div className='middle-container'>
                     <div className="middle-container-left-side">
                         <DietaryRestrictionsSidebar
@@ -39,7 +38,6 @@ export default class MapPage extends PageTemplate {
                         </div>
                     </div>
                 </div>
-                {this.props.createFooter('map')}
             </Fragment>
         );
     }

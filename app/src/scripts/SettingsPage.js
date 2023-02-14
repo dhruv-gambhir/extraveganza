@@ -5,7 +5,6 @@ export default class SettingsPage extends PageTemplate {
 	render() {
 		return (
 			<Fragment>
-				{this.props.createHeader()}
 
 				<div className='middle-container'>
 					<div className="middle-container-right-side middle-container-full-width">
@@ -29,7 +28,6 @@ export default class SettingsPage extends PageTemplate {
 					</div>
 				</div>
 
-				{this.props.createFooter()}
 			</Fragment>);
 	}
 }

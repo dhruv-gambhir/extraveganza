@@ -5,7 +5,6 @@ export default class HelpPage extends PageTemplate {
 	render() {
 		return (
 			<Fragment>
-				{this.props.createHeader()}
 				
 				<div className='middle-container'>
 					<div className="middle-container-right-side middle-container-full-width">
@@ -28,8 +27,6 @@ export default class HelpPage extends PageTemplate {
 						</div>
 					</div>
 				</div>
-
-			{this.props.createFooter()}
 
 			</Fragment>
 		);

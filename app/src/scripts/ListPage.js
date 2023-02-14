@@ -1,13 +1,13 @@
 import { Fragment } from "react";
 import DietaryRestrictionsSidebar from "./DietaryRestrictionsSidebar";
-import DropdownMenu from "./dropdown";
+import DropdownMenu from "./Dropdown";
 import PageTemplate from "./PageTemplate";
 
 export default class ListPage extends PageTemplate {
     render() {
         return (
             <Fragment>
-                {this.props.createHeader()}
+                {/* {this.props.createHeader()} */}
                 <div className='middle-container'>
                     <div className="middle-container-left-side">
                         <DietaryRestrictionsSidebar
@@ -46,7 +46,7 @@ export default class ListPage extends PageTemplate {
                         </div>
                     </div>
                 </div>
-            {this.props.createFooter('list')}
+            {/* {this.props.createFooter('list')} */}
             </Fragment>
         );
     }
