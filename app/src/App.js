@@ -12,6 +12,7 @@ import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
+import PageTemplate from './scripts/PageTemplate';
 
 const AppState = {
 	Login: 1,
@@ -134,120 +135,147 @@ class App extends Component {
 		switch (this.state.appState) {
 			case AppState.Home:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<HomePage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
-						</HomePage>
-						{this.createFooter('')}
-					</Fragment>
+					<HomePage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
+
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}>
+					</HomePage>
 				);
 			case AppState.Login:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<LoginPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
-							handleSignUpButton={this.handleSignUpButton}>
-						</LoginPage>
-						{this.createFooter('')}
-					</Fragment>);
+					<LoginPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
+
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}
+
+						handleSignUpButton={this.handleSignUpButton}>
+					</LoginPage>);
 			case AppState.SignUp:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<SignUpPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
-						</SignUpPage>
-						{this.createFooter('')}
-					</Fragment>);
+					<SignUpPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
+
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}>
+					</SignUpPage>);
 			case AppState.Help:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<HelpPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
-						</HelpPage>
-						{this.createFooter()}
-					</Fragment>);
+					<HelpPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
+
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}>
+					</HelpPage>);
 			case AppState.Settings:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<SettingsPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
-						</SettingsPage>
-						{this.createFooter()}
-					</Fragment>);
+					<SettingsPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
+
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}>
+					</SettingsPage>);
 			case AppState.List:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<ListPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
+					<ListPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
 
-							sortingChoices={this.state.sortingChoices}
-							resetThenSetSortingChoices={this.resetThenSetSortingChoices}
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
 
-							dietaryRestrictions={this.state.dietaryRestrictions}
-							setDietaryRestrictions={this.setDietaryRestrictions}>
-						</ListPage>
-						{this.createFooter('list')}
-					</Fragment>);
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}
+
+						sortingChoices={this.state.sortingChoices}
+						resetThenSetSortingChoices={this.resetThenSetSortingChoices}
+
+						dietaryRestrictions={this.state.dietaryRestrictions}
+						setDietaryRestrictions={this.setDietaryRestrictions}>
+					</ListPage>);
 			case AppState.Map:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<MapPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
+					<MapPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
 
-							dietaryRestrictions={this.state.dietaryRestrictions}
-							setDietaryRestrictions={this.setDietaryRestrictions}>
-						</MapPage>
-						{this.createFooter('map')}
-					</Fragment>
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}
+
+						dietaryRestrictions={this.state.dietaryRestrictions}
+						setDietaryRestrictions={this.setDietaryRestrictions}>
+					</MapPage>
 				);
 			case AppState.Community:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<CommunityPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
+					<CommunityPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
 
-							dietaryRestrictions={this.state.dietaryRestrictions}
-							setDietaryRestrictions={this.setDietaryRestrictions}
-						>
-						</CommunityPage>
-						{this.createFooter('community')}
-					</Fragment>);
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}
+
+						dietaryRestrictions={this.state.dietaryRestrictions}
+						setDietaryRestrictions={this.setDietaryRestrictions}
+					>
+					</CommunityPage>);
 			default:
 				return (
-					<Fragment>
-						{this.createHeader()}
-						<MapPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}>
-						</MapPage>
+					<MapPage
+						createHeader={this.createHeader}
+						createFooter={this.createFooter}
 
-						{this.createFooter()}
-					</Fragment>
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
+
+						handleMapButton={this.handleMapButton}
+						handleListButton={this.handleListButton}
+						handleCommunityButton={this.handleCommunityButton}>
+					</MapPage>
 				);
 		}
 	}
