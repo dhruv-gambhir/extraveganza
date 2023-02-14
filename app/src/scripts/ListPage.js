@@ -23,9 +23,9 @@ export default class ListPage extends PageTemplate {
                                 <input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
                                 <DropdownMenu
                                     className="uid"
-                                    title={this.props.sortingChoices.find(x => x.selected).title}
-                                    list={this.props.sortingChoices}
-                                    resetThenSet={this.props.resetThenSetSortingChoices}>
+                                    title={this.props.listContent.find(x => x.selected).title}
+                                    list={this.props.listContent}
+                                    resetThenSet={this.props.resetThenSet}>
                                 </DropdownMenu>
                             </div>
                             <div className="right-buttons">
