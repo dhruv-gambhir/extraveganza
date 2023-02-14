@@ -220,8 +220,8 @@ class App extends Component {
 						handleListButton={this.handleListButton}
 						handleCommunityButton={this.handleCommunityButton}
 
-						sortingChoices={this.state.sortingChoices}
-						resetThenSetSortingChoices={this.resetThenSetSortingChoices}
+						listContent={this.state.sortingChoices}
+						resetThenSet={this.resetThenSetSortingChoices}
 
 						dietaryRestrictions={this.state.dietaryRestrictions}
 						setDietaryRestrictions={this.setDietaryRestrictions}>
