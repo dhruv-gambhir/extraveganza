@@ -1,7 +1,7 @@
 import './App.css';
 import './styles/login.css';
 import './styles/dropdown.css';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 // Import pages
 import MapPage from './scripts/MapPage';
@@ -12,7 +12,6 @@ import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
-import PageTemplate from './scripts/PageTemplate';
 
 const AppState = {
 	Login: 1,

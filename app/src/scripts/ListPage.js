@@ -1,4 +1,4 @@
-import { Component, Fragment } from "react";
+import { Fragment } from "react";
 import DietaryRestrictionsSidebar from "./DietaryRestrictionsSidebar";
 import DropdownMenu from "./dropdown";
 import PageTemplate from "./PageTemplate";

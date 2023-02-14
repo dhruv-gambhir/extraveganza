@@ -1,4 +1,4 @@
-import { Component, Fragment } from "react";
+import { Fragment } from "react";
 import PageTemplate from "./PageTemplate";
 
 export default class SignUpPage extends PageTemplate {
