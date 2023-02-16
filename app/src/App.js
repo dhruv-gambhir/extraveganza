@@ -242,52 +242,44 @@ class App extends Component {
 	renderLoginOverlay = () => {
 		if (this.state.isLoginPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<div>
-					Login Page
-				</div>
+				<LoginPage handleSignUpButton={this.handleSignUpButton}></LoginPage>
 			</OverlayComponent>);
 		}
 		else {
-			return (<div></div>);
+			return;
 		}
 	};
 
 	renderSignupOverlay = () => {
 		if (this.state.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<div>
-					Signup Page
-				</div>
+				<SignUpPage></SignUpPage>
 			</OverlayComponent>);
 		}
 		else {
-			return (<div></div>);
+			return;
 		}
 	};
 
 	renderHelpOverlay = () => {
 		if (this.state.isHelpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<div>
-					Help Page
-				</div>
+				<HelpPage></HelpPage>
 			</OverlayComponent>);
 		}
 		else {
-			return (<div></div>);
+			return;
 		}
 	};
 
 	renderSettingsOverlay = () => {
 		if (this.state.isSettingsPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<div>
-					Settings Page
-				</div>
+				<SettingsPage></SettingsPage>
 			</OverlayComponent>);
 		}
 		else {
-			return (<div></div>);
+			return;
 		}
 	};
 

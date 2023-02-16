@@ -5,8 +5,26 @@ export default class SignUpPage extends PageTemplate {
     render() {
         return (
             <Fragment>
-                
-                <div className='middle-container'>
+                <div className='overlay-content'>
+                    <div className='login-content-container'>
+                        <div className='login-element-container'>
+                            <div className='login-container-label'>Username : </div>
+                            <input type={'text'} className='login-textbox' placeholder='Username'></input>
+                        </div>
+                        <div className='login-element-container'>
+                            <div className='login-container-label'>Password : </div>
+                            <input type={'password'} className='login-textbox' placeholder='Enter New Password' ></input>
+                        </div>
+
+                        <div className='login-element-container'>
+                            <input type={'password'} className='login-textbox' placeholder='Enter Password Again' ></input>
+                        </div>
+                        <div className='login-bottom-container'>
+                            <div className='login-submit-container'>→</div>
+                        </div>
+                    </div>
+                </div>
+                {/* <div className='middle-container'>
                     <div className='middle-container-right-side middle-container-full-width'>
                         <div className="nav-container nav-container-right-align">
                             <div className="right-buttons">
@@ -42,7 +60,7 @@ export default class SignUpPage extends PageTemplate {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </Fragment>
 
