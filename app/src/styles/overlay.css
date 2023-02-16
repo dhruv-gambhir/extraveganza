@@ -1,0 +1,44 @@
+.overlay-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 69;
+}
+
+.overlay-content-container {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    z-index: 70;
+    padding: 30px;
+    width: 50vw;
+    height: 70vh;
+
+    border-radius: 20px;
+}
+
+.overlay-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.overlay-close:after {
+    display: inline-block;
+    content: "\00d7";
+}
+
+.overlay-close {
+    border: none;
+    background-color: transparent;
+    font-size: 36px;
+    cursor: pointer;
+}

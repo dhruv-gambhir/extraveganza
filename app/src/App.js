@@ -1,6 +1,7 @@
 import './App.css';
 import './styles/login.css';
 import './styles/dropdown.css';
+import './styles/overlay.css';
 import React, { Component, Fragment } from 'react';
 
 // Import pages
@@ -12,6 +13,7 @@ import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
+import OverlayComponent from './scripts/OverlayComponent';
 
 const AppState = {
 	Login: 1,
@@ -40,7 +42,12 @@ class App extends Component {
 				{ id: 1, title: 'Z - A', selected: false, key: 'sort' },
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
-			sortingChoice: 'A - Z'
+			sortingChoice: 'A - Z',
+
+			isLoginPageOpen: false,
+			isSignUpPageOpen: false,
+			isHelpPageOpen: false,
+			isSettingsPageOpen: false
 		};
 	}
 
@@ -49,19 +56,24 @@ class App extends Component {
 	};
 
 	handleAccountButton = () => {
-		this.setState({ appState: AppState.Login });
+		// this.setState({ appState: AppState.Login });
+		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
 	};
 
 	handleSignUpButton = () => {
-		this.setState({ appState: AppState.SignUp });
+		// this.setState({ appState: AppState.SignUp });
+		this.setState({ isLoginPageOpen: false, isSignUpPageOpen: true });
 	};
 
 	handleHelpButton = () => {
-		this.setState({ appState: AppState.Help });
+		// this.setState({ appState: AppState.Help });
+		this.setState({ isHelpPageOpen: true });
 	};
 
 	handleSettingsButton = () => {
-		this.setState({ appState: AppState.Settings });
+		// this.setState({ appState: AppState.Settings });
+		this.setState({ isSettingsPageOpen: true });
+
 	};
 
 	handleMapButton = () => {
@@ -87,6 +99,15 @@ class App extends Component {
 		});
 	};
 
+	resetAllOverlay = () => {
+		this.setState({
+			isLoginPageOpen: false,
+			isSignUpPageOpen: false,
+			isHelpPageOpen: false,
+			isSettingsPageOpen: false
+		});
+	};
+
 	setDietaryRestrictions = (id, key) => {
 		const temp = this.state.dietaryRestrictions;
 
@@ -97,7 +118,7 @@ class App extends Component {
 		});
 	};
 
-	createHeader() {
+	renderHeader() {
 		return (<div className="top-container">
 			<div className="top-title" onClick={this.handleHomePageButton}><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
 				style={{ color: "black" }} >ZA</span>
@@ -105,7 +126,7 @@ class App extends Component {
 		</div>);
 	}
 
-	createFooter(active = '', buttons = true) {
+	renderFooter(buttons = true) {
 		if (buttons) {
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
@@ -129,7 +150,7 @@ class App extends Component {
 		}
 	}
 
-	selectContent = () => {
+	renderMiddleContent = () => {
 		switch (this.state.appState) {
 			case AppState.Home:
 				return (
@@ -139,36 +160,36 @@ class App extends Component {
 						handleSettingsButton={this.handleSettingsButton}>
 					</HomePage>
 				);
-			case AppState.Login:
-				return (
-					<LoginPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+			// case AppState.Login:
+			// 	return (
+			// 		<LoginPage
+			// 			handleAccountButton={this.handleAccountButton}
+			// 			handleHelpButton={this.handleHelpButton}
+			// 			handleSettingsButton={this.handleSettingsButton}
 
-						handleSignUpButton={this.handleSignUpButton}>
-					</LoginPage>);
-			case AppState.SignUp:
-				return (
-					<SignUpPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}>
-					</SignUpPage>);
-			case AppState.Help:
-				return (
-					<HelpPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}>
-					</HelpPage>);
-			case AppState.Settings:
-				return (
-					<SettingsPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}>
-					</SettingsPage>);
+			// 			handleSignUpButton={this.handleSignUpButton}>
+			// 		</LoginPage>);
+			// case AppState.SignUp:
+			// 	return (
+			// 		<SignUpPage
+			// 			handleAccountButton={this.handleAccountButton}
+			// 			handleHelpButton={this.handleHelpButton}
+			// 			handleSettingsButton={this.handleSettingsButton}>
+			// 		</SignUpPage>);
+			// case AppState.Help:
+			// 	return (
+			// 		<HelpPage
+			// 			handleAccountButton={this.handleAccountButton}
+			// 			handleHelpButton={this.handleHelpButton}
+			// 			handleSettingsButton={this.handleSettingsButton}>
+			// 		</HelpPage>);
+			// case AppState.Settings:
+			// 	return (
+			// 		<SettingsPage
+			// 			handleAccountButton={this.handleAccountButton}
+			// 			handleHelpButton={this.handleHelpButton}
+			// 			handleSettingsButton={this.handleSettingsButton}>
+			// 		</SettingsPage>);
 			case AppState.List:
 				return (
 					<Fragment>
@@ -218,14 +239,72 @@ class App extends Component {
 		}
 	};
 
+	renderLoginOverlay = () => {
+		if (this.state.isLoginPageOpen) {
+			return (<OverlayComponent isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<div>
+					Login Page
+				</div>
+			</OverlayComponent>);
+		}
+		else {
+			return (<div></div>);
+		}
+	};
+
+	renderSignupOverlay = () => {
+		if (this.state.isSignUpPageOpen) {
+			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<div>
+					Signup Page
+				</div>
+			</OverlayComponent>);
+		}
+		else {
+			return (<div></div>);
+		}
+	};
+
+	renderHelpOverlay = () => {
+		if (this.state.isHelpPageOpen) {
+			return (<OverlayComponent isOpen={this.state.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<div>
+					Help Page
+				</div>
+			</OverlayComponent>);
+		}
+		else {
+			return (<div></div>);
+		}
+	};
+
+	renderSettingsOverlay = () => {
+		if (this.state.isSettingsPageOpen) {
+			return (<OverlayComponent isOpen={this.state.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<div>
+					Settings Page
+				</div>
+			</OverlayComponent>);
+		}
+		else {
+			return (<div></div>);
+		}
+	};
+
 	render() {
 		console.log(this.state);
 
 		return (
 			<Fragment>
-				{this.createHeader()}
-				{this.selectContent()}
-				{this.createFooter()}
+				{this.renderHeader()}
+				{this.renderMiddleContent()}
+
+				{this.renderLoginOverlay()}
+				{this.renderSignupOverlay()}
+				{this.renderHelpOverlay()}
+				{this.renderSettingsOverlay()}
+
+				{this.renderFooter()}
 			</Fragment>
 
 		);
