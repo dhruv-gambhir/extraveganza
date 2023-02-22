@@ -56,24 +56,23 @@ class App extends Component {
 	};
 
 	handleAccountButton = () => {
-		// this.setState({ appState: AppState.Login });
 		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
 	};
 
 	handleSignUpButton = () => {
-		// this.setState({ appState: AppState.SignUp });
 		this.setState({ isLoginPageOpen: false, isSignUpPageOpen: true });
 	};
 
+	handleLogInButton = () => {
+		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+	};
+
 	handleHelpButton = () => {
-		// this.setState({ appState: AppState.Help });
 		this.setState({ isHelpPageOpen: true });
 	};
 
 	handleSettingsButton = () => {
-		// this.setState({ appState: AppState.Settings });
 		this.setState({ isSettingsPageOpen: true });
-
 	};
 
 	handleMapButton = () => {
@@ -160,36 +159,6 @@ class App extends Component {
 						handleSettingsButton={this.handleSettingsButton}>
 					</HomePage>
 				);
-			// case AppState.Login:
-			// 	return (
-			// 		<LoginPage
-			// 			handleAccountButton={this.handleAccountButton}
-			// 			handleHelpButton={this.handleHelpButton}
-			// 			handleSettingsButton={this.handleSettingsButton}
-
-			// 			handleSignUpButton={this.handleSignUpButton}>
-			// 		</LoginPage>);
-			// case AppState.SignUp:
-			// 	return (
-			// 		<SignUpPage
-			// 			handleAccountButton={this.handleAccountButton}
-			// 			handleHelpButton={this.handleHelpButton}
-			// 			handleSettingsButton={this.handleSettingsButton}>
-			// 		</SignUpPage>);
-			// case AppState.Help:
-			// 	return (
-			// 		<HelpPage
-			// 			handleAccountButton={this.handleAccountButton}
-			// 			handleHelpButton={this.handleHelpButton}
-			// 			handleSettingsButton={this.handleSettingsButton}>
-			// 		</HelpPage>);
-			// case AppState.Settings:
-			// 	return (
-			// 		<SettingsPage
-			// 			handleAccountButton={this.handleAccountButton}
-			// 			handleHelpButton={this.handleHelpButton}
-			// 			handleSettingsButton={this.handleSettingsButton}>
-			// 		</SettingsPage>);
 			case AppState.List:
 				return (
 					<Fragment>
@@ -253,7 +222,7 @@ class App extends Component {
 	renderSignupOverlay = () => {
 		if (this.state.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SignUpPage></SignUpPage>
+				<SignUpPage handleLogInButton={this.handleLogInButton}></SignUpPage>
 			</OverlayComponent>);
 		}
 		else {

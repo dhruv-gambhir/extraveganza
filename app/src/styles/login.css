@@ -15,17 +15,21 @@
     justify-self: center;
 
     font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    color: black;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--really-green);
 
-    /* border: 2px solid var(--extra-green); */
     border-radius: 30px;
-    /* background-color: var(--extra-green); */
+}
+
+.login-top-title {
+    width: 100%;
+    text-align: left;
+    margin: 5%;
 }
 
 .login-element-container {
-    width: 60%;
+    width: 70%;
     margin: 10px;
 
     display: flex;
@@ -37,19 +41,23 @@
 
 .login-container-label {
     width: 100%;
-    margin-bottom: 10px;
-    padding-right: 30px;
-    text-align: left;
+    text-align: center;
 }
 
 .login-textbox {
     padding-left: 10px;
+    padding: 2% 10px 2% 15px;
     width: 100%;
     height: 30px;
-    border: 3px solid black;
-    border-radius: 5px;
+    border: none transparent;
+    outline: none;
+    border-radius: 10px;
+}
 
-    font-weight: 700;
+.login-textbox::placeholder {
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--really-green);
 }
 
 .login-bottom-container {
@@ -64,49 +72,41 @@
 
 .sign-up-label {
     font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    color: black;
+    font-weight: 400;
+    font-size: 12px;
+    /* color: black; */
 
-    width: 30%;
-
-    cursor: pointer;
+    width: 100%;
 
     text-align: center;
-    height: 2rem;
 
+    cursor: pointer;
 }
 
 .forgot-password-label {
-    margin-left: 10%;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
-    color: black;
+    /* color: black; */
 
-    width: 40%;
+    width: 100%;
 
-    text-align: right;
-
-    cursor: pointer;
-}
-
-.login-submit-container {
-    margin-left: 20px;
-    border-radius: 10px;
-    width: 12%;
-    height: 2rem;
-    border: 2px solid black;
-    /* background-color: var(--more-green); */
-    cursor: pointer;
     text-align: center;
 
-    transition: ease 0.4s;
+    cursor: pointer;
 }
 
-.login-submit-container:hover {
-    background-color: black;
+.login-submit-label {
+    border-radius: 10px;
+    width: 100%;
+    padding: 2%;
+    border: none transparent;
+    background-color: green;
     color: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 200;
+    font-size: 18px;
 
     transition: ease 0.4s;
 }

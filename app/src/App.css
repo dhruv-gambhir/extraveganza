@@ -18,6 +18,8 @@ code {
 :root {
     --extra-green: #8CE149;
     --more-green: #0B963A;
+    --less-green: #d3e7c5;
+    --really-green: #075722;
     font-family: 'Roboto', sans-serif;
     transition: 0.1s ease;
 }
