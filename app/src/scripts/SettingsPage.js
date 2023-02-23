@@ -7,7 +7,12 @@ export default class SettingsPage extends PageTemplate {
 			<Fragment>
 
 				<div className='overlay-content'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum beatae impedit consequatur vel molestias, similique labore ullam alias rerum, laboriosam praesentium? Neque sit officiis ipsam libero soluta culpa aperiam est.
+					<div className="overlay-content-header">
+						Settings
+					</div>
+					<div className="overlay-content-body">
+						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, iure. Corrupti voluptatum ad quo totam tempore nostrum. Ipsa dolores quod esse sunt aliquid cupiditate nemo, atque pariatur labore molestiae iure?
+					</div>
 				</div>
 
 			</Fragment>);

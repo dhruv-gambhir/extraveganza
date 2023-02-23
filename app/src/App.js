@@ -2,7 +2,9 @@ import './App.css';
 import './styles/login.css';
 import './styles/dropdown.css';
 import './styles/overlay.css';
-import React, { Component, Fragment } from 'react';
+import './styles/CSSTransition.css';
+import React, { Component, createRef, Fragment } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 // Import pages
 import MapPage from './scripts/MapPage';
@@ -49,6 +51,8 @@ class App extends Component {
 			isHelpPageOpen: false,
 			isSettingsPageOpen: false
 		};
+
+		this.myRef = createRef();
 	}
 
 	handleHomePageButton = () => {
@@ -210,7 +214,7 @@ class App extends Component {
 
 	renderLoginOverlay = () => {
 		if (this.state.isLoginPageOpen) {
-			return (<OverlayComponent isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
+			return (<OverlayComponent ref={this.myRef} isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
 				<LoginPage handleSignUpButton={this.handleSignUpButton}></LoginPage>
 			</OverlayComponent>);
 		}
@@ -259,13 +263,13 @@ class App extends Component {
 			<Fragment>
 				{this.renderHeader()}
 				{this.renderMiddleContent()}
+				{this.renderFooter()}
 
 				{this.renderLoginOverlay()}
 				{this.renderSignupOverlay()}
 				{this.renderHelpOverlay()}
 				{this.renderSettingsOverlay()}
 
-				{this.renderFooter()}
 			</Fragment>
 
 		);
