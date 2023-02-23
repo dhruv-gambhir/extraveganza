@@ -21,6 +21,7 @@ code {
     --less-green: #d3e7c5;
     --really-green: #075722;
     font-family: 'Roboto', sans-serif;
+    color: black;
     transition: 0.1s ease;
 }
 

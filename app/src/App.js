@@ -4,7 +4,6 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import React, { Component, createRef, Fragment } from 'react';
-import { CSSTransition } from 'react-transition-group';
 
 // Import pages
 import MapPage from './scripts/MapPage';
