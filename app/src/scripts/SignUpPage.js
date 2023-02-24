@@ -29,7 +29,7 @@ export default class SignUpPage extends PageTemplate {
                             <div className='forgot-password-label'>Forgot your password?</div>
                         </div>
 
-                        <div className="login-element-container">
+                        <div className="login-element-container" onClick={this.props.signUpUser}>
                             <div className='login-submit-label'>Sign up</div>
                         </div>
 

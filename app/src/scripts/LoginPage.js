@@ -25,7 +25,7 @@ export default class LoginPage extends PageTemplate {
                             <div className='forgot-password-label'>Forgot your password?</div>
                         </div>
 
-                        <div className="login-element-container">
+                        <div className="login-element-container" onClick={this.props.authenticateUser}>
                             <div className='login-submit-label'>Login</div>
                         </div>
 

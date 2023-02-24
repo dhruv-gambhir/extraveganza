@@ -15,6 +15,7 @@ import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
 import OverlayComponent from './scripts/OverlayComponent';
+import AccountPage from './scripts/AccountPage';
 
 const AppState = {
 	Login: 1,
@@ -45,10 +46,14 @@ class App extends Component {
 			],
 			sortingChoice: 'A - Z',
 
+			isUserLoggedIn: false,
+			isAccountPageOpen: false,
 			isLoginPageOpen: false,
 			isSignUpPageOpen: false,
 			isHelpPageOpen: false,
-			isSettingsPageOpen: false
+			isSettingsPageOpen: false,
+
+			userInfo: { username: "asdfasdf" }
 		};
 
 		this.myRef = createRef();
@@ -59,7 +64,12 @@ class App extends Component {
 	};
 
 	handleAccountButton = () => {
-		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+		if (!this.state.isUserLoggedIn) {
+			this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+		}
+		else {
+			this.setState({ isAccountPageOpen: true });
+		}
 	};
 
 	handleSignUpButton = () => {
@@ -90,6 +100,16 @@ class App extends Component {
 		this.setState({ appState: AppState.Community });
 	};
 
+	authenticateUser = () => {
+		// For now there is no authentication for users
+		this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
+	};
+
+	signUpUser = () => {
+		// For now there is no authentication for users
+		this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
+	}
+
 	resetThenSetSortingChoices = (id, key) => {
 		const temp = this.state.sortingChoices;
 
@@ -106,7 +126,8 @@ class App extends Component {
 			isLoginPageOpen: false,
 			isSignUpPageOpen: false,
 			isHelpPageOpen: false,
-			isSettingsPageOpen: false
+			isSettingsPageOpen: false,
+			isAccountPageOpen: false
 		});
 	};
 
@@ -214,7 +235,7 @@ class App extends Component {
 	renderLoginOverlay = () => {
 		if (this.state.isLoginPageOpen) {
 			return (<OverlayComponent ref={this.myRef} isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<LoginPage handleSignUpButton={this.handleSignUpButton}></LoginPage>
+				<LoginPage handleSignUpButton={this.handleSignUpButton} authenticateUser={this.authenticateUser}></LoginPage>
 			</OverlayComponent>);
 		}
 		else {
@@ -225,7 +246,7 @@ class App extends Component {
 	renderSignupOverlay = () => {
 		if (this.state.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SignUpPage handleLogInButton={this.handleLogInButton}></SignUpPage>
+				<SignUpPage handleLogInButton={this.handleLogInButton} signUpUser={ this.signUpUser }></SignUpPage>
 			</OverlayComponent>);
 		}
 		else {
@@ -255,6 +276,17 @@ class App extends Component {
 		}
 	};
 
+	renderAccountOverlay = () => {
+		if (this.state.isAccountPageOpen) {
+			return (<OverlayComponent isOpen={this.state.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<AccountPage username={this.state.userInfo.username}></AccountPage>
+			</OverlayComponent>);
+		}
+		else {
+			return;
+		}
+	};
+
 	render() {
 		console.log(this.state);
 
@@ -268,7 +300,7 @@ class App extends Component {
 				{this.renderSignupOverlay()}
 				{this.renderHelpOverlay()}
 				{this.renderSettingsOverlay()}
-
+				{this.renderAccountOverlay()}
 			</Fragment>
 
 		);
