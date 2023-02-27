@@ -4,6 +4,7 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import React, { Component, createRef, Fragment } from 'react';
+import axios from 'axios';
 
 // Import pages
 import MapPage from './scripts/MapPage';
@@ -16,6 +17,7 @@ import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
 import OverlayComponent from './scripts/OverlayComponent';
 import AccountPage from './scripts/AccountPage';
+
 
 const AppState = {
 	Login: 1,
@@ -100,15 +102,25 @@ class App extends Component {
 		this.setState({ appState: AppState.Community });
 	};
 
-	authenticateUser = () => {
+	authenticateUser = async () => {
 		// For now there is no authentication for users
-		this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
+		// this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
+		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+		await axios.get('http://localhost:2006/auth/login', {
+			params: {
+				email: "thataaa@gmail.com",
+				password: "howthe helliconnecttothebackend"
+			}
+		})
+			.then((response) => { console.log(response); })
+			.catch((error) => { console.log(error); })
+			.finally(() => { ; });
 	};
 
 	signUpUser = () => {
 		// For now there is no authentication for users
 		this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
-	}
+	};
 
 	resetThenSetSortingChoices = (id, key) => {
 		const temp = this.state.sortingChoices;
@@ -246,7 +258,7 @@ class App extends Component {
 	renderSignupOverlay = () => {
 		if (this.state.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SignUpPage handleLogInButton={this.handleLogInButton} signUpUser={ this.signUpUser }></SignUpPage>
+				<SignUpPage handleLogInButton={this.handleLogInButton} signUpUser={this.signUpUser}></SignUpPage>
 			</OverlayComponent>);
 		}
 		else {

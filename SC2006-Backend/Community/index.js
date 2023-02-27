@@ -34,12 +34,12 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
+	destination: function (req, file, cb) {
+		cb(null, "public/assets");
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	},
 });
 const upload = multer({ storage });
 
@@ -49,23 +49,26 @@ app.post("/auth/register", upload.single("picture"), register);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
-app.use("/auth", authRoutes); //log in 
+app.post("/auth", authRoutes); //log in 
 app.use("/users", userRoutes);
-//app.use("/posts", postRoutes);
+app.get("/", (req, res) => {
+	res.send("Testing testing 1 2 3");
+});
+//app.use("/posts", postRoutes)
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 20066;
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+	.connect(process.env.MONGO_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    /* add data to mongoDB */
-    /* one time is enough  */ 
-    // User.insertMany(users);
-    // Post.insertMany(posts);
-  })
-  .catch((error) => console.log(`${error} did not connect`));
+		/* add data to mongoDB */
+		/* one time is enough  */
+		// User.insertMany(users);
+		// Post.insertMany(posts);
+	})
+	.catch((error) => console.log(`${error} did not connect`));
