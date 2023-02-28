@@ -18,7 +18,9 @@ import HomePage from './scripts/HomePage';
 import OverlayComponent from './scripts/OverlayComponent';
 import AccountPage from './scripts/AccountPage';
 
-
+/** 
+ * States for app
+*/
 const AppState = {
 	Login: 1,
 	Help: 2,
@@ -30,6 +32,9 @@ const AppState = {
 	Home: 69
 };
 
+/**
+ * App class 
+ */
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -66,10 +71,22 @@ class App extends Component {
 		this.myRef = createRef();
 	}
 
+	/**
+	 * @deprecated
+	 * A function to handle the home page button
+	 * 
+	 * This will open the home page
+	 */
 	handleHomePageButton = () => {
 		this.setState({ appState: AppState.Home });
 	};
 
+	/**
+	 * A function to handle the account button
+	 * 
+	 * If the user is not logged in, this will open the login overlay
+	 * Else, this will open the account management overlay
+	 */
 	handleAccountButton = () => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
@@ -88,6 +105,11 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A function to handle the signup button in the login overlay
+	 * 
+	 * This will open the signup overlay
+	 */
 	handleSignUpButton = () => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
@@ -97,6 +119,11 @@ class App extends Component {
 		this.setState({ popupsOpen: popupsOpen, userInfo: userInfo });
 	};
 
+	/**
+	 * A function to handle the login button in the signup overlay
+	 * 
+	 * This will open the login overlay
+	 */
 	handleLogInButton = () => {
 		const popupsOpen = this.state.popupsOpen;
 		popupsOpen.isLoginPageOpen = true;
@@ -104,31 +131,62 @@ class App extends Component {
 		this.setState({ popupsOpen: popupsOpen });
 	};
 
+	/**
+	 * A function to handle the help button
+	 * 
+	 * This will open the help overlay
+	 */
 	handleHelpButton = () => {
 		const popupsOpen = this.state.popupsOpen;
 		popupsOpen.isHelpPageOpen = true;
 		this.setState({ popupsOpen: popupsOpen });
 	};
 
+	/**
+	 * A function to handle the settings button
+	 * 
+	 * This will open the settings overlay
+	 */
 	handleSettingsButton = () => {
 		const popupsOpen = this.state.popupsOpen;
 		popupsOpen.isSettingsPageOpen = true;
 		this.setState({ popupsOpen: popupsOpen });
 	};
 
+	/**
+	 * A function to handle the footer map button
+	 * 
+	 * This will direct user to the map page
+	 */
 	handleMapButton = () => {
 		this.setState({ appState: AppState.Map });
 	};
 
+	/**
+	 * A function to handle the footer list button
+	 * 
+	 * This will direct user to the list page
+	 */
 	handleListButton = () => {
 		this.setState({ appState: AppState.List });
 	};
 
+	/**
+	 * A function to handle the footer community button
+	 * 
+	 * This will direct user to the community page
+	 */
 	handleCommunityButton = () => {
 		this.setState({ appState: AppState.Community });
 	};
 
-	// Authenticate user part
+	/**
+	 * A function to authenticate the user for log in
+	 * @param {string} username
+	 * @param {string} password
+	 * 
+	 * If log in is successful, then the login overlay will vanish, else a warning message will be prompted
+	 */
 	authenticateUser = async (username, password) => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
@@ -161,7 +219,13 @@ class App extends Component {
 			.finally(() => { ; });
 	};
 
-	// Sign up / register user part
+	/**
+	 * A function to let the user sign up
+	 * @param {string} username
+	 * @param {string} password
+	 * 
+	 * If signup is successful, then the signup overlay will vanish, else a warning message will be prompted
+	 */
 	signUpUser = async (username, password) => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
@@ -194,6 +258,11 @@ class App extends Component {
 			.finally(() => { ; });
 	};
 
+	/**
+	 * A helper function to reset then set the sorting choices for the list page
+	 * @param {*} id 
+	 * @param {*} key
+	 */
 	resetThenSetSortingChoices = (id, key) => {
 		const temp = this.state.sortingChoices;
 
@@ -205,6 +274,9 @@ class App extends Component {
 		});
 	};
 
+	/**
+	 * A helper function reset all overlay open boolean to false
+	 */
 	resetAllOverlay = () => {
 		this.setState({
 			popupsOpen:
@@ -218,6 +290,11 @@ class App extends Component {
 		});
 	};
 
+	/**
+	 * A helper function to set the dietary restrictions for the app
+	 * @param {*} id 
+	 * @param {*} key 
+	 */
 	setDietaryRestrictions = (id, key) => {
 		const temp = this.state.dietaryRestrictions;
 
@@ -228,6 +305,10 @@ class App extends Component {
 		});
 	};
 
+	/**
+	 * A helper function to render the header
+	 * @returns An HTML div for the header
+	 */
 	renderHeader() {
 		return (<div className="top-container">
 			<div className="top-title" onClick={this.handleHomePageButton}><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
@@ -236,6 +317,11 @@ class App extends Component {
 		</div>);
 	}
 
+	/**
+	 * A helper function to render the footer
+	 * @param {boolean} buttons A boolean for rendering the buttons
+	 * @returns An HTML div for the footer
+	 */
 	renderFooter(buttons = true) {
 		if (buttons) {
 			return (<div className="bottom-container">
@@ -260,6 +346,10 @@ class App extends Component {
 		}
 	}
 
+	/**
+	 * A helper function that renders the content of the page based on the state of the app
+	 * @returns A React Fragment for the content to be displayed
+	 */
 	renderMiddleContent = () => {
 		switch (this.state.appState) {
 			case AppState.Home:
@@ -319,6 +409,10 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A helper function that renders the login overlay
+	 * @returns An overlay component for the login page
+	 */
 	renderLoginOverlay = () => {
 		if (this.state.popupsOpen.isLoginPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
@@ -330,6 +424,10 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A helper function that renders the signup overlay
+	 * @returns An overlay component for the signup page
+	 */
 	renderSignupOverlay = () => {
 		if (this.state.popupsOpen.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
@@ -341,6 +439,10 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A helper function that renders the help overlay
+	 * @returns An overlay component for the help page
+	 */
 	renderHelpOverlay = () => {
 		if (this.state.popupsOpen.isHelpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
@@ -352,6 +454,10 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A helper function that renders the settings overlay
+	 * @returns An overlay component for the settings page
+	 */
 	renderSettingsOverlay = () => {
 		if (this.state.popupsOpen.isSettingsPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
@@ -363,6 +469,10 @@ class App extends Component {
 		}
 	};
 
+	/**
+	 * A helper function that renders the account overlay
+	 * @returns An overlay component for the account page
+	 */
 	renderAccountOverlay = () => {
 		if (this.state.popupsOpen.isAccountPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>

@@ -22,15 +22,16 @@ import { users, posts } from "./data/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
+
 const app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-app.use(bodyParser.json({ limit: "10mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
-app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+app.use(express.json()); // parse incoming requests with JSON payloads
+app.use(helmet()); // set various HTTP headers to improve security
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // set CORS policy
+app.use(morgan("common")); // HTTP request logger middleware
+app.use(bodyParser.json({ limit: "10mb", extended: true })); // parse incoming requests with JSON payloads with a size limit
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true })); // parse incoming requests with URL-encoded payloads with a size limit
+app.use(cors()); // enable CORS for all routes
+app.use("/assets", express.static(path.join(__dirname, "public/assets"))); // serve static files
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
@@ -44,15 +45,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
-// app.post("/auth/register", upload.single("picture"), register);
-// upload a photo
+// upload a photo for a post
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
-app.use("/auth", authRoutes); // log in 
-app.get("/users", userRoutes);
-
-//app.use("/posts", postRoutes)
+app.use("/auth", authRoutes); // handle authentication routes
+app.get("/users", userRoutes); // handle user routes
+// app.use("/posts", postRoutes); // handle post routes
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 20066;
@@ -63,10 +62,5 @@ mongoose
 	})
 	.then(() => {
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-
-		/* add data to mongoDB */
-		/* one time is enough  */
-		// User.insertMany(users);
-		// Post.insertMany(posts);
 	})
 	.catch((error) => console.log(`${error} did not connect`));
