@@ -8,7 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register } from "./controllers/auth.js";
+import { register, login } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
@@ -44,16 +44,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
-app.post("/auth/register", upload.single("picture"), register);
+// app.post("/auth/register", upload.single("picture"), register);
 // upload a photo
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
-app.post("/auth", authRoutes); //log in 
-app.use("/users", userRoutes);
-app.get("/", (req, res) => {
-	res.send("Testing testing 1 2 3");
-});
+app.use("/auth", authRoutes); // log in 
+app.get("/users", userRoutes);
+
 //app.use("/posts", postRoutes)
 
 /* MONGOOSE SETUP */

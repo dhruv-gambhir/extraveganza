@@ -2,6 +2,14 @@ import { Fragment } from "react";
 import PageTemplate from "./PageTemplate";
 
 export default class LoginPage extends PageTemplate {
+    constructor(props) {
+        super(props);
+        this.state = {
+            usernameInput: '',
+            passwordInput: ''
+        };
+    }
+
     render() {
         return (
             <Fragment>
@@ -14,18 +22,31 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'text'} className='login-textbox' placeholder='Username'></input>
+                            <div className={`login-warning ${this.props.isLoginValid ? 'login-warning-invisible' : ''}`}>Invalid username or password</div>
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'password'} className='login-textbox' placeholder='Password' ></input>
+                            <input type={'text'}
+                                className='login-textbox'
+                                placeholder='Username'
+                                value={this.state.usernameInput}
+                                onChange={evt => this.setState({ usernameInput: evt.target.value })}>
+                            </input>
+                        </div>
+
+                        <div className='login-element-container'>
+                            <input type={'password'}
+                                className='login-textbox'
+                                placeholder='Password' value={this.state.passwordInput}
+                                onChange={evt => this.setState({ passwordInput: evt.target.value })}>
+                            </input>
                         </div>
 
                         <div className="login-element-container">
                             <div className='forgot-password-label'>Forgot your password?</div>
                         </div>
 
-                        <div className="login-element-container" onClick={this.props.authenticateUser}>
+                        <div className="login-element-container" onClick={() => { this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput); }}>
                             <div className='login-submit-label'>Login</div>
                         </div>
 

@@ -15,11 +15,11 @@ export const register = async (req, res) => {
 			location,
 			occupation,
 		} = req.body;
-
-		//encrypt password
+		
+		// encrypt password 
 		const salt = await bcrypt.genSalt();
 		const passwordHash = await bcrypt.hash(password, salt);
-
+		
 		const newUser = new User({
 			firstName,
 			lastName,

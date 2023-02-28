@@ -2,6 +2,15 @@ import { Fragment } from "react";
 import PageTemplate from "./PageTemplate";
 
 export default class SignUpPage extends PageTemplate {
+    constructor(props) {
+        super(props);
+        this.state = {
+            usernameInput: '',
+            passwordInput: '',
+            reenterPasswordInput: ''
+        };
+    }
+
     render() {
         return (
             <Fragment>
@@ -14,22 +23,39 @@ export default class SignUpPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'text'} className='login-textbox' placeholder='Username'></input>
+                            <div className={`login-warning ${this.state.passwordInput === this.state.reenterPasswordInput ? 'login-warning-invisible' : ''}`}>Please ensure reenter password correctly</div>
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'password'} className='login-textbox' placeholder='Password' ></input>
+                            <input type={'text'}
+                                className='login-textbox'
+                                placeholder='Username'
+                                value={this.state.usernameInput}
+                                onChange={evt => this.setState({ usernameInput: evt.target.value })}>
+                            </input>
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'password'} className='login-textbox' placeholder='Reenter Password' ></input>
+                            <input type={'password'}
+                                className='login-textbox'
+                                placeholder='Password' value={this.state.passwordInput}
+                                onChange={evt => this.setState({ passwordInput: evt.target.value })}>
+                            </input>
+                        </div>
+
+                        <div className='login-element-container'>
+                            <input type={'password'}
+                                className='login-textbox'
+                                placeholder='Re-enter Password' value={this.state.reenterPasswordInput}
+                                onChange={evt => this.setState({ reenterPasswordInput: evt.target.value })}>
+                            </input>
                         </div>
 
                         <div className="login-element-container">
                             <div className='forgot-password-label'>Forgot your password?</div>
                         </div>
 
-                        <div className="login-element-container" onClick={this.props.signUpUser}>
+                        <div className="login-element-container" onClick={() => { if (this.state.passwordInput === this.state.reenterPasswordInput) this.props.signUpUser(this.state.usernameInput, this.state.passwordInput); }}>
                             <div className='login-submit-label'>Sign up</div>
                         </div>
 

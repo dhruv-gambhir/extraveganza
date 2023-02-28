@@ -48,14 +48,19 @@ class App extends Component {
 			],
 			sortingChoice: 'A - Z',
 
-			isUserLoggedIn: false,
-			isAccountPageOpen: false,
-			isLoginPageOpen: false,
-			isSignUpPageOpen: false,
-			isHelpPageOpen: false,
-			isSettingsPageOpen: false,
+			popupsOpen: {
+				isAccountPageOpen: false,
+				isLoginPageOpen: false,
+				isSignUpPageOpen: false,
+				isHelpPageOpen: false,
+				isSettingsPageOpen: false,
+			},
 
-			userInfo: { username: "asdfasdf" }
+			userInfo: {
+				username: "",
+				isUserLoggedIn: false,
+				isLoginValid: false,
+			}
 		};
 
 		this.myRef = createRef();
@@ -66,28 +71,49 @@ class App extends Component {
 	};
 
 	handleAccountButton = () => {
-		if (!this.state.isUserLoggedIn) {
-			this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+		const popupsOpen = this.state.popupsOpen;
+		const userInfo = this.state.userInfo;
+		if (!this.state.userInfo.isUserLoggedIn) {
+			popupsOpen.isLoginPageOpen = true;
+			popupsOpen.isSignUpPageOpen = false;
+			userInfo.isLoginValid = true;
+			this.setState({
+				popupsOpen: popupsOpen,
+				userInfo: userInfo
+			});
 		}
 		else {
-			this.setState({ isAccountPageOpen: true });
+			popupsOpen.isAccountPageOpen = true;
+			this.setState({ popupsOpen: popupsOpen });
 		}
 	};
 
 	handleSignUpButton = () => {
-		this.setState({ isLoginPageOpen: false, isSignUpPageOpen: true });
+		const popupsOpen = this.state.popupsOpen;
+		const userInfo = this.state.userInfo;
+		popupsOpen.isLoginPageOpen = false;
+		popupsOpen.isSignUpPageOpen = true;
+		userInfo.isLoginValid = true;
+		this.setState({ popupsOpen: popupsOpen, userInfo: userInfo });
 	};
 
 	handleLogInButton = () => {
-		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
+		const popupsOpen = this.state.popupsOpen;
+		popupsOpen.isLoginPageOpen = true;
+		popupsOpen.isSignUpPageOpen = false;
+		this.setState({ popupsOpen: popupsOpen });
 	};
 
 	handleHelpButton = () => {
-		this.setState({ isHelpPageOpen: true });
+		const popupsOpen = this.state.popupsOpen;
+		popupsOpen.isHelpPageOpen = true;
+		this.setState({ popupsOpen: popupsOpen });
 	};
 
 	handleSettingsButton = () => {
-		this.setState({ isSettingsPageOpen: true });
+		const popupsOpen = this.state.popupsOpen;
+		popupsOpen.isSettingsPageOpen = true;
+		this.setState({ popupsOpen: popupsOpen });
 	};
 
 	handleMapButton = () => {
@@ -102,24 +128,70 @@ class App extends Component {
 		this.setState({ appState: AppState.Community });
 	};
 
-	authenticateUser = async () => {
-		// For now there is no authentication for users
-		// this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
-		this.setState({ isLoginPageOpen: true, isSignUpPageOpen: false });
-		await axios.get('http://localhost:2006/auth/login', {
-			params: {
-				email: "thataaa@gmail.com",
-				password: "howthe helliconnecttothebackend"
-			}
+	// Authenticate user part
+	authenticateUser = async (username, password) => {
+		const popupsOpen = this.state.popupsOpen;
+		const userInfo = this.state.userInfo;
+
+		await axios.post('http://localhost:2006/auth/login/', {
+			email: username,
+			password: password
+
 		})
-			.then((response) => { console.log(response); })
-			.catch((error) => { console.log(error); })
+			.then((response) => {
+				if (response.status === 200) {
+					popupsOpen.isLoginPageOpen = false;
+					popupsOpen.isSignUpPageOpen = false;
+					userInfo.isUserLoggedIn = true;
+					userInfo.username = username;
+					this.setState({
+						popupsOpen: popupsOpen,
+						userInfo: userInfo
+					});
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+				userInfo.isUserLoggedIn = false;
+				userInfo.isLoginValid = false;
+				this.setState({
+					userInfo: userInfo
+				});
+			})
 			.finally(() => { ; });
 	};
 
-	signUpUser = () => {
-		// For now there is no authentication for users
-		this.setState({ isUserLoggedIn: true, isLoginPageOpen: false, isSignUpPageOpen: false });
+	// Sign up / register user part
+	signUpUser = async (username, password) => {
+		const popupsOpen = this.state.popupsOpen;
+		const userInfo = this.state.userInfo;
+
+		await axios.post('http://localhost:2006/auth/register/', {
+			email: username,
+			password: password
+
+		})
+			.then((response) => {
+				if (response.status === 201) {
+					popupsOpen.isLoginPageOpen = false;
+					popupsOpen.isSignUpPageOpen = false;
+					userInfo.isUserLoggedIn = true;
+					userInfo.username = username;
+					this.setState({
+						popupsOpen: popupsOpen,
+						userInfo: userInfo
+					});
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+				userInfo.isUserLoggedIn = false;
+				userInfo.isLoginValid = false;
+				this.setState({
+					userInfo: userInfo
+				});
+			})
+			.finally(() => { ; });
 	};
 
 	resetThenSetSortingChoices = (id, key) => {
@@ -135,11 +207,14 @@ class App extends Component {
 
 	resetAllOverlay = () => {
 		this.setState({
-			isLoginPageOpen: false,
-			isSignUpPageOpen: false,
-			isHelpPageOpen: false,
-			isSettingsPageOpen: false,
-			isAccountPageOpen: false
+			popupsOpen:
+			{
+				isLoginPageOpen: false,
+				isSignUpPageOpen: false,
+				isHelpPageOpen: false,
+				isSettingsPageOpen: false,
+				isAccountPageOpen: false
+			}
 		});
 	};
 
@@ -245,9 +320,9 @@ class App extends Component {
 	};
 
 	renderLoginOverlay = () => {
-		if (this.state.isLoginPageOpen) {
-			return (<OverlayComponent ref={this.myRef} isOpen={this.state.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<LoginPage handleSignUpButton={this.handleSignUpButton} authenticateUser={this.authenticateUser}></LoginPage>
+		if (this.state.popupsOpen.isLoginPageOpen) {
+			return (<OverlayComponent isOpen={this.state.popupsOpen.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
+				<LoginPage handleSignUpButton={this.handleSignUpButton} isLoginValid={this.state.userInfo.isLoginValid} authenticateUser={this.authenticateUser}></LoginPage>
 			</OverlayComponent>);
 		}
 		else {
@@ -256,8 +331,8 @@ class App extends Component {
 	};
 
 	renderSignupOverlay = () => {
-		if (this.state.isSignUpPageOpen) {
-			return (<OverlayComponent isOpen={this.state.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
+		if (this.state.popupsOpen.isSignUpPageOpen) {
+			return (<OverlayComponent isOpen={this.state.popupsOpen.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
 				<SignUpPage handleLogInButton={this.handleLogInButton} signUpUser={this.signUpUser}></SignUpPage>
 			</OverlayComponent>);
 		}
@@ -267,8 +342,8 @@ class App extends Component {
 	};
 
 	renderHelpOverlay = () => {
-		if (this.state.isHelpPageOpen) {
-			return (<OverlayComponent isOpen={this.state.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
+		if (this.state.popupsOpen.isHelpPageOpen) {
+			return (<OverlayComponent isOpen={this.state.popupsOpen.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
 				<HelpPage></HelpPage>
 			</OverlayComponent>);
 		}
@@ -278,8 +353,8 @@ class App extends Component {
 	};
 
 	renderSettingsOverlay = () => {
-		if (this.state.isSettingsPageOpen) {
-			return (<OverlayComponent isOpen={this.state.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
+		if (this.state.popupsOpen.isSettingsPageOpen) {
+			return (<OverlayComponent isOpen={this.state.popupsOpen.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
 				<SettingsPage></SettingsPage>
 			</OverlayComponent>);
 		}
@@ -289,8 +364,8 @@ class App extends Component {
 	};
 
 	renderAccountOverlay = () => {
-		if (this.state.isAccountPageOpen) {
-			return (<OverlayComponent isOpen={this.state.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
+		if (this.state.popupsOpen.isAccountPageOpen) {
+			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
 				<AccountPage username={this.state.userInfo.username}></AccountPage>
 			</OverlayComponent>);
 		}
@@ -300,7 +375,7 @@ class App extends Component {
 	};
 
 	render() {
-		console.log(this.state);
+		// console.log(this.state);
 
 		return (
 			<Fragment>
