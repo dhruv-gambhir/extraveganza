@@ -24,8 +24,7 @@ Team : Anyhow Anything Anywhere
   - As of now code is using username, in place of email  
   - **Change auth to use only username and password**
 
-- Sign up
-  - If duplicate user, display error message
+[x] Sign up - If duplicate user, display error message
 
 ### Misc
 

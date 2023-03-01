@@ -22,7 +22,7 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <div className={`login-warning ${this.props.isLoginValid ? 'login-warning-invisible' : ''}`}>Invalid username or password</div>
+                            <div className={`login-info ${!this.props.isLoginValid ? 'login-warning' : ''}`}></div>
                         </div>
 
                         <div className='login-element-container'>

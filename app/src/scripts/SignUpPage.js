@@ -7,7 +7,7 @@ export default class SignUpPage extends PageTemplate {
         this.state = {
             usernameInput: '',
             passwordInput: '',
-            reenterPasswordInput: ''
+            reenterPasswordInput: '',
         };
     }
 
@@ -23,7 +23,7 @@ export default class SignUpPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <div className={`login-warning ${this.state.passwordInput === this.state.reenterPasswordInput ? 'login-warning-invisible' : ''}`}>Please ensure reenter password correctly</div>
+                            <div className={`signup-info ${this.state.passwordInput !== this.state.reenterPasswordInput ? 'signup-password-warning' : this.props.isSignupValid ? '' : 'signup-duplicate-warning'}`}></div>
                         </div>
 
                         <div className='login-element-container'>
@@ -31,7 +31,7 @@ export default class SignUpPage extends PageTemplate {
                                 className='login-textbox'
                                 placeholder='Username'
                                 value={this.state.usernameInput}
-                                onChange={evt => this.setState({ usernameInput: evt.target.value })}>
+                                onChange={evt => { this.setState({ usernameInput: evt.target.value }); }}>
                             </input>
                         </div>
 
@@ -64,7 +64,7 @@ export default class SignUpPage extends PageTemplate {
                         </div>
                     </div>
                 </div>
-            </Fragment>
+            </Fragment >
 
         );
     }

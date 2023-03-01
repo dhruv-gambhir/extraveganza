@@ -65,6 +65,7 @@ class App extends Component {
 				username: "",
 				isUserLoggedIn: false,
 				isLoginValid: false,
+				isSignupValid: true,
 			}
 		};
 
@@ -116,6 +117,7 @@ class App extends Component {
 		popupsOpen.isLoginPageOpen = false;
 		popupsOpen.isSignUpPageOpen = true;
 		userInfo.isLoginValid = true;
+		userInfo.isSignupValid = true;
 		this.setState({ popupsOpen: popupsOpen, userInfo: userInfo });
 	};
 
@@ -241,6 +243,7 @@ class App extends Component {
 					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
 					userInfo.username = username;
+					userInfo.isSignupValid = true;
 					this.setState({
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
@@ -251,6 +254,7 @@ class App extends Component {
 				console.log(error.response);
 				userInfo.isUserLoggedIn = false;
 				userInfo.isLoginValid = false;
+				userInfo.isSignupValid = false;
 				this.setState({
 					userInfo: userInfo
 				});
@@ -431,7 +435,7 @@ class App extends Component {
 	renderSignupOverlay = () => {
 		if (this.state.popupsOpen.isSignUpPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SignUpPage handleLogInButton={this.handleLogInButton} signUpUser={this.signUpUser}></SignUpPage>
+				<SignUpPage handleLogInButton={this.handleLogInButton} isSignupValid={this.state.userInfo.isSignupValid} signUpUser={this.signUpUser}></SignUpPage>
 			</OverlayComponent>);
 		}
 		else {
