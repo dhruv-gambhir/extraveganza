@@ -6,7 +6,8 @@ export default class LoginPage extends PageTemplate {
         super(props);
         this.state = {
             usernameInput: '',
-            passwordInput: ''
+            passwordInput: '',
+            isLoginValid: true
         };
     }
 
@@ -22,7 +23,9 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <div className={`login-info ${!this.props.isLoginValid ? 'login-warning' : ''}`}></div>
+                            <div className={`login-info ${!this.state.isLoginValid ? 'login-warning' : ''}`}>
+                                {this.state.isLoginValid ? "Enter username and password" : "Invalid username and password"}
+                            </div>
                         </div>
 
                         <div className='login-element-container'>
@@ -43,11 +46,16 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className="login-element-container">
-                            <div className='forgot-password-label'>Forgot your password?</div>
+                            <button className='forgot-password-label'>Forgot your password?</button>
                         </div>
 
-                        <div className="login-element-container" onClick={() => { this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput); }}>
-                            <div className='login-submit-label'>Login</div>
+                        <div className="login-element-container"
+                            onClick={async () => {
+                                // If log in failed, that means username or password invalid
+                                this.setState({ isLoginValid: await this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput) });
+                            }
+                            }>
+                            <button className='login-submit-label'>Login</button>
                         </div>
 
                         <div className="login-element-container">

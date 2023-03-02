@@ -7,8 +7,9 @@ export default class AccountPage extends PageTemplate {
 			<Fragment>
 
 				<div className='overlay-content'>
-					<div className="overlay-content-header">
-						Hello, {this.props.username}
+					<div className="overlay-content-header account-page-header">
+						<div>Hello, {this.props.username}</div>
+						<div className="login-submit-label account-page-signout" onClick={this.props.signUserOut}>Sign out</div>
 					</div>
 					<div className="overlay-content-body">
 						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, iure. Corrupti voluptatum ad quo totam tempore nostrum. Ipsa dolores quod esse sunt aliquid cupiditate nemo, atque pariatur labore molestiae iure?

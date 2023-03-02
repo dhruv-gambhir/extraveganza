@@ -8,6 +8,7 @@ export default class SignUpPage extends PageTemplate {
             usernameInput: '',
             passwordInput: '',
             reenterPasswordInput: '',
+            isSignupValid: true
         };
     }
 
@@ -23,7 +24,33 @@ export default class SignUpPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <div className={`signup-info ${this.state.passwordInput !== this.state.reenterPasswordInput ? 'signup-password-warning' : this.props.isSignupValid ? '' : 'signup-duplicate-warning'}`}></div>
+                            <div className={`login-info ${((this.state.passwordInput !== this.state.reenterPasswordInput) || !this.state.isSignupValid) ? 'login-warning' : ''}`}>
+                                {/* 
+                                    The logic for the statement below
+                                {
+                                    () => {
+                                        // If password length is not '' and length is < 4 (interim), then show error message
+                                        if (this.state.passwordInput !== '' && this.state.passwordInput.length < 4) {
+                                            return "Password must be more than 3 characters long";
+                                        }
+                                        // If password and reentered password are different, then show error message
+                                        else if (this.state.passwordInput !== this.state.reenterPasswordInput) {
+                                            return "Passwords are not the same";
+                                        }
+                                        // If signup credentials are not valid (duplicate username), then display error message
+                                        else if (!this.state.isSignupValid) {
+                                            return "Sowwy >_< username is already taken";
+                                        }
+                                        // If no errors, then show create account message
+                                        else {
+                                            return "Create a unique username and password";
+                                        }
+                                    }
+                                } */}
+                                {(this.state.passwordInput !== '' && this.state.passwordInput.length < 4) ? "Password must be more than 3 characters long" :
+                                    (this.state.passwordInput !== this.state.reenterPasswordInput) ? "Passwords are not the same" :
+                                        (!this.state.isSignupValid) ? "Sowwy >_< username is already taken" : "Create a unique username and password"}
+                            </div>
                         </div>
 
                         <div className='login-element-container'>
@@ -55,7 +82,12 @@ export default class SignUpPage extends PageTemplate {
                             <div className='forgot-password-label'>Forgot your password?</div>
                         </div>
 
-                        <div className="login-element-container" onClick={() => { if (this.state.passwordInput === this.state.reenterPasswordInput) this.props.signUpUser(this.state.usernameInput, this.state.passwordInput); }}>
+                        <div className="login-element-container"
+                            onClick={async () => {
+                                if (this.state.passwordInput === this.state.reenterPasswordInput && this.passwordInput.length >= 4) {
+                                    this.setState({ isSignupValid: await this.props.signUpUser(this.state.usernameInput, this.state.passwordInput) });
+                                }
+                            }}>
                             <div className='login-submit-label'>Sign up</div>
                         </div>
 

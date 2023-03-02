@@ -1,5 +1,5 @@
 import './App.css';
-import './styles/login.css';
+import './styles/account.css';
 import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
@@ -208,6 +208,7 @@ class App extends Component {
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
+					return true; // Successful log in
 				}
 			})
 			.catch((error) => {
@@ -217,8 +218,8 @@ class App extends Component {
 				this.setState({
 					userInfo: userInfo
 				});
-			})
-			.finally(() => { ; });
+				return false; // Failed to log in (invalid credentials)
+			});
 	};
 
 	/**
@@ -248,6 +249,7 @@ class App extends Component {
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
+					return true; // Successful signup
 				}
 			})
 			.catch((error) => {
@@ -258,8 +260,17 @@ class App extends Component {
 				this.setState({
 					userInfo: userInfo
 				});
+				return false; // Failed to signup (duplicate username)
 			})
 			.finally(() => { ; });
+	};
+
+	signUserOut = () => {
+		this.resetAllOverlay();
+		const userInfo = this.state.userInfo;
+		userInfo.isUserLoggedIn = false;
+		userInfo.username = "no username lol";
+		this.setState({ userInfo: userInfo });
 	};
 
 	/**
@@ -480,7 +491,7 @@ class App extends Component {
 	renderAccountOverlay = () => {
 		if (this.state.popupsOpen.isAccountPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<AccountPage username={this.state.userInfo.username}></AccountPage>
+				<AccountPage username={this.state.userInfo.username} signUserOut={this.signUserOut}></AccountPage>
 			</OverlayComponent>);
 		}
 		else {
