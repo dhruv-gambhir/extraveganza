@@ -3,12 +3,13 @@ import PageTemplate from './PageTemplate';
 
 export default class AccountPage extends PageTemplate {
 	render() {
+		console.log(this.props.user);
 		return (
 			<Fragment>
 
 				<div className='overlay-content'>
 					<div className="overlay-content-header account-page-header">
-						<div>Hello, {this.props.username}</div>
+						<div>Hello, {this.props.user.email}</div>
 						<div className="login-submit-label account-page-signout" onClick={this.props.signUserOut}>Sign out</div>
 					</div>
 					<div className="overlay-content-body">

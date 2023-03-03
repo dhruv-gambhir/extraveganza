@@ -62,7 +62,7 @@ class App extends Component {
 			},
 
 			userInfo: {
-				username: "",
+				user: {},
 				isUserLoggedIn: false,
 				isLoginValid: false,
 				isSignupValid: true,
@@ -70,6 +70,19 @@ class App extends Component {
 		};
 
 		this.myRef = createRef();
+	}
+
+	componentDidMount() {
+		const loggedInUser = localStorage.getItem("loggedInUser");
+
+		if (loggedInUser) {
+			const foundUser = JSON.parse(loggedInUser);
+			const userInfo = this.state.userInfo;
+			userInfo.isUserLoggedIn = true;
+			userInfo.user = foundUser.user;
+			this.setState({ userInfo: userInfo });
+			console.log(this.state.userInfo);
+		}
 	}
 
 	/**
@@ -187,7 +200,7 @@ class App extends Component {
 	 * @param {string} username
 	 * @param {string} password
 	 * 
-	 * If log in is successful, then the login overlay will vanish, else a warning message will be prompted
+	 * @returns true if succesful, else false
 	 */
 	authenticateUser = async (username, password) => {
 		const popupsOpen = this.state.popupsOpen;
@@ -203,11 +216,12 @@ class App extends Component {
 					popupsOpen.isLoginPageOpen = false;
 					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
-					userInfo.username = username;
+					userInfo.user = response.data.user;
 					this.setState({
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
+					localStorage.setItem("loggedInUser", JSON.stringify(response.data));
 					return true; // Successful log in
 				}
 			})
@@ -227,7 +241,7 @@ class App extends Component {
 	 * @param {string} username
 	 * @param {string} password
 	 * 
-	 * If signup is successful, then the signup overlay will vanish, else a warning message will be prompted
+	 * @returns true if succesful, else false
 	 */
 	signUpUser = async (username, password) => {
 		const popupsOpen = this.state.popupsOpen;
@@ -243,12 +257,13 @@ class App extends Component {
 					popupsOpen.isLoginPageOpen = false;
 					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
-					userInfo.username = username;
+					userInfo.user = response.data.user	;
 					userInfo.isSignupValid = true;
 					this.setState({
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
+					localStorage.setItem("loggedInUser", JSON.stringify(response.data));
 					return true; // Successful signup
 				}
 			})
@@ -265,12 +280,16 @@ class App extends Component {
 			.finally(() => { ; });
 	};
 
+	/**
+	 * A function to let the user sign out of their account
+	 */
 	signUserOut = () => {
 		this.resetAllOverlay();
 		const userInfo = this.state.userInfo;
 		userInfo.isUserLoggedIn = false;
-		userInfo.username = "no username lol";
+		userInfo.user = {};
 		this.setState({ userInfo: userInfo });
+		localStorage.clear();
 	};
 
 	/**
@@ -491,7 +510,7 @@ class App extends Component {
 	renderAccountOverlay = () => {
 		if (this.state.popupsOpen.isAccountPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<AccountPage username={this.state.userInfo.username} signUserOut={this.signUserOut}></AccountPage>
+				<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut}></AccountPage>
 			</OverlayComponent>);
 		}
 		else {
