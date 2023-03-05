@@ -4,6 +4,7 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import React, { Component, createRef, Fragment } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
@@ -257,7 +258,7 @@ class App extends Component {
 					popupsOpen.isLoginPageOpen = false;
 					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
-					userInfo.user = response.data.user	;
+					userInfo.user = response.data.user;
 					userInfo.isSignupValid = true;
 					this.setState({
 						popupsOpen: popupsOpen,
@@ -360,17 +361,17 @@ class App extends Component {
 		if (buttons) {
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
-					<div className={`bottom-button ${this.state.appState === AppState.Map ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleMapButton}>
+					<Link className={`bottom-button ${this.state.appState === AppState.Map ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleMapButton} to="/map">
 						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
-					</div>
+					</Link>
 
-					<div className={`bottom-button ${this.state.appState === AppState.List ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleListButton}>
+					<Link className={`bottom-button ${this.state.appState === AppState.List ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleListButton} to='/list'>
 						<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
-					</div>
+					</Link>
 
-					<div className={`bottom-button ${this.state.appState === AppState.Community ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleCommunityButton}>
+					<Link className={`bottom-button ${this.state.appState === AppState.Community ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleCommunityButton} to='/community'>
 						<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
-					</div>
+					</Link>
 				</div>
 			</div>);
 		}
@@ -385,33 +386,31 @@ class App extends Component {
 	 * @returns A React Fragment for the content to be displayed
 	 */
 	renderMiddleContent = () => {
-		switch (this.state.appState) {
-			case AppState.Home:
-				return (
+		return (
+			<Routes>
+				<Route path='/' element={
 					<HomePage
 						handleAccountButton={this.handleAccountButton}
 						handleHelpButton={this.handleHelpButton}
 						handleSettingsButton={this.handleSettingsButton}>
 					</HomePage>
-				);
-			case AppState.List:
-				return (
-					<Fragment>
-						< ListPage
-							handleAccountButton={this.handleAccountButton}
-							handleHelpButton={this.handleHelpButton}
-							handleSettingsButton={this.handleSettingsButton}
+				}>
+				</Route>
+				<Route path='/list' element={
+					< ListPage
+						handleAccountButton={this.handleAccountButton}
+						handleHelpButton={this.handleHelpButton}
+						handleSettingsButton={this.handleSettingsButton}
 
-							listContent={this.state.sortingChoices}
-							resetThenSet={this.resetThenSetSortingChoices}
+						listContent={this.state.sortingChoices}
+						resetThenSet={this.resetThenSetSortingChoices}
 
-							dietaryRestrictions={this.state.dietaryRestrictions}
-							setDietaryRestrictions={this.setDietaryRestrictions} >
-						</ListPage >
-					</Fragment >
-				);
-			case AppState.Map:
-				return (
+						dietaryRestrictions={this.state.dietaryRestrictions}
+						setDietaryRestrictions={this.setDietaryRestrictions} >
+					</ListPage >
+				}>
+				</Route>
+				<Route path='/map' element={
 					<MapPage
 						handleAccountButton={this.handleAccountButton}
 						handleHelpButton={this.handleHelpButton}
@@ -420,27 +419,21 @@ class App extends Component {
 						dietaryRestrictions={this.state.dietaryRestrictions}
 						setDietaryRestrictions={this.setDietaryRestrictions}>
 					</MapPage>
-				);
-			case AppState.Community:
-				return (
+				}>
+				</Route>
+				<Route path='/community' element={
 					<CommunityPage
 						handleAccountButton={this.handleAccountButton}
 						handleHelpButton={this.handleHelpButton}
 						handleSettingsButton={this.handleSettingsButton}
 
 						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions}
-					>
-					</CommunityPage>);
-			default:
-				return (
-					<MapPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}>
-					</MapPage>
-				);
-		}
+						setDietaryRestrictions={this.setDietaryRestrictions}>
+					</CommunityPage>
+				}>
+				</Route>
+			</Routes>
+		);
 	};
 
 	/**
@@ -524,6 +517,7 @@ class App extends Component {
 		return (
 			<Fragment>
 				{this.renderHeader()}
+
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
 
