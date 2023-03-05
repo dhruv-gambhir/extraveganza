@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import DietaryRestrictionsSidebar from "./DietaryRestrictionsSidebar";
 import PageTemplate from "./PageTemplate";
+import Map from './Map.js';
 
 export default class MapPage extends PageTemplate {
     render() {
@@ -34,6 +35,7 @@ export default class MapPage extends PageTemplate {
                         </div>
 
                         <div className="main-content-container">
+                            <Map/>
                             Hey Google, take me to some vegatarian cafe
                         </div>
                     </div>
