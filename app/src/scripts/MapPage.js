@@ -34,12 +34,8 @@ export default class MapPage extends PageTemplate {
                         </div>
 
                         <div className="main-content-container">
-<<<<<<< Updated upstream
-                            Hey Google, take me to some vegatarian cafe
-=======
                             <Map/>
                             {/*Hey Google, take me to some vegatarian cafe*/}
->>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
