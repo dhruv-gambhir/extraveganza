@@ -4,7 +4,7 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import React, { Component, createRef, Fragment } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
@@ -23,13 +23,9 @@ import AccountPage from './scripts/AccountPage/AccountPage';
  * States for app
 */
 const AppState = {
-	Login: 1,
-	Help: 2,
-	Settings: 3,
 	Map: 4,
 	List: 5,
 	Community: 6,
-	SignUp: 7,
 	Home: 69
 };
 
@@ -53,6 +49,7 @@ class App extends Component {
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
 			sortingChoice: 'A - Z',
+			location: '',
 
 			popupsOpen: {
 				isAccountPageOpen: false,
@@ -392,17 +389,18 @@ class App extends Component {
 	 */
 	renderFooter(buttons = true) {
 		if (buttons) {
+			const location = window.location.href.split('/').pop();
 			return (<div className="bottom-container">
 				<div className="bottom-button-container">
-					<Link className={`bottom-button ${this.state.appState === AppState.Map ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleMapButton} to="/map">
+					<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleMapButton} to="/map">
 						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
 					</Link>
 
-					<Link className={`bottom-button ${this.state.appState === AppState.List ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleListButton} to='/list'>
+					<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleListButton} to='/list'>
 						<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
 					</Link>
 
-					<Link className={`bottom-button ${this.state.appState === AppState.Community ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleCommunityButton} to='/community'>
+					<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleCommunityButton} to='/community'>
 						<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
 					</Link>
 				</div>
@@ -422,11 +420,7 @@ class App extends Component {
 		return (
 			<Routes>
 				<Route path='/' element={
-					<HomePage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}>
-					</HomePage>
+					<Navigate to={"/map"} />
 				}>
 				</Route>
 				<Route path='/list' element={
