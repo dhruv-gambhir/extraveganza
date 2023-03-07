@@ -4,7 +4,7 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import React, { Component, createRef, Fragment } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
@@ -17,7 +17,7 @@ import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import HomePage from './scripts/HomePage';
 import OverlayComponent from './scripts/OverlayComponent';
-import AccountPage from './scripts/AccountPage';
+import AccountPage from './scripts/AccountPage/AccountPage';
 
 /** 
  * States for app
@@ -40,7 +40,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			appState: AppState.List,
+			appState: AppState.Home,
 			dietaryRestrictions: [
 				{ id: 0, title: 'vegan', selected: false, key: 'diet', imagePath: 'images/vegan.png' },
 				{ id: 1, title: 'vegetarian', selected: false, key: 'diet', imagePath: 'images/vegetarian.png' },
@@ -82,7 +82,6 @@ class App extends Component {
 			userInfo.isUserLoggedIn = true;
 			userInfo.user = foundUser.user;
 			this.setState({ userInfo: userInfo });
-			console.log(this.state.userInfo);
 		}
 	}
 
@@ -279,6 +278,40 @@ class App extends Component {
 				return false; // Failed to signup (duplicate username)
 			})
 			.finally(() => { ; });
+	};
+
+	/**
+	 * A function to update the user info
+	 * @param {string} username
+	 * @param {string} password
+	 * 
+	 * @returns true if succesful, else false
+	 */
+	updateUser = async (username, newUsername) => {
+		const popupsOpen = this.state.popupsOpen;
+		const userInfo = this.state.userInfo;
+
+		await axios.post('http://localhost:2006/auth/update/', {
+			email: username,
+			newUsername: newUsername
+		})
+			.then((response) => {
+				if (response.status === 201) {
+					localStorage.clear();
+					popupsOpen.isAccountPageOpen = false;
+					userInfo.user = response.data;
+					this.setState({
+						popupsOpen: popupsOpen,
+						userInfo: userInfo
+					});
+					localStorage.setItem("loggedInUser", JSON.stringify(response));
+					return true; // Successful log in
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+				return false; // Failed to log in (invalid credentials)
+			});
 	};
 
 	/**
@@ -503,7 +536,7 @@ class App extends Component {
 	renderAccountOverlay = () => {
 		if (this.state.popupsOpen.isAccountPageOpen) {
 			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut}></AccountPage>
+				<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser}></AccountPage>
 			</OverlayComponent>);
 		}
 		else {
@@ -512,8 +545,6 @@ class App extends Component {
 	};
 
 	render() {
-		// console.log(this.state);
-
 		return (
 			<Fragment>
 				{this.renderHeader()}

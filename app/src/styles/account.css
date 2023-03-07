@@ -154,3 +154,45 @@
     color: white;
     background-color: var(--more-green);
 }
+
+.account-page-content {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+.account-page-element {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.account-setting-label {
+    width: 70%;
+    margin: 2.5%;
+}
+
+.account-setting-option {
+    width: 25%;
+    margin: 2.5%;
+    padding-right: 10px;
+}
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--more-green);
+    border-radius: 6px;
+}

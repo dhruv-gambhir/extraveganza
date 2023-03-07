@@ -15,11 +15,11 @@ export const register = async (req, res) => {
 			location,
 			occupation,
 		} = req.body;
-		
+
 		// encrypt password 
 		const salt = await bcrypt.genSalt();
 		const passwordHash = await bcrypt.hash(password, salt);
-		
+
 		const newUser = new User({
 			firstName,
 			lastName,
@@ -54,6 +54,21 @@ export const login = async (req, res) => {
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 		delete user.password; // not send to FE
 		res.status(200).json({ token, user });
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+
+export const update = async (req, res) => {
+	try {
+		const { email, newUsername } = req.body;
+		const user = await User.findOne({ email: email });
+		if (!user) return res.status(400).json({ msg: "User does not exist. " });
+		user.email = newUsername;
+		const savedUser = await user.save();
+
+		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+		res.status(201).json({ token, savedUser });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
