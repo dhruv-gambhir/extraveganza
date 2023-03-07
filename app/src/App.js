@@ -19,16 +19,6 @@ import HomePage from './scripts/HomePage';
 import OverlayComponent from './scripts/OverlayComponent';
 import AccountPage from './scripts/AccountPage/AccountPage';
 
-/** 
- * States for app
-*/
-const AppState = {
-	Map: 4,
-	List: 5,
-	Community: 6,
-	Home: 69
-};
-
 /**
  * App class 
  */
@@ -36,7 +26,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			appState: AppState.Home,
 			dietaryRestrictions: [
 				{ id: 0, title: 'vegan', selected: false, key: 'diet', imagePath: 'images/vegan.png' },
 				{ id: 1, title: 'vegetarian', selected: false, key: 'diet', imagePath: 'images/vegetarian.png' },
@@ -49,7 +38,6 @@ class App extends Component {
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
 			sortingChoice: 'A - Z',
-			location: '',
 
 			popupsOpen: {
 				isAccountPageOpen: false,
@@ -81,16 +69,6 @@ class App extends Component {
 			this.setState({ userInfo: userInfo });
 		}
 	}
-
-	/**
-	 * @deprecated
-	 * A function to handle the home page button
-	 * 
-	 * This will open the home page
-	 */
-	handleHomePageButton = () => {
-		this.setState({ appState: AppState.Home });
-	};
 
 	/**
 	 * A function to handle the account button
@@ -163,33 +141,6 @@ class App extends Component {
 		const popupsOpen = this.state.popupsOpen;
 		popupsOpen.isSettingsPageOpen = true;
 		this.setState({ popupsOpen: popupsOpen });
-	};
-
-	/**
-	 * A function to handle the footer map button
-	 * 
-	 * This will direct user to the map page
-	 */
-	handleMapButton = () => {
-		this.setState({ appState: AppState.Map });
-	};
-
-	/**
-	 * A function to handle the footer list button
-	 * 
-	 * This will direct user to the list page
-	 */
-	handleListButton = () => {
-		this.setState({ appState: AppState.List });
-	};
-
-	/**
-	 * A function to handle the footer community button
-	 * 
-	 * This will direct user to the community page
-	 */
-	handleCommunityButton = () => {
-		this.setState({ appState: AppState.Community });
 	};
 
 	/**
@@ -384,32 +335,27 @@ class App extends Component {
 
 	/**
 	 * A helper function to render the footer
-	 * @param {boolean} buttons A boolean for rendering the buttons
 	 * @returns An HTML div for the footer
 	 */
-	renderFooter(buttons = true) {
-		if (buttons) {
-			const location = window.location.href.split('/').pop();
-			return (<div className="bottom-container">
-				<div className="bottom-button-container">
-					<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleMapButton} to="/map">
-						<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
-					</Link>
+	renderFooter() {
+		const location = window.location.href.split('/').pop();
+		// the empty set state on click is to make sure this footer thing is rerendered
+		return (<div className="bottom-container">
+			<div className="bottom-button-container">
+				<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => this.setState({})}>
+					<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
+				</Link>
 
-					<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleListButton} to='/list'>
-						<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
-					</Link>
+				<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/list' onClick={() => this.setState({})}>
+					<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
+				</Link>
 
-					<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} onClick={this.handleCommunityButton} to='/community'>
-						<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
-					</Link>
-				</div>
-			</div>);
-		}
-		else {
-			return (<div className="bottom-container">
-			</div>);
-		}
+				<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/community' onClick={() => this.setState({})}>
+					<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
+				</Link>
+			</div>
+		</div>);
+
 	}
 
 	/**
