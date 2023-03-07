@@ -37,8 +37,7 @@ export default class MapPage extends PageTemplate {
                         <div className="main-content-container">
                             <Map/>
                             {/*Hey Google, take me to some vegatarian cafe*/}
-                            <Map/>
-                            Hey Google, take me to some vegatarian cafe
+                         
                         </div>
                     </div>
                 </div>
