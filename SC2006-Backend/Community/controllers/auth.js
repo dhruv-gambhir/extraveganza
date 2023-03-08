@@ -47,8 +47,8 @@ export const register = async (req, res) => {
 /* LOGGING IN */
 export const login = async (req, res) => {
 	try {
-		const { email, password } = req.body;
-		const user = await User.findOne({ email: email }); // use mongoose to find email
+		const { username, password } = req.body;
+		const user = await User.findOne({ username: username });  // use mongoose to find username
 		if (!user) return res.status(400).json({ msg: "User does not exist. " });
 
 		const isMatch = await bcrypt.compare(password, user.password);
@@ -64,8 +64,8 @@ export const login = async (req, res) => {
 
 export const update = async (req, res) => {
 	try {
-		const { email, newUsername } = req.body;
-		const user = await User.findOne({ email: email });
+		const { username, newUsername } = req.body;
+		const user = await User.findOne({ username: username });
 		if (!user) return res.status(400).json({ msg: "User does not exist. " });
 		user.email = newUsername;
 		const savedUser = await user.save();

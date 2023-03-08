@@ -16,13 +16,13 @@ Team : Anyhow Anything Anywhere
 
 ### To change
 
-- Change database save format
+- Change database save format [Done, removed firstname, lastname, location and email] 
   - first name last name not necessary
   - only save necessary info
   
-- Authentication using username and password
+- Authentication using username and password [Done, pls check]
   - As of now code is using username, in place of email  
-  - **Change auth to use only username and password**
+  - **Change auth to use only username and password** 
 
 [x] Sign up - If duplicate user, display error message
 
