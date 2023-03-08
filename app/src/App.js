@@ -333,7 +333,7 @@ class App extends Component {
 	}
 
 	/**
-	 * A helper function that renders the content of the page based on the state of the app
+	 * A helper function that renders the content of the page based
 	 * @returns A React Fragment for the content to be displayed
 	 */
 	renderMiddleContent = () => {
@@ -383,6 +383,10 @@ class App extends Component {
 		);
 	};
 
+	/**
+	 * A helper function that renders the overlay of the app
+	 * @returns A React Fragment for the content to be displayed
+	 */
 	renderOverlays = () => {
 		switch (this.state.overlayOpened) {
 			case this.OverlayType.AccountOverlay:

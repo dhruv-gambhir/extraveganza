@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { createRef, Fragment } from "react";
 import PageTemplate from "./PageTemplate";
 
 export default class LoginPage extends PageTemplate {
@@ -9,7 +9,13 @@ export default class LoginPage extends PageTemplate {
             passwordInput: '',
             isLoginValid: true
         };
+        this.passwordRef = createRef();
     }
+
+    authenticateUser = async () => {
+        // If log in failed, that means username or password invalid
+        this.setState({ isLoginValid: await this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput) });
+    };
 
     render() {
         return (
@@ -33,16 +39,21 @@ export default class LoginPage extends PageTemplate {
                                 className='login-textbox'
                                 placeholder='Username'
                                 value={this.state.usernameInput}
-                                onChange={evt => this.setState({ usernameInput: evt.target.value })}>
-                            </input>
+                                onChange={evt => this.setState({ usernameInput: evt.target.value })}
+                                onKeyDown={(evt) => {
+                                    if (evt.key === 'Enter') {this.passwordRef.current.focus(); };
+                                }} />
                         </div>
 
                         <div className='login-element-container'>
                             <input type={'password'}
+                                ref={this.passwordRef}
                                 className='login-textbox'
                                 placeholder='Password' value={this.state.passwordInput}
-                                onChange={evt => this.setState({ passwordInput: evt.target.value })}>
-                            </input>
+                                onChange={evt => this.setState({ passwordInput: evt.target.value })}
+                                onKeyDown={(evt) => {
+                                    if (evt.key === 'Enter') { this.authenticateUser() };
+                                }} />
                         </div>
 
                         <div className="login-element-container">
@@ -50,23 +61,13 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className="login-element-container"
-                            onClick={async () => {
-                                // If log in failed, that means username or password invalid
-                                this.setState({ isLoginValid: await this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput) });
-                            }
-                            }>
+                            onClick={this.authenticateUser}>
                             <button className='login-submit-label'>Login</button>
                         </div>
 
                         <div className="login-element-container">
                             <div className='sign-up-label' onClick={this.props.handleSignUpButton}>Don't have an account? Sign up now!</div>
                         </div>
-
-                        {/* <div className='login-bottom-container'>
-                            <div className='sign-up-label' onClick={this.props.handleSignUpButton}>Don't have an account? Sign up now!</div>
-                            <div className='forgot-password-label'>Forgot password?</div>
-                            <div className='login-submit-container'>→</div>
-                        </div> */}
                     </div>
                 </div>
             </Fragment>);
