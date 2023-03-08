@@ -187,12 +187,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: lightgray;
+    background: var(--less-green);
     border-radius: 6px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: var(--more-green);
+    background: lightgray;
     border-radius: 6px;
 }

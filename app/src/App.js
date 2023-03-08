@@ -169,7 +169,7 @@ class App extends Component {
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
 					return true; // Successful log in
 				}
 			})
@@ -211,7 +211,7 @@ class App extends Component {
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
 					return true; // Successful signup
 				}
 			})
@@ -235,24 +235,24 @@ class App extends Component {
 	 * 
 	 * @returns true if succesful, else false
 	 */
-	updateUser = async (username, newUsername) => {
+	updateUser = async (newUsername) => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/update/', {
-			username: username,
+			username: this.state.userInfo.user.username,
 			newUsername: newUsername
 		})
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.clear();
 					popupsOpen.isAccountPageOpen = false;
-					userInfo.user = response.data;
+					userInfo.user = response.data.user;
 					this.setState({
 						popupsOpen: popupsOpen,
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response));
+					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
 					return true; // Successful log in
 				}
 			})

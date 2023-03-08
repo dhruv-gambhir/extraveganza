@@ -15,7 +15,8 @@ export default class AccountPage extends PageTemplate {
 
 				<div className='overlay-content'>
 					<div className="overlay-content-header account-page-header">
-						<div>Hello, {this.props.user.email}</div>
+						{/* {console.log(this.props)} */}
+						<div>Hello, {this.props.user.username}</div>
 						<div className="login-submit-label account-page-signout" onClick={this.props.signUserOut}>Sign out</div>
 					</div>
 					<div className="overlay-content-body">
@@ -89,7 +90,7 @@ export default class AccountPage extends PageTemplate {
 
 						<div>
 							{/* checking whether can update username */}
-							<button onClick={() => { this.props.updateUser(this.props.user.email, this.state.newUsername); }}>save</button>
+							<button onClick={() => { this.props.updateUser(this.state.newUsername); }}>save</button>
 						</div>
 					</div>
 				</div>
