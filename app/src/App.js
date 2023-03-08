@@ -155,7 +155,7 @@ class App extends Component {
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/login/', {
-			email: username,
+			username: username,
 			password: password
 
 		})
@@ -191,14 +191,14 @@ class App extends Component {
 	 * 
 	 * @returns true if succesful, else false
 	 */
-	signUpUser = async (username, password) => {
+	signUpUser = async (username, email, password) => {
 		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/register/', {
-			email: username,
+			username: username,
+			email: email,
 			password: password
-
 		})
 			.then((response) => {
 				if (response.status === 201) {
@@ -240,7 +240,7 @@ class App extends Component {
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/update/', {
-			email: username,
+			username: username,
 			newUsername: newUsername
 		})
 			.then((response) => {

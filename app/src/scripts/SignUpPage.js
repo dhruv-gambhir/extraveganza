@@ -6,6 +6,7 @@ export default class SignUpPage extends PageTemplate {
         super(props);
         this.state = {
             usernameInput: '',
+            emailInput: '',
             passwordInput: '',
             reenterPasswordInput: '',
             isSignupValid: true
@@ -63,6 +64,15 @@ export default class SignUpPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
+                            <input type={'text'}
+                                className='login-textbox'
+                                placeholder='Email'
+                                value={this.state.emailInput}
+                                onChange={evt => { this.setState({ emailInput: evt.target.value }); }}>
+                            </input>
+                        </div>
+
+                        <div className='login-element-container'>
                             <input type={'password'}
                                 className='login-textbox'
                                 placeholder='Password' value={this.state.passwordInput}
@@ -84,8 +94,8 @@ export default class SignUpPage extends PageTemplate {
 
                         <div className="login-element-container"
                             onClick={async () => {
-                                if (this.state.passwordInput === this.state.reenterPasswordInput && this.passwordInput.length >= 4) {
-                                    this.setState({ isSignupValid: await this.props.signUpUser(this.state.usernameInput, this.state.passwordInput) });
+                                if (this.state.passwordInput === this.state.reenterPasswordInput && this.state.passwordInput.length >= 4) {
+                                    this.setState({ isSignupValid: await this.props.signUpUser(this.state.usernameInput, this.state.emailInput, this.state.passwordInput) });
                                 }
                             }}>
                             <div className='login-submit-label'>Sign up</div>
