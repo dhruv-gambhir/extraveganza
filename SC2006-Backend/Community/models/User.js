@@ -2,15 +2,10 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: {
+
+    username:{
       type: String,
-      required: false,
-      min: 2,
-      max: 50,
-    },
-    lastName: {
-      type: String,
-      required: false,
+      required: true,
       min: 2,
       max: 50,
     },
@@ -33,8 +28,8 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    location: String,
-    occupation: String,
+    //location: String,
+    //occupation: String,
     viewedProfile: Number,
     impressions: Number,
   },
