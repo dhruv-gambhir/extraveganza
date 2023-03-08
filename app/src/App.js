@@ -8,15 +8,14 @@ import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
-import MapPage from './scripts/MapPage';
+import MapPage from './scripts/MapPage/MapPage';
 import ListPage from './scripts/ListPage';
 import CommunityPage from './scripts/CommunityPage';
 import LoginPage from './scripts/LoginPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
-import HomePage from './scripts/HomePage';
-import OverlayComponent from './scripts/OverlayComponent';
+import OverlayComponent from './scripts/Utils/OverlayComponent';
 import AccountPage from './scripts/AccountPage/AccountPage';
 
 /**
@@ -68,7 +67,7 @@ class App extends Component {
 			const foundUser = JSON.parse(loggedInUser);
 			const userInfo = this.state.userInfo;
 			userInfo.isUserLoggedIn = true;
-			userInfo.user = foundUser.user;
+			userInfo.user = foundUser;
 			this.setState({ userInfo: userInfo });
 		}
 	}
@@ -194,7 +193,7 @@ class App extends Component {
 						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
 					return true; // Successful signup
 				}
 			})
@@ -218,22 +217,20 @@ class App extends Component {
 	 * 
 	 * @returns true if succesful, else false
 	 */
-	updateUser = async (newUsername) => {
+	updateUser = async (newInfo) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/auth/update/', {
-			username: this.state.userInfo.user.username,
-			newUsername: newUsername
-		})
+		await axios.post('http://localhost:2006/auth/update/', newInfo)
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.clear();
+					console.log(response.data)
 					userInfo.user = response.data.user;
 					this.setState({
 						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
 					return true; // Successful log in
 				}
 			})

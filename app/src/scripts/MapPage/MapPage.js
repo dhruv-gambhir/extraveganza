@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import DietaryRestrictionsSidebar from "./DietaryRestrictionsSidebar";
-import PageTemplate from "./PageTemplate";
+import DietaryRestrictionsSidebar from "../Utils/DietaryRestrictionsSidebar";
+import PageTemplate from "../PageTemplate";
 import Map from './Map.js';
 
 export default class MapPage extends PageTemplate {

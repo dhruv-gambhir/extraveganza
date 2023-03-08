@@ -21,7 +21,7 @@ export const register = async (req, res) => {
 		const salt = await bcrypt.genSalt();
 		const passwordHash = await bcrypt.hash(password, salt);
 
-		const newUser = new User({
+		const user = new User({
 			// username instead of F&L 
 			// firstName,
 			// lastName,
@@ -35,12 +35,12 @@ export const register = async (req, res) => {
 			viewedProfile: Math.floor(Math.random() * 10000),
 			impressions: Math.floor(Math.random() * 10000),
 		});
-		const savedUser = await newUser.save();
+		const savedUser = await user.save();
 
 		/* F-B */
 		const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
 		delete user.password; // not send to FE
-		res.status(201).json({ token, savedUser }); //201 -> something has been created
+		res.status(201).json({ token, user }); //201 -> something has been created
 
 	} catch (err) {
 		res.status(500).json({ error: err.message }); //error from mongo DB
@@ -67,15 +67,21 @@ export const login = async (req, res) => {
 
 export const update = async (req, res) => {
 	try {
-		const { username, newUsername } = req.body;
+		const { username, newUsername, newEmail, newPassword } = req.body;
 		const user = await User.findOne({ username: username });
 		if (!user) return res.status(400).json({ msg: "User does not exist. " });
 		user.username = newUsername;
+		user.email = newEmail;
+		if (newPassword) {
+			const salt = await bcrypt.genSalt();
+			user.password = await bcrypt.hash(newPassword, salt);
+		}
+
 		const savedUser = await user.save();
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 		delete user.password;
-		res.status(201).json({ token, savedUser });
+		res.status(201).json({ token, user });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}

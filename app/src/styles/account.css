@@ -180,6 +180,16 @@
     padding-right: 10px;
 }
 
+.account-setting-option-textbox {
+    padding-left: 10px;
+    padding: 2% 10px 2% 15px;
+    width: 30%;
+    height: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: transparent;
+}
+
 /* Designing for scroll-bar */
 ::-webkit-scrollbar {
     width: 10px;

@@ -5,14 +5,16 @@ import AccountSettingComponent from "./AccountSettingComponent";
 export default class AccountPage extends PageTemplate {
 	constructor(props) {
 		super(props);
+		console.log(this.props)
 		this.state = {
-			newUsername: ""
+			newUsername: this.props.user.username,
+			newEmail: this.props.user.email,
+			newPassword: ""
 		};
 	}
 	render() {
 		return (
 			<Fragment>
-
 				<div className='overlay-content'>
 					<div className="overlay-content-header account-page-header">
 						{/* {console.log(this.props)} */}
@@ -23,18 +25,37 @@ export default class AccountPage extends PageTemplate {
 						<div className="account-page-content">
 							<AccountSettingComponent>
 								<div className="account-setting-label">
-									new username
+									Change username
 								</div>
-								<input className="acccount-setting-options"
+								<input className="account-setting-option-textbox"
 									value={this.state.newUsername}
 									onChange={evt => this.setState({ newUsername: evt.target.value })}>
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
 								<div className="account-setting-label">
+									Change email
+								</div>
+								<input className="account-setting-option-textbox"
+									value={this.state.newEmail}
+									onChange={evt => this.setState({ newEmail: evt.target.value })}>
+								</input>
+							</AccountSettingComponent>
+							<AccountSettingComponent>
+								<div className="account-setting-label">
+									Change password
+								</div>
+								<input className="account-setting-option-textbox"
+									type={"password"}
+									value={this.state.newPassword}
+									onChange={evt => this.setState({ newPassword: evt.target.value })}>
+								</input>
+							</AccountSettingComponent>
+							<AccountSettingComponent>
+								<div className="account-setting-label">
 									account setting
 								</div>
-								<div className="acccount-setting-options">
+								<div className="account-setting-option">
 									options
 								</div>
 							</AccountSettingComponent>
@@ -42,7 +63,7 @@ export default class AccountPage extends PageTemplate {
 								<div className="account-setting-label">
 									account setting
 								</div>
-								<div className="acccount-setting-options">
+								<div className="account-setting-option">
 									options
 								</div>
 							</AccountSettingComponent>
@@ -50,7 +71,7 @@ export default class AccountPage extends PageTemplate {
 								<div className="account-setting-label">
 									account setting
 								</div>
-								<div className="acccount-setting-options">
+								<div className="account-setting-option">
 									options
 								</div>
 							</AccountSettingComponent>
@@ -58,7 +79,7 @@ export default class AccountPage extends PageTemplate {
 								<div className="account-setting-label">
 									account setting
 								</div>
-								<div className="acccount-setting-options">
+								<div className="account-setting-option">
 									options
 								</div>
 							</AccountSettingComponent>
@@ -66,23 +87,7 @@ export default class AccountPage extends PageTemplate {
 								<div className="account-setting-label">
 									account setting
 								</div>
-								<div className="acccount-setting-options">
-									options
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="acccount-setting-options">
-									options
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="acccount-setting-options">
+								<div className="account-setting-option">
 									options
 								</div>
 							</AccountSettingComponent>
@@ -90,7 +95,17 @@ export default class AccountPage extends PageTemplate {
 
 						<div>
 							{/* checking whether can update username */}
-							<button onClick={() => { this.props.updateUser(this.state.newUsername); }}>save</button>
+							<button onClick={() => {
+								var newInfo = {
+									username: this.props.user.username,
+									newUsername: this.state.newUsername,
+									newEmail: this.state.newEmail
+								};
+								if (this.state.newPassword.length >= 4) {
+									newInfo['newPassword'] = this.state.newPassword;
+								}
+								this.props.updateUser(newInfo);
+							}}>save</button>
 						</div>
 					</div>
 				</div>

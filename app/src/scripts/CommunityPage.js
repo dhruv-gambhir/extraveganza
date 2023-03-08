@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import DietaryRestrictionsSidebar from "./DietaryRestrictionsSidebar";
+import DietaryRestrictionsSidebar from "./Utils/DietaryRestrictionsSidebar";
 import PageTemplate from "./PageTemplate";
 
 export default class CommunityPage extends PageTemplate {
