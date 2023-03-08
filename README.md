@@ -16,7 +16,7 @@ Team : Anyhow Anything Anywhere
 
 ### To change
 
-- Change database save format
+- Change database save format [Done, removed firstname, lastname, location and email] 
   - first name last name not necessary
   - only save necessary info
   
