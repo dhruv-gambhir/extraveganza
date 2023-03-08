@@ -23,6 +23,15 @@ import AccountPage from './scripts/AccountPage/AccountPage';
  * App class 
  */
 class App extends Component {
+	OverlayType = {
+		AccountOverlay: 1,
+		LoginOverlay: 2,
+		SignUpOverlay: 3,
+		HelpOverlay: 4,
+		SettingsOverlay: 5,
+		None: 6969,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -39,13 +48,7 @@ class App extends Component {
 			],
 			sortingChoice: 'A - Z',
 
-			popupsOpen: {
-				isAccountPageOpen: false,
-				isLoginPageOpen: false,
-				isSignUpPageOpen: false,
-				isHelpPageOpen: false,
-				isSettingsPageOpen: false,
-			},
+			overlayOpened: this.OverlayType.None,
 
 			userInfo: {
 				user: {},
@@ -77,20 +80,16 @@ class App extends Component {
 	 * Else, this will open the account management overlay
 	 */
 	handleAccountButton = () => {
-		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 		if (!this.state.userInfo.isUserLoggedIn) {
-			popupsOpen.isLoginPageOpen = true;
-			popupsOpen.isSignUpPageOpen = false;
 			userInfo.isLoginValid = true;
 			this.setState({
-				popupsOpen: popupsOpen,
+				overlayOpened: this.OverlayType.LoginOverlay,
 				userInfo: userInfo
 			});
 		}
 		else {
-			popupsOpen.isAccountPageOpen = true;
-			this.setState({ popupsOpen: popupsOpen });
+			this.setState({ overlayOpened: this.OverlayType.AccountOverlay });
 		}
 	};
 
@@ -100,13 +99,10 @@ class App extends Component {
 	 * This will open the signup overlay
 	 */
 	handleSignUpButton = () => {
-		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
-		popupsOpen.isLoginPageOpen = false;
-		popupsOpen.isSignUpPageOpen = true;
 		userInfo.isLoginValid = true;
 		userInfo.isSignupValid = true;
-		this.setState({ popupsOpen: popupsOpen, userInfo: userInfo });
+		this.setState({ overlayOpened: this.OverlayType.SignUpOverlay, userInfo: userInfo });
 	};
 
 	/**
@@ -115,10 +111,7 @@ class App extends Component {
 	 * This will open the login overlay
 	 */
 	handleLogInButton = () => {
-		const popupsOpen = this.state.popupsOpen;
-		popupsOpen.isLoginPageOpen = true;
-		popupsOpen.isSignUpPageOpen = false;
-		this.setState({ popupsOpen: popupsOpen });
+		this.setState({ overlayOpened: this.OverlayType.LoginOverlay });
 	};
 
 	/**
@@ -127,9 +120,7 @@ class App extends Component {
 	 * This will open the help overlay
 	 */
 	handleHelpButton = () => {
-		const popupsOpen = this.state.popupsOpen;
-		popupsOpen.isHelpPageOpen = true;
-		this.setState({ popupsOpen: popupsOpen });
+		this.setState({ overlayOpened: this.OverlayType.HelpOverlay });
 	};
 
 	/**
@@ -138,9 +129,7 @@ class App extends Component {
 	 * This will open the settings overlay
 	 */
 	handleSettingsButton = () => {
-		const popupsOpen = this.state.popupsOpen;
-		popupsOpen.isSettingsPageOpen = true;
-		this.setState({ popupsOpen: popupsOpen });
+		this.setState({ overlayOpened: this.OverlayType.SettingsOverlay });
 	};
 
 	/**
@@ -151,7 +140,6 @@ class App extends Component {
 	 * @returns true if succesful, else false
 	 */
 	authenticateUser = async (username, password) => {
-		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/login/', {
@@ -161,12 +149,10 @@ class App extends Component {
 		})
 			.then((response) => {
 				if (response.status === 200) {
-					popupsOpen.isLoginPageOpen = false;
-					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
 					userInfo.user = response.data.user;
 					this.setState({
-						popupsOpen: popupsOpen,
+						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
@@ -192,7 +178,6 @@ class App extends Component {
 	 * @returns true if succesful, else false
 	 */
 	signUpUser = async (username, email, password) => {
-		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/register/', {
@@ -202,13 +187,11 @@ class App extends Component {
 		})
 			.then((response) => {
 				if (response.status === 201) {
-					popupsOpen.isLoginPageOpen = false;
-					popupsOpen.isSignUpPageOpen = false;
 					userInfo.isUserLoggedIn = true;
 					userInfo.user = response.data.user;
 					userInfo.isSignupValid = true;
 					this.setState({
-						popupsOpen: popupsOpen,
+						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
@@ -236,7 +219,6 @@ class App extends Component {
 	 * @returns true if succesful, else false
 	 */
 	updateUser = async (newUsername) => {
-		const popupsOpen = this.state.popupsOpen;
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/update/', {
@@ -246,10 +228,9 @@ class App extends Component {
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.clear();
-					popupsOpen.isAccountPageOpen = false;
 					userInfo.user = response.data.user;
 					this.setState({
-						popupsOpen: popupsOpen,
+						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
@@ -295,14 +276,7 @@ class App extends Component {
 	 */
 	resetAllOverlay = () => {
 		this.setState({
-			popupsOpen:
-			{
-				isLoginPageOpen: false,
-				isSignUpPageOpen: false,
-				isHelpPageOpen: false,
-				isSettingsPageOpen: false,
-				isAccountPageOpen: false
-			}
+			overlayOpened: this.OverlayType.None
 		});
 	};
 
@@ -327,7 +301,7 @@ class App extends Component {
 	 */
 	renderHeader() {
 		return (<div className="top-container">
-			<div className="top-title" onClick={this.handleHomePageButton}><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
+			<div className="top-title" ><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
 				style={{ color: "black" }} >ZA</span>
 			</div>
 		</div>);
@@ -409,78 +383,35 @@ class App extends Component {
 		);
 	};
 
-	/**
-	 * A helper function that renders the login overlay
-	 * @returns An overlay component for the login page
-	 */
-	renderLoginOverlay = () => {
-		if (this.state.popupsOpen.isLoginPageOpen) {
-			return (<OverlayComponent isOpen={this.state.popupsOpen.isLoginPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<LoginPage handleSignUpButton={this.handleSignUpButton} isLoginValid={this.state.userInfo.isLoginValid} authenticateUser={this.authenticateUser}></LoginPage>
-			</OverlayComponent>);
-		}
-		else {
-			return;
-		}
-	};
-
-	/**
-	 * A helper function that renders the signup overlay
-	 * @returns An overlay component for the signup page
-	 */
-	renderSignupOverlay = () => {
-		if (this.state.popupsOpen.isSignUpPageOpen) {
-			return (<OverlayComponent isOpen={this.state.popupsOpen.isSignUpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SignUpPage handleLogInButton={this.handleLogInButton} isSignupValid={this.state.userInfo.isSignupValid} signUpUser={this.signUpUser}></SignUpPage>
-			</OverlayComponent>);
-		}
-		else {
-			return;
-		}
-	};
-
-	/**
-	 * A helper function that renders the help overlay
-	 * @returns An overlay component for the help page
-	 */
-	renderHelpOverlay = () => {
-		if (this.state.popupsOpen.isHelpPageOpen) {
-			return (<OverlayComponent isOpen={this.state.popupsOpen.isHelpPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<HelpPage></HelpPage>
-			</OverlayComponent>);
-		}
-		else {
-			return;
-		}
-	};
-
-	/**
-	 * A helper function that renders the settings overlay
-	 * @returns An overlay component for the settings page
-	 */
-	renderSettingsOverlay = () => {
-		if (this.state.popupsOpen.isSettingsPageOpen) {
-			return (<OverlayComponent isOpen={this.state.popupsOpen.isSettingsPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<SettingsPage></SettingsPage>
-			</OverlayComponent>);
-		}
-		else {
-			return;
-		}
-	};
-
-	/**
-	 * A helper function that renders the account overlay
-	 * @returns An overlay component for the account page
-	 */
-	renderAccountOverlay = () => {
-		if (this.state.popupsOpen.isAccountPageOpen) {
-			return (<OverlayComponent isOpen={this.state.popupsOpen.isAccountPageOpen} resetAllOverlay={this.resetAllOverlay}>
-				<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser}></AccountPage>
-			</OverlayComponent>);
-		}
-		else {
-			return;
+	renderOverlays = () => {
+		switch (this.state.overlayOpened) {
+			case this.OverlayType.AccountOverlay:
+				return (
+					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+						<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser}></AccountPage>
+					</OverlayComponent>);
+			case this.OverlayType.LoginOverlay:
+				return (
+					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+						<LoginPage handleSignUpButton={this.handleSignUpButton} isLoginValid={this.state.userInfo.isLoginValid} authenticateUser={this.authenticateUser}></LoginPage>
+					</OverlayComponent>);
+			case this.OverlayType.SignUpOverlay:
+				return (
+					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+						<SignUpPage handleLogInButton={this.handleLogInButton} isSignupValid={this.state.userInfo.isSignupValid} signUpUser={this.signUpUser}></SignUpPage>
+					</OverlayComponent>);
+			case this.OverlayType.HelpOverlay:
+				return (
+					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+						<HelpPage></HelpPage>
+					</OverlayComponent>);
+			case this.OverlayType.SettingsOverlay:
+				return (
+					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+						<SettingsPage></SettingsPage>
+					</OverlayComponent>);
+			default:
+				return <div>Congratulations you've found an easter egg</div>;
 		}
 	};
 
@@ -492,11 +423,7 @@ class App extends Component {
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
 
-				{this.renderLoginOverlay()}
-				{this.renderSignupOverlay()}
-				{this.renderHelpOverlay()}
-				{this.renderSettingsOverlay()}
-				{this.renderAccountOverlay()}
+				{this.renderOverlays()}
 			</Fragment>
 
 		);
