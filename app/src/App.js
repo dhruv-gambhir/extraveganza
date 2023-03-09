@@ -228,7 +228,7 @@ class App extends Component {
 					console.log(response.data);
 					userInfo.user = response.data.user;
 					this.setState({
-						overlayOpened: this.OverlayType.None,
+						// overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
