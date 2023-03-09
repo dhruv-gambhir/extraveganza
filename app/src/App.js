@@ -3,13 +3,14 @@ import './styles/account.css';
 import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
+import './styles/listPage.css';
 import React, { Component, createRef, Fragment } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
 import MapPage from './scripts/MapPage/MapPage';
-import ListPage from './scripts/ListPage';
+import ListPage from './scripts/ListPage/ListPage';
 import CommunityPage from './scripts/CommunityPage';
 import LoginPage from './scripts/LoginPage';
 import HelpPage from './scripts/HelpPage';
@@ -260,7 +261,7 @@ class App extends Component {
 
 		await axios.post('http://localhost:2006/auth/deleteAccount/', { username: userInfo.user.username })
 			.then((response) => {
-				console.log(response.status)
+				console.log(response.status);
 				if (response.status === 204) {
 					this.resetAllOverlay();
 					userInfo.isUserLoggedIn = false;
