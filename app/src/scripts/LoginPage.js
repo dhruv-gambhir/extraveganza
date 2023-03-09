@@ -9,7 +9,12 @@ export default class LoginPage extends PageTemplate {
             passwordInput: '',
             isLoginValid: true
         };
+        this.usernameRef = createRef();
         this.passwordRef = createRef();
+    }
+
+    componentDidMount() {
+        this.usernameRef.current.focus();
     }
 
     authenticateUser = async () => {
@@ -35,13 +40,15 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'text'}
+                            <input
+                                ref={this.usernameRef}
+                                type={'text'}
                                 className='login-textbox'
                                 placeholder='Username'
                                 value={this.state.usernameInput}
                                 onChange={evt => this.setState({ usernameInput: evt.target.value })}
                                 onKeyDown={(evt) => {
-                                    if (evt.key === 'Enter') {this.passwordRef.current.focus(); };
+                                    if (evt.key === 'Enter') { this.passwordRef.current.focus(); };
                                 }} />
                         </div>
 
@@ -52,7 +59,7 @@ export default class LoginPage extends PageTemplate {
                                 placeholder='Password' value={this.state.passwordInput}
                                 onChange={evt => this.setState({ passwordInput: evt.target.value })}
                                 onKeyDown={(evt) => {
-                                    if (evt.key === 'Enter') { this.authenticateUser() };
+                                    if (evt.key === 'Enter') { this.authenticateUser(); };
                                 }} />
                         </div>
 

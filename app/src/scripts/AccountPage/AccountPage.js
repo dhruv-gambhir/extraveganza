@@ -5,7 +5,7 @@ import AccountSettingComponent from "./AccountSettingComponent";
 export default class AccountPage extends PageTemplate {
 	constructor(props) {
 		super(props);
-		console.log(this.props)
+		console.log(this.props);
 		this.state = {
 			newUsername: this.props.user.username,
 			newEmail: this.props.user.email,
@@ -19,7 +19,7 @@ export default class AccountPage extends PageTemplate {
 					<div className="overlay-content-header account-page-header">
 						{/* {console.log(this.props)} */}
 						<div>Hello, {this.props.user.username}</div>
-						<div className="login-submit-label account-page-signout" onClick={this.props.signUserOut}>Sign out</div>
+						<div className="login-submit-label account-page-button account-page-signout" onClick={this.props.signUserOut}>Sign out</div>
 					</div>
 					<div className="overlay-content-body">
 						<div className="account-page-content">
@@ -91,6 +91,9 @@ export default class AccountPage extends PageTemplate {
 									options
 								</div>
 							</AccountSettingComponent>
+							<div className="account-page-delete-account-container">
+								<div className="login-submit-label account-page-button account-page-delete-account" onClick={this.props.deleteUserAccount}>DELETE ACCOUNT</div>
+							</div>
 						</div>
 
 						<div>

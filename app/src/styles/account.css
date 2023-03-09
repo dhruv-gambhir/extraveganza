@@ -141,11 +141,14 @@
     align-items: center;
 }
 
-.account-page-signout {
+.account-page-button {
     text-align: center;
     width: 7rem;
     color: inherit;
     font-weight: 500;
+}
+
+.account-page-signout {
     border: 2px solid var(--more-green);
     background-color: var(--less-green);
 }
@@ -153,6 +156,23 @@
 .account-page-signout:hover {
     color: white;
     background-color: var(--more-green);
+}
+
+.account-page-delete-account-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-page-delete-account {
+    color: red;
+    border: 2px solid red;
+    background-color: var(--less-green);
+}
+
+.account-page-delete-account:hover {
+    color: white;
+    background-color: red;
 }
 
 .account-page-content {

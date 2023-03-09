@@ -86,3 +86,19 @@ export const update = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
+
+export const deleteAccount = async (req, res) => {
+	try {
+		const { username } = req.body;
+		const user = await User.findOne({ username: username });  // use mongoose to find username
+		if (!user) return res.status(400).json({ msg: "User does not exist. " });
+
+		// const isMatch = await bcrypt.compare(password, user.password);
+		// if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
+
+		user.delete();
+		res.status(204).json();
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};

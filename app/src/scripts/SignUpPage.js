@@ -12,16 +12,21 @@ export default class SignUpPage extends PageTemplate {
             isSignupValid: true
         };
 
+        this.usernameRef = createRef();
         this.emailRef = createRef();
         this.passwordRef = createRef();
         this.reenterPasswordRef = createRef();
+    }
+
+    componentDidMount() {
+        this.usernameRef.current.focus();
     }
 
     signUpUser = async () => {
         if (this.state.passwordInput === this.state.reenterPasswordInput && this.state.passwordInput.length >= 4) {
             this.setState({ isSignupValid: await this.props.signUpUser(this.state.usernameInput, this.state.emailInput, this.state.passwordInput) });
         } else {
-            console.log("bruh")
+            console.log("bruh");
         }
     };
 
@@ -67,7 +72,9 @@ export default class SignUpPage extends PageTemplate {
                         </div>
 
                         <div className='login-element-container'>
-                            <input type={'text'}
+                            <input
+                                ref={this.usernameRef}
+                                type={'text'}
                                 className='login-textbox'
                                 placeholder='Username'
                                 value={this.state.usernameInput}

@@ -224,7 +224,7 @@ class App extends Component {
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.clear();
-					console.log(response.data)
+					console.log(response.data);
 					userInfo.user = response.data.user;
 					this.setState({
 						overlayOpened: this.OverlayType.None,
@@ -250,6 +250,29 @@ class App extends Component {
 		userInfo.user = {};
 		this.setState({ userInfo: userInfo });
 		localStorage.clear();
+	};
+
+	/**
+	 * A function to let the user delete their account
+	 */
+	deleteUserAccount = async () => {
+		const userInfo = this.state.userInfo;
+
+		await axios.post('http://localhost:2006/auth/deleteAccount/', { username: userInfo.user.username })
+			.then((response) => {
+				console.log(response.status)
+				if (response.status === 204) {
+					this.resetAllOverlay();
+					userInfo.isUserLoggedIn = false;
+					userInfo.user = {};
+					this.setState({ userInfo: userInfo });
+					localStorage.clear();
+					console.log(response.data);
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+			});
 	};
 
 	/**
@@ -389,7 +412,7 @@ class App extends Component {
 			case this.OverlayType.AccountOverlay:
 				return (
 					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser}></AccountPage>
+						<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser} deleteUserAccount={this.deleteUserAccount}></AccountPage>
 					</OverlayComponent>);
 			case this.OverlayType.LoginOverlay:
 				return (
