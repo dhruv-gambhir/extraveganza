@@ -8,6 +8,9 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 2,
       max: 50,
+      unique: true, // prevent duplicate username
+      // will receive error message,such as:
+      //errmsg: 'E11000 duplicate key error collection: test.users index: username_1 dup key: { username: "aaa" }',
     },
     
     password: {
