@@ -6,15 +6,10 @@ import User from "../models/User.js";
 export const register = async (req, res) => {
 	try {
 		const {
-			// firstName,
-			// lastName,
 			username,
-			email,
 			password,
 			picturePath,
 			friends,
-			// location,
-			// occupation,
 		} = req.body;
 
 		//encrypt password
@@ -22,16 +17,10 @@ export const register = async (req, res) => {
 		const passwordHash = await bcrypt.hash(password, salt);
 
 		const user = new User({
-			// username instead of F&L 
-			// firstName,
-			// lastName,
 			username,
-			email,
 			password: passwordHash,// not store actual pws here
 			picturePath,
 			friends,
-			// location,
-			// occupation,
 			viewedProfile: Math.floor(Math.random() * 10000),
 			impressions: Math.floor(Math.random() * 10000),
 		});
@@ -67,11 +56,10 @@ export const login = async (req, res) => {
 
 export const update = async (req, res) => {
 	try {
-		const { username, newUsername, newEmail, newPassword } = req.body;
+		const { username, newUsername, newPassword } = req.body;
 		const user = await User.findOne({ username: username });
 		if (!user) return res.status(400).json({ msg: "User does not exist. " });
 		user.username = newUsername;
-		user.email = newEmail;
 		if (newPassword) {
 			const salt = await bcrypt.genSalt();
 			user.password = await bcrypt.hash(newPassword, salt);

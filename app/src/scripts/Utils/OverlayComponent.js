@@ -1,4 +1,4 @@
-import { Component, Fragment } from "react";
+import { cloneElement, Component, Fragment } from "react";
 
 export default class OverlayComponent extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ export default class OverlayComponent extends Component {
     toggleOverlay = () => {
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
-        }), () => { this.props.resetAllOverlay(); });
+        }), () => { this.props.toggleButton(); });
     };
 
     render() {
@@ -31,7 +31,7 @@ export default class OverlayComponent extends Component {
                                     onClick={this.toggleOverlay}
                                 />
                             </div>
-                            {children}
+                            {cloneElement(children, { toggleButton: this.props.toggleButton })}
                         </div>
                     </div>)}
             </Fragment>

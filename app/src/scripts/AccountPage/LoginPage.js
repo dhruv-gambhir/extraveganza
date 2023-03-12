@@ -1,7 +1,6 @@
-import { createRef, Fragment } from "react";
-import PageTemplate from "./PageTemplate";
+import { Component, createRef, Fragment } from "react";
 
-export default class LoginPage extends PageTemplate {
+export default class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +18,9 @@ export default class LoginPage extends PageTemplate {
 
     authenticateUser = async () => {
         // If log in failed, that means username or password invalid
-        this.setState({ isLoginValid: await this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput) });
+        var isLoginValid = await this.props.authenticateUser(this.state.usernameInput, this.state.passwordInput);
+        this.setState({ isLoginValid: isLoginValid });
+        if (isLoginValid) this.props.toggleButton();
     };
 
     render() {
@@ -73,7 +74,7 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className="login-element-container">
-                            <div className='sign-up-label' onClick={this.props.handleSignUpButton}>Don't have an account? Sign up now!</div>
+                            <div className='sign-up-label' onClick={this.props.toggleLoginPage}>Don't have an account? Sign up now!</div>
                         </div>
                     </div>
                 </div>
