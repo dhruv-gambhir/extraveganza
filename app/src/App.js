@@ -1,14 +1,17 @@
+// Import styles
 import './App.css';
 import './styles/account.css';
 import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import './styles/listPage.css';
+
+// Import modules
 import React, { Component, createRef, Fragment } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-// Import pages
+// Import pages & components
 import LoginSignupRouter from './scripts/AccountPage/LoginSignup';
 import AccountPage from './scripts/AccountPage/AccountPage';
 import MapPage from './scripts/MapPage/MapPage';
@@ -26,15 +29,6 @@ import DropdownMenu from './scripts/Utils/Dropdown';
  * App class 
  */
 class App extends Component {
-	OverlayType = {
-		AccountOverlay: 1,
-		LoginOverlay: 2,
-		SignUpOverlay: 3,
-		HelpOverlay: 4,
-		SettingsOverlay: 5,
-		None: 6969,
-	};
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -51,8 +45,6 @@ class App extends Component {
 			],
 			sortingChoice: 'A - Z',
 
-			overlayOpened: this.OverlayType.None,
-
 			userInfo: {
 				user: {},
 				isUserLoggedIn: false,
@@ -63,7 +55,11 @@ class App extends Component {
 
 		this.myRef = createRef();
 	}
-
+	
+	/**
+	 * @override
+	 * To retrieve user data from local storage
+	 */
 	componentDidMount() {
 		const loggedInUser = localStorage.getItem("loggedInUser");
 
@@ -77,70 +73,11 @@ class App extends Component {
 	}
 
 	/**
-	 * A function to handle the account button
-	 * 
-	 * If the user is not logged in, this will open the login overlay
-	 * Else, this will open the account management overlay
-	 */
-	handleAccountButton = () => {
-		const userInfo = this.state.userInfo;
-		if (!this.state.userInfo.isUserLoggedIn) {
-			userInfo.isLoginValid = true;
-			this.setState({
-				overlayOpened: this.OverlayType.LoginOverlay,
-				userInfo: userInfo
-			});
-		}
-		else {
-			this.setState({ overlayOpened: this.OverlayType.AccountOverlay });
-		}
-	};
-
-	/**
-	 * A function to handle the signup button in the login overlay
-	 * 
-	 * This will open the signup overlay
-	 */
-	handleSignUpButton = () => {
-		const userInfo = this.state.userInfo;
-		userInfo.isLoginValid = true;
-		userInfo.isSignupValid = true;
-		this.setState({ overlayOpened: this.OverlayType.SignUpOverlay, userInfo: userInfo });
-	};
-
-	/**
-	 * A function to handle the login button in the signup overlay
-	 * 
-	 * This will open the login overlay
-	 */
-	handleLogInButton = () => {
-		this.setState({ overlayOpened: this.OverlayType.LoginOverlay });
-	};
-
-	/**
-	 * A function to handle the help button
-	 * 
-	 * This will open the help overlay
-	 */
-	handleHelpButton = () => {
-		this.setState({ overlayOpened: this.OverlayType.HelpOverlay });
-	};
-
-	/**
-	 * A function to handle the settings button
-	 * 
-	 * This will open the settings overlay
-	 */
-	handleSettingsButton = () => {
-		this.setState({ overlayOpened: this.OverlayType.SettingsOverlay });
-	};
-
-	/**
 	 * A function to authenticate the user for log in
 	 * @param {string} username
 	 * @param {string} password
 	 * 
-	 * @returns true if succesful, else false
+	 * @returns true if successful, else false
 	 */
 	authenticateUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
@@ -178,7 +115,7 @@ class App extends Component {
 	 * @param {string} username
 	 * @param {string} password
 	 * 
-	 * @returns true if succesful, else false
+	 * @returns true if successful, else false
 	 */
 	signUpUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
@@ -218,7 +155,7 @@ class App extends Component {
 	 * @param {string} username
 	 * @param {string} password
 	 * 
-	 * @returns true if succesful, else false
+	 * @returns true if successful, else false
 	 */
 	updateUser = async (newInfo) => {
 		const userInfo = this.state.userInfo;
@@ -428,7 +365,7 @@ class App extends Component {
 			</Fragment>
 		);
 	};
-
+	
 	render() {
 		return (
 			<Fragment>
