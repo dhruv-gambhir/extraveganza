@@ -35,7 +35,6 @@ function Search() {
 
 	return (
 		<div>
-			<h1>OneMap Search API</h1>
 			<div>
 				<label htmlFor="input">Enter search value:</label>
 				<input
@@ -52,6 +51,7 @@ function Search() {
 				<div>
 					<label htmlFor="results">Select Destination:</label>
 					<select id="results" onChange={handleClick} value={selectedValue}>
+						console.log(value)
 						<option disabled selected value="">
 							Select Destination
 						</option>
