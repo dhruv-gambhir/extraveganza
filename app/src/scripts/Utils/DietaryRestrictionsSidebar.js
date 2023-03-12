@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import FontAwesome from 'react-fontawesome';
 
+/**
+ * A React component to render the Dietary Restrictions Sidebar
+ */
 export default class DietaryRestrictionsSidebar extends Component {
+    /**
+     * A Function to select the dietary restrictions
+     * @param {{id: Number, title: String, selected:Boolean, key: String, imagePath:String}[]} item 
+     */
     selectItem = (item) => {
         const { resetThenSet } = this.props;
         const { id, key } = item;

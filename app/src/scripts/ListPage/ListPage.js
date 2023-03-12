@@ -1,7 +1,9 @@
-import { Fragment } from "react";
-import PageTemplate from "../PageTemplate";
+import { Component, Fragment } from "react";
 
-export default class ListPage extends PageTemplate {
+/**
+ * A React component to render the list page
+ */
+export default class ListPage extends Component {
     render() {
         return (
             <Fragment>

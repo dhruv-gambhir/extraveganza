@@ -1,7 +1,11 @@
 import { Fragment } from "react";
 import PageTemplate from '../PageTemplate';
 import AccountSettingComponent from "./AccountSettingComponent";
+import PropTypes from 'prop-types';
 
+/**
+ * A React Component to render the account page
+ */
 export default class AccountPage extends PageTemplate {
 	constructor(props) {
 		super(props);
@@ -10,6 +14,7 @@ export default class AccountPage extends PageTemplate {
 			newPassword: ""
 		};
 	}
+
 	render() {
 		return (
 			<Fragment>
@@ -48,38 +53,6 @@ export default class AccountPage extends PageTemplate {
 									options
 								</div>
 							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="account-setting-option">
-									options
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="account-setting-option">
-									options
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="account-setting-option">
-									options
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="account-setting-option">
-									options
-								</div>
-							</AccountSettingComponent>
 							<div className="account-page-delete-account-container">
 								<div className="login-submit-label account-page-button account-page-delete-account" onClick={this.props.deleteUserAccount}>DELETE ACCOUNT</div>
 							</div>
@@ -101,8 +74,14 @@ export default class AccountPage extends PageTemplate {
 						</div>
 					</div>
 				</div>
-
 			</Fragment>
 		);
 	}
 }
+
+AccountPage.propTypes = {
+	user: PropTypes.object.isRequired,
+	signUserOut: PropTypes.func.isRequired,
+	updateUser: PropTypes.func.isRequired,
+	deleteUserAccount: PropTypes.func.isRequired
+};

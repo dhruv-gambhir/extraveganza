@@ -74,8 +74,8 @@ class App extends Component {
 
 	/**
 	 * A function to authenticate the user for log in
-	 * @param {string} username
-	 * @param {string} password
+	 * @param {String} username
+	 * @param {String} password
 	 * 
 	 * @returns true if successful, else false
 	 */
@@ -112,8 +112,8 @@ class App extends Component {
 
 	/**
 	 * A function to let the user sign up
-	 * @param {string} username
-	 * @param {string} password
+	 * @param {String} username
+	 * @param {String} password
 	 * 
 	 * @returns true if successful, else false
 	 */
@@ -152,8 +152,8 @@ class App extends Component {
 
 	/**
 	 * A function to update the user info
-	 * @param {string} username
-	 * @param {string} password
+	 * @param {String} username
+	 * @param {String} password
 	 * 
 	 * @returns true if successful, else false
 	 */
@@ -217,8 +217,8 @@ class App extends Component {
 
 	/**
 	 * A helper function to reset then set the sorting choices for the list page
-	 * @param {*} id 
-	 * @param {*} key
+	 * @param {Number} id 
+	 * @param {String} key
 	 */
 	resetThenSetSortingChoices = (id, key) => {
 		const temp = this.state.sortingChoices;
@@ -242,8 +242,8 @@ class App extends Component {
 
 	/**
 	 * A helper function to set the dietary restrictions for the app
-	 * @param {*} id 
-	 * @param {*} key 
+	 * @param {Number} id 
+	 * @param {String} key
 	 */
 	setDietaryRestrictions = (id, key) => {
 		const temp = this.state.dietaryRestrictions;

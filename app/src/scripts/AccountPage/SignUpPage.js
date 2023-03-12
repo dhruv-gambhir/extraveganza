@@ -1,5 +1,9 @@
 import { Component, createRef, Fragment } from "react";
+import PropTypes from 'prop-types';
 
+/**
+ * A class for the sign up page
+ */
 export default class SignUpPage extends Component {
     constructor(props) {
         super(props);
@@ -121,3 +125,7 @@ export default class SignUpPage extends Component {
         );
     }
 }
+
+SignUpPage.propTypes = {
+    signUpUser: PropTypes.func.isRequired
+};

@@ -1,5 +1,9 @@
 import { Component, createRef, Fragment } from "react";
+import PropTypes from 'prop-types';
 
+/**
+ * A React component to render the Login page
+ */
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
@@ -81,3 +85,8 @@ export default class LoginPage extends Component {
             </Fragment>);
     }
 }
+
+LoginPage.propTypes = {
+    authenticateUser: PropTypes.func.isRequired
+};
+
