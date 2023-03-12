@@ -1,19 +1,16 @@
-import { createRef, Fragment } from "react";
-import PageTemplate from "./PageTemplate";
+import { Component, createRef, Fragment } from "react";
 
-export default class SignUpPage extends PageTemplate {
+export default class SignUpPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             usernameInput: '',
-            emailInput: '',
             passwordInput: '',
             reenterPasswordInput: '',
             isSignupValid: true
         };
 
         this.usernameRef = createRef();
-        this.emailRef = createRef();
         this.passwordRef = createRef();
         this.reenterPasswordRef = createRef();
     }
@@ -24,7 +21,10 @@ export default class SignUpPage extends PageTemplate {
 
     signUpUser = async () => {
         if (this.state.passwordInput === this.state.reenterPasswordInput && this.state.passwordInput.length >= 4) {
-            this.setState({ isSignupValid: await this.props.signUpUser(this.state.usernameInput, this.state.emailInput, this.state.passwordInput) });
+            var isSignupValid = await this.props.signUpUser(this.state.usernameInput, this.state.passwordInput);
+            this.setState({ isSignupValid: isSignupValid });
+            console.log(this.props);
+            if (isSignupValid) this.props.toggleButton();
         } else {
             console.log("bruh");
         }
@@ -80,18 +80,6 @@ export default class SignUpPage extends PageTemplate {
                                 value={this.state.usernameInput}
                                 onChange={evt => { this.setState({ usernameInput: evt.target.value }); }}
                                 onKeyDown={(evt) => {
-                                    if (evt.key === 'Enter') { this.emailRef.current.focus(); };
-                                }} />
-                        </div>
-
-                        <div className='login-element-container'>
-                            <input type={'text'}
-                                ref={this.emailRef}
-                                className='login-textbox'
-                                placeholder='Email'
-                                value={this.state.emailInput}
-                                onChange={evt => { this.setState({ emailInput: evt.target.value }); }}
-                                onKeyDown={(evt) => {
                                     if (evt.key === 'Enter') { this.passwordRef.current.focus(); };
                                 }} />
                         </div>
@@ -118,17 +106,13 @@ export default class SignUpPage extends PageTemplate {
                                 }} />
                         </div>
 
-                        <div className="login-element-container">
-                            <div className='forgot-password-label'>Forgot your password?</div>
-                        </div>
-
                         <div className="login-element-container"
                             onClick={this.signUpUser}>
                             <div className='login-submit-label'>Sign up</div>
                         </div>
 
                         <div className="login-element-container">
-                            <div className='sign-up-label' onClick={this.props.handleLogInButton}>Already have an account? Log in now!</div>
+                            <div className='sign-up-label' onClick={this.props.toggleLoginPage}>Already have an account? Log in now!</div>
                         </div>
                     </div>
                 </div>

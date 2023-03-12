@@ -9,15 +9,18 @@ import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages
+import LoginSignupRouter from './scripts/AccountPage/LoginSignup';
+import AccountPage from './scripts/AccountPage/AccountPage';
 import MapPage from './scripts/MapPage/MapPage';
 import ListPage from './scripts/ListPage/ListPage';
 import CommunityPage from './scripts/CommunityPage';
-import LoginPage from './scripts/LoginPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
-import SignUpPage from './scripts/SignUpPage';
+
 import OverlayComponent from './scripts/Utils/OverlayComponent';
-import AccountPage from './scripts/AccountPage/AccountPage';
+import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSidebar';
+import NavButton from './scripts/Utils/NavButton';
+import DropdownMenu from './scripts/Utils/Dropdown';
 
 /**
  * App class 
@@ -177,12 +180,11 @@ class App extends Component {
 	 * 
 	 * @returns true if succesful, else false
 	 */
-	signUpUser = async (username, email, password) => {
+	signUpUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
 
 		await axios.post('http://localhost:2006/auth/register/', {
 			username: username,
-			email: email,
 			password: password
 		})
 			.then((response) => {
@@ -350,7 +352,6 @@ class App extends Component {
 				</Link>
 			</div>
 		</div>);
-
 	}
 
 	/**
@@ -359,96 +360,81 @@ class App extends Component {
 	 */
 	renderMiddleContent = () => {
 		return (
-			<Routes>
-				<Route path='/' element={
-					<Navigate to={"/map"} />
-				}>
-				</Route>
-				<Route path='/list' element={
-					< ListPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+			<Fragment>
+				<div className='middle-container'>
+					<div className="middle-container-left-side">
+						<DietaryRestrictionsSidebar
+							className='uid'
+							list={this.state.dietaryRestrictions}
+							resetThenSet={this.setDietaryRestrictions}>
+						</DietaryRestrictionsSidebar>
+					</div>
 
-						listContent={this.state.sortingChoices}
-						resetThenSet={this.resetThenSetSortingChoices}
+					<div className='middle-container-right-side'>
+						<div className="nav-container">
+							<Routes>
+								<Route path='/list' element={
+									<div className="searchbar-container">
+										<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
+										<DropdownMenu
+											className="uid"
+											title={this.state.sortingChoices.find(x => x.selected).title}
+											list={this.state.sortingChoices}
+											resetThenSet={this.resetThenSetSortingChoices}>
+										</DropdownMenu>
+									</div>
+								} />
+								<Route path='/*' element={
+									<div className="searchbar-container">
+										<input className="searchbar" type="text" placeholder="Search"></input>
+									</div>
+								} />
+							</Routes>
 
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions} >
-					</ListPage >
-				}>
-				</Route>
-				<Route path='/map' element={
-					<MapPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+							<div className="right-buttons">
+								<NavButton imagePath="./images/account.png" resetButton={this.resetAllOverlay} >
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+										{!this.state.userInfo.isUserLoggedIn ?
+											<LoginSignupRouter authenticateUser={this.authenticateUser} signUpUser={this.signUpUser} /> :
+											<AccountPage user={this.state.userInfo.user} deleteUserAccount={this.deleteUserAccount} updateUser={this.updateUser} signUserOut={this.signUserOut} />}
+									</OverlayComponent>
+								</NavButton>
+								<NavButton imagePath='./images/help.png' >
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><HelpPage /></OverlayComponent>
+								</NavButton>
+								<NavButton imagePath='./images/settings.png' fun={() => { }}>
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><SettingsPage /></OverlayComponent>
+								</NavButton>
+							</div>
+						</div>
 
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions}>
-					</MapPage>
-				}>
-				</Route>
-				<Route path='/community' element={
-					<CommunityPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
-
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions}>
-					</CommunityPage>
-				}>
-				</Route>
-			</Routes>
+						<Routes>
+							{/* Route to map as home page */}
+							<Route path='/' element={
+								< Navigate to={"/map"} />
+							} />
+							<Route path='/list' element={
+								< ListPage />
+							} />
+							<Route path='/map' element={
+								< MapPage />
+							} />
+							<Route path='/community' element={
+								< CommunityPage />
+							} />
+						</Routes>
+					</div>
+				</div>
+			</Fragment>
 		);
-	};
-
-	/**
-	 * A helper function that renders the overlay of the app
-	 * @returns A React Fragment for the content to be displayed
-	 */
-	renderOverlays = () => {
-		switch (this.state.overlayOpened) {
-			case this.OverlayType.AccountOverlay:
-				return (
-					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<AccountPage user={this.state.userInfo.user} signUserOut={this.signUserOut} updateUser={this.updateUser} deleteUserAccount={this.deleteUserAccount}></AccountPage>
-					</OverlayComponent>);
-			case this.OverlayType.LoginOverlay:
-				return (
-					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<LoginPage handleSignUpButton={this.handleSignUpButton} isLoginValid={this.state.userInfo.isLoginValid} authenticateUser={this.authenticateUser}></LoginPage>
-					</OverlayComponent>);
-			case this.OverlayType.SignUpOverlay:
-				return (
-					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<SignUpPage handleLogInButton={this.handleLogInButton} isSignupValid={this.state.userInfo.isSignupValid} signUpUser={this.signUpUser}></SignUpPage>
-					</OverlayComponent>);
-			case this.OverlayType.HelpOverlay:
-				return (
-					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<HelpPage></HelpPage>
-					</OverlayComponent>);
-			case this.OverlayType.SettingsOverlay:
-				return (
-					<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
-						<SettingsPage></SettingsPage>
-					</OverlayComponent>);
-			default:
-				return <div>Congratulations you've found an easter egg</div>;
-		}
 	};
 
 	render() {
 		return (
 			<Fragment>
 				{this.renderHeader()}
-
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
-
-				{this.renderOverlays()}
 			</Fragment>
 
 		);

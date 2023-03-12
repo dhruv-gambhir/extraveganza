@@ -5,10 +5,8 @@ import AccountSettingComponent from "./AccountSettingComponent";
 export default class AccountPage extends PageTemplate {
 	constructor(props) {
 		super(props);
-		console.log(this.props);
 		this.state = {
 			newUsername: this.props.user.username,
-			newEmail: this.props.user.email,
 			newPassword: ""
 		};
 	}
@@ -30,15 +28,6 @@ export default class AccountPage extends PageTemplate {
 								<input className="account-setting-option-textbox"
 									value={this.state.newUsername}
 									onChange={evt => this.setState({ newUsername: evt.target.value })}>
-								</input>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
-								<div className="account-setting-label">
-									Change email
-								</div>
-								<input className="account-setting-option-textbox"
-									value={this.state.newEmail}
-									onChange={evt => this.setState({ newEmail: evt.target.value })}>
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
