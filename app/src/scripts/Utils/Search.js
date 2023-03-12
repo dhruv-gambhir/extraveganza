@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Search() {
+function Search(props) {
 	const [searchVal, setSearchVal] = useState('');
 	const [addresses, setAddresses] = useState([]);
 	const [showResults, setShowResults] = useState(false);
@@ -16,7 +16,7 @@ function Search() {
 		const selectedAddress = addresses.find(
 			(address) => address.SEARCHVAL + ' - ' + address.ADDRESS === event.target.value
 		);
-		const { LATITUDE, LONGITUDE } = selectedAddress;
+		const { LATITUDE, LONGITUDE } = selectedAddress; /* This is the selected address */
 		console.log(`Selected coordinates: ${LATITUDE}, ${LONGITUDE}`);
 	};
 
