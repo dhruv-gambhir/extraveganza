@@ -118,17 +118,13 @@ export default class SignUpPage extends PageTemplate {
                                 }} />
                         </div>
 
-                        <div className="login-element-container">
-                            <div className='forgot-password-label'>Forgot your password?</div>
-                        </div>
-
                         <div className="login-element-container"
                             onClick={this.signUpUser}>
                             <div className='login-submit-label'>Sign up</div>
                         </div>
 
                         <div className="login-element-container">
-                            <div className='sign-up-label' onClick={this.props.handleLogInButton}>Already have an account? Log in now!</div>
+                            <div className='sign-up-label' onClick={this.props.toggleLoginPage}>Already have an account? Log in now!</div>
                         </div>
                     </div>
                 </div>

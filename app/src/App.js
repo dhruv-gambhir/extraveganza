@@ -18,6 +18,10 @@ import SettingsPage from './scripts/SettingsPage';
 import SignUpPage from './scripts/SignUpPage';
 import OverlayComponent from './scripts/Utils/OverlayComponent';
 import AccountPage from './scripts/AccountPage/AccountPage';
+import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSidebar';
+import AccountButton from './scripts/MiddleContentButtons/AccountButton';
+import DropdownMenu from './scripts/Utils/Dropdown';
+import LoginSignupRouter from './scripts/LoginSignup';
 
 /**
  * App class 
@@ -350,7 +354,6 @@ class App extends Component {
 				</Link>
 			</div>
 		</div>);
-
 	}
 
 	/**
@@ -359,48 +362,70 @@ class App extends Component {
 	 */
 	renderMiddleContent = () => {
 		return (
-			<Routes>
-				<Route path='/' element={
-					<Navigate to={"/map"} />
-				}>
-				</Route>
-				<Route path='/list' element={
-					< ListPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+			<Fragment>
+				<div className='middle-container'>
+					<div className="middle-container-left-side">
+						<DietaryRestrictionsSidebar
+							className='uid'
+							list={this.state.dietaryRestrictions}
+							resetThenSet={this.state.setDietaryRestrictions}>
+						</DietaryRestrictionsSidebar>
+					</div>
 
-						listContent={this.state.sortingChoices}
-						resetThenSet={this.resetThenSetSortingChoices}
+					<div className='middle-container-right-side'>
+						<div className="nav-container">
+							<div className="searchbar-container">
+								<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
+								<DropdownMenu
+									className="uid"
+									title={this.state.sortingChoices.find(x => x.selected).title}
+									list={this.state.sortingChoices}
+									resetThenSet={this.resetThenSet}>
+								</DropdownMenu>
+							</div>
 
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions} >
-					</ListPage >
-				}>
-				</Route>
-				<Route path='/map' element={
-					<MapPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+							<div className="right-buttons">
+								<AccountButton imagePath="./images/account.png" resetButton={this.resetAllOverlay} >
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+										{!this.state.isUserLoggedIn ?
+											<LoginSignupRouter authenticateUser={this.authenticateUser} signUpUser={this.signUpUser} /> :
+											<AccountPage user={this.state.userInfo.user} deleteUserAccount={this.deleteUserAccount} updateUser={this.updateUser} signUserOut={this.signUserOut} />}
+									</OverlayComponent>
+								</AccountButton>
+								<AccountButton imagePath='./images/help.png' >
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><HelpPage /></OverlayComponent>
+								</AccountButton>
+								<AccountButton imagePath='./images/settings.png' fun={() => { }}>
+									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><SettingsPage /></OverlayComponent>
+								</AccountButton>
+							</div>
+						</div>
 
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions}>
-					</MapPage>
-				}>
-				</Route>
-				<Route path='/community' element={
-					<CommunityPage
-						handleAccountButton={this.handleAccountButton}
-						handleHelpButton={this.handleHelpButton}
-						handleSettingsButton={this.handleSettingsButton}
+						<Routes>
+							{/* Route to map as home page */}
+							<Route path='/' element={
+								<Navigate to={"/map"} />
+							}>
+							</Route>
+							<Route path='/list' element={
+								< ListPage />
+							}>
+							</Route>
+							<Route path='/map' element={
+								<MapPage />
+							}>
+							</Route>
+							<Route path='/community' element={
+								<CommunityPage />
+							}>
+							</Route>
+						</Routes>
+					</div>
+				</div>
 
-						dietaryRestrictions={this.state.dietaryRestrictions}
-						setDietaryRestrictions={this.setDietaryRestrictions}>
-					</CommunityPage>
-				}>
-				</Route>
-			</Routes>
+
+			</Fragment>
+
 		);
 	};
 
@@ -448,7 +473,7 @@ class App extends Component {
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
 
-				{this.renderOverlays()}
+				{/* {this.renderOverlays()} */}
 			</Fragment>
 
 		);

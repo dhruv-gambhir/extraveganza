@@ -11,7 +11,7 @@ export default class OverlayComponent extends Component {
     toggleOverlay = () => {
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
-        }), () => { this.props.resetAllOverlay(); });
+        }), () => { this.props.resetAllOverlay(); this.props.toggleButton()});
     };
 
     render() {

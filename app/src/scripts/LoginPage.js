@@ -73,7 +73,7 @@ export default class LoginPage extends PageTemplate {
                         </div>
 
                         <div className="login-element-container">
-                            <div className='sign-up-label' onClick={this.props.handleSignUpButton}>Don't have an account? Sign up now!</div>
+                            <div className='sign-up-label' onClick={this.props.toggleLoginPage}>Don't have an account? Sign up now!</div>
                         </div>
                     </div>
                 </div>
