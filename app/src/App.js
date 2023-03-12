@@ -55,7 +55,7 @@ class App extends Component {
 
 		this.myRef = createRef();
 	}
-	
+
 	/**
 	 * @override
 	 * To retrieve user data from local storage
@@ -88,11 +88,11 @@ class App extends Component {
 
 		})
 			.then((response) => {
+				console.log(response);
 				if (response.status === 200) {
 					userInfo.isUserLoggedIn = true;
 					userInfo.user = response.data.user;
 					this.setState({
-						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
@@ -100,7 +100,7 @@ class App extends Component {
 				}
 			})
 			.catch((error) => {
-				console.log(error.response);
+				console.log(error.response)
 				userInfo.isUserLoggedIn = false;
 				userInfo.isLoginValid = false;
 				this.setState({
@@ -130,7 +130,6 @@ class App extends Component {
 					userInfo.user = response.data.user;
 					userInfo.isSignupValid = true;
 					this.setState({
-						overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
@@ -167,7 +166,6 @@ class App extends Component {
 					console.log(response.data);
 					userInfo.user = response.data.user;
 					this.setState({
-						// overlayOpened: this.OverlayType.None,
 						userInfo: userInfo
 					});
 					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
@@ -232,11 +230,11 @@ class App extends Component {
 	};
 
 	/**
+	 * @deprecated
 	 * A helper function reset all overlay open boolean to false
 	 */
 	resetAllOverlay = () => {
 		this.setState({
-			overlayOpened: this.OverlayType.None
 		});
 	};
 
@@ -330,17 +328,17 @@ class App extends Component {
 
 							<div className="right-buttons">
 								<NavButton imagePath="./images/account.png" resetButton={this.resetAllOverlay} >
-									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}>
+									<OverlayComponent resetAllOverlay={this.resetAllOverlay}>
 										{!this.state.userInfo.isUserLoggedIn ?
 											<LoginSignupRouter authenticateUser={this.authenticateUser} signUpUser={this.signUpUser} /> :
 											<AccountPage user={this.state.userInfo.user} deleteUserAccount={this.deleteUserAccount} updateUser={this.updateUser} signUserOut={this.signUserOut} />}
 									</OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/help.png' >
-									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><HelpPage /></OverlayComponent>
+									<OverlayComponent resetAllOverlay={this.resetAllOverlay}><HelpPage /></OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/settings.png' fun={() => { }}>
-									<OverlayComponent isOpen={true} resetAllOverlay={this.resetAllOverlay}><SettingsPage /></OverlayComponent>
+									<OverlayComponent resetAllOverlay={this.resetAllOverlay}><SettingsPage /></OverlayComponent>
 								</NavButton>
 							</div>
 						</div>
@@ -365,7 +363,7 @@ class App extends Component {
 			</Fragment>
 		);
 	};
-	
+
 	render() {
 		return (
 			<Fragment>

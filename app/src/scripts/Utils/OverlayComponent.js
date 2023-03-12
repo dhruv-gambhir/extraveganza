@@ -1,13 +1,20 @@
 import { cloneElement, Component, Fragment } from "react";
+import PropTypes from 'prop-types';
 
+/**
+ * A React Component to render the overlay
+ */
 export default class OverlayComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: this.props.isOpen,
+            isOpen: true,
         };
     }
 
+    /**
+     * Toggle the overlay on or off
+     */
     toggleOverlay = () => {
         this.setState(prevState => ({
             isOpen: !prevState.isOpen
@@ -38,3 +45,7 @@ export default class OverlayComponent extends Component {
         );
     }
 }
+
+OverlayComponent.propTypes = {
+    toggleButton: PropTypes.func.isRequired
+};

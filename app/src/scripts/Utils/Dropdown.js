@@ -1,6 +1,10 @@
 import { Component } from "react";
 import FontAwesome from 'react-fontawesome';
+import PropTypes from 'prop-types';
 
+/**
+ * A React Component for Dropdown menu
+ */
 export default class DropdownMenu extends Component {
     constructor(props) {
         super(props);
@@ -10,12 +14,19 @@ export default class DropdownMenu extends Component {
         };
     }
 
+    /**
+     * Closes the dropdown menu
+     */
     close = () => {
         this.setState({
             isListOpen: false,
         });
     };
 
+    /** 
+     * @override
+     * Closes the menu whenever a click is registered
+     */
     componentDidUpdate() {
         const { isListOpen } = this.state;
 
@@ -29,12 +40,19 @@ export default class DropdownMenu extends Component {
         }, 0);
     }
 
+    /**
+     * Toggles the dropdown menu to be open and closed
+     */
     toggleList = () => {
         this.setState(prevState => ({
             isListOpen: !prevState.isListOpen
         }));
     };
 
+    /**
+     * Selects the item to be set
+     * @param {{id: Number, title: String, selected:Boolean, key: String, imagePath:String}} item 
+     */
     selectItem = (item) => {
         const { resetThenSet } = this.props;
         const { title, id, key } = item;
@@ -76,3 +94,8 @@ export default class DropdownMenu extends Component {
             </div>);
     }
 }
+
+DropdownMenu.propType = {
+    list: PropTypes.arrayOf(PropTypes.shape({ id: Number, title: String, selected: Boolean, key: String, imagePath: String })).isRequired,
+    headerTitle: PropTypes.string.isRequired
+};

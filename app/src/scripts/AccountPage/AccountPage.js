@@ -1,12 +1,11 @@
-import { Fragment } from "react";
-import PageTemplate from '../PageTemplate';
+import { Component, Fragment } from "react";
 import AccountSettingComponent from "./AccountSettingComponent";
 import PropTypes from 'prop-types';
 
 /**
  * A React Component to render the account page
  */
-export default class AccountPage extends PageTemplate {
+export default class AccountPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

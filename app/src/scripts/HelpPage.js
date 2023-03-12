@@ -1,11 +1,12 @@
-import { Fragment } from "react";
-import PageTemplate from './PageTemplate';
+import { Component, Fragment } from "react";
 
-export default class HelpPage extends PageTemplate {
+/**
+ * A React Component to render the help page
+ */
+export default class HelpPage extends Component {
 	render() {
 		return (
 			<Fragment>
-
 				<div className='overlay-content'>
 					<div className="overlay-content-header">
 						Help
@@ -14,7 +15,6 @@ export default class HelpPage extends PageTemplate {
 						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, iure. Corrupti voluptatum ad quo totam tempore nostrum. Ipsa dolores quod esse sunt aliquid cupiditate nemo, atque pariatur labore molestiae iure?
 					</div>
 				</div>
-
 			</Fragment>
 		);
 	}

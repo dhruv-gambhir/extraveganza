@@ -1,7 +1,9 @@
-import { Fragment } from "react";
-import PageTemplate from "./PageTemplate";
+import { Component, Fragment } from "react";
 
-export default class CommunityPage extends PageTemplate {
+/**
+ * A React Component to render the community page
+ */
+export default class CommunityPage extends Component {
 	render() {
 		return (
 			<Fragment>

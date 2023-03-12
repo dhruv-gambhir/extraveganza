@@ -1,9 +1,11 @@
-import { Fragment } from "react";
-import PageTemplate from "../PageTemplate";
+import { Component, Fragment } from "react";
 import Search from "../Utils/Search";
 import SimpleMap from "./SimpleMap";
 
-export default class MapPage extends PageTemplate {
+/**
+ * A React Component to render the map page
+ */
+export default class MapPage extends Component {
     render() {
         return (
             <Fragment>
