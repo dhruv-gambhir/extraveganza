@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import DietaryRestrictionsSidebar from "../Utils/DietaryRestrictionsSidebar";
 import PageTemplate from "../PageTemplate";
 import Search from "../Utils/Search";
 

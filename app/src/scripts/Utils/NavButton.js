@@ -1,6 +1,6 @@
 import { cloneElement, Component, Fragment } from "react";
 
-export default class AccountButton extends Component {
+export default class NavButton extends Component {
 	constructor(props) {
 		super(props);
 

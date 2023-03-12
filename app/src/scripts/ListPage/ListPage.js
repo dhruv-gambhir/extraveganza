@@ -1,8 +1,5 @@
 import { Fragment } from "react";
-import DietaryRestrictionsSidebar from "../Utils/DietaryRestrictionsSidebar";
-import DropdownMenu from "../Utils/Dropdown";
 import PageTemplate from "../PageTemplate";
-import AccountButton from "../MiddleContentButtons/AccountButton";
 
 export default class ListPage extends PageTemplate {
     render() {
