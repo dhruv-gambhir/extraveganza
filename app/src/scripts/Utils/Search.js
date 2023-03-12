@@ -13,6 +13,11 @@ function Search() {
 
 	const handleClick = (event) => {
 		setSelectedValue(event.target.value);
+		const selectedAddress = addresses.find(
+			(address) => address.SEARCHVAL + ' - ' + address.ADDRESS === event.target.value
+		);
+		const { LATITUDE, LONGITUDE } = selectedAddress;
+		console.log(`Selected coordinates: ${LATITUDE}, ${LONGITUDE}`);
 	};
 
 	const displayResults = () => {
@@ -36,7 +41,7 @@ function Search() {
 	return (
 		<div>
 			<div>
-				<label htmlFor="input">Enter search value:</label>
+				<label htmlFor="input">Enter Current Location</label>
 				<input
 					type="text"
 					id="input"
@@ -49,7 +54,7 @@ function Search() {
 			<br />
 			{showResults && (
 				<div>
-					<label htmlFor="results">Select Destination:</label>
+					<label htmlFor="results">Select Current Location:</label>
 					<select id="results" onChange={handleClick} value={selectedValue}>
 						console.log(value)
 						<option disabled selected value="">
