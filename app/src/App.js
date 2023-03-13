@@ -26,9 +26,21 @@ import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
 
 /**
- * App class 
+ * App.js
+ * @date 3/13/2023 - 2:07:26 PM
+ *
+ * @class App
+ * @typedef {App}
+ * @extends {Component}
  */
 class App extends Component {
+	/**
+	 * Creates an instance of App.
+	 * @date 3/13/2023 - 2:07:20 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -114,7 +126,7 @@ class App extends Component {
 	 * A function to let the user sign up
 	 * @param {String} username
 	 * @param {String} password
-	 * 
+	 * @async
 	 * @returns true if successful, else false
 	 */
 	signUpUser = async (username, password) => {
@@ -153,7 +165,7 @@ class App extends Component {
 	 * A function to update the user info
 	 * @param {String} username
 	 * @param {String} password
-	 * 
+	 * @async
 	 * @returns true if successful, else false
 	 */
 	updateUser = async (newInfo) => {
@@ -192,6 +204,7 @@ class App extends Component {
 
 	/**
 	 * A function to let the user delete their account
+	 * @async
 	 */
 	deleteUserAccount = async () => {
 		const userInfo = this.state.userInfo;
@@ -364,6 +377,12 @@ class App extends Component {
 		);
 	};
 
+	/**
+	 * Description placeholder
+	 * @date 3/13/2023 - 2:07:20 PM
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<Fragment>

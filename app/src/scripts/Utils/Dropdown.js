@@ -4,8 +4,21 @@ import PropTypes from 'prop-types';
 
 /**
  * A React Component for Dropdown menu
+ * @date 3/13/2023 - 2:05:54 PM
+ *
+ * @export
+ * @class DropdownMenu
+ * @typedef {DropdownMenu}
+ * @extends {Component}
  */
 export default class DropdownMenu extends Component {
+    /**
+     * Creates an instance of DropdownMenu.
+     * @date 3/13/2023 - 1:52:33 PM
+     *
+     * @constructor
+     * @param {*} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -63,6 +76,12 @@ export default class DropdownMenu extends Component {
         }, () => resetThenSet(id, key));
     };
 
+    /**
+     * Description placeholder
+     * @date 3/13/2023 - 1:52:33 PM
+     *
+     * @returns {*}
+     */
     render() {
         const { isListOpen, headerTitle } = this.state;
         const { list } = this.props;

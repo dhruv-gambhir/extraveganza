@@ -2,8 +2,20 @@ import { Component, Fragment } from "react";
 
 /**
  * A React component to render the list page
+ * @date 3/13/2023 - 2:03:52 PM
+ *
+ * @export
+ * @class ListPage
+ * @typedef {ListPage}
+ * @extends {Component}
  */
 export default class ListPage extends Component {
+    /**
+     * Renders the component's content
+     * @date 3/13/2023 - 1:51:56 PM
+     *
+     * @returns {*}
+     */
     render() {
         return (
             <Fragment>

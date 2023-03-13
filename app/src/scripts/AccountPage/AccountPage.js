@@ -2,10 +2,24 @@ import { Component, Fragment } from "react";
 import AccountSettingComponent from "./AccountSettingComponent";
 import PropTypes from 'prop-types';
 
+
 /**
  * A React Component to render the account page
+ * @date 3/13/2023 - 1:57:32 PM
+ *
+ * @export
+ * @class AccountPage
+ * @typedef {AccountPage}
+ * @extends {Component}
  */
 export default class AccountPage extends Component {
+	/**
+	 * Creates an instance of AccountPage.
+	 * @date 3/13/2023 - 1:43:55 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -14,6 +28,12 @@ export default class AccountPage extends Component {
 		};
 	}
 
+	/**
+	 * Renders the component's content
+	 * @date 3/13/2023 - 1:43:55 PM
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<Fragment>
@@ -63,7 +83,6 @@ export default class AccountPage extends Component {
 								var newInfo = {
 									username: this.props.user.username,
 									newUsername: this.state.newUsername,
-									newEmail: this.state.newEmail
 								};
 								if (this.state.newPassword.length >= 4) {
 									newInfo['newPassword'] = this.state.newPassword;
