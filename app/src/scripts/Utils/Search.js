@@ -16,11 +16,17 @@ function Search(props) {
 		const selectedAddress = addresses.find(
 			(address) => address.SEARCHVAL + ' - ' + address.ADDRESS === event.target.value
 		);
-		const { LATITUDE, LONGITUDE } = selectedAddress; /* This is the selected address */
-		console.log(`Selected coordinates: ${LATITUDE}, ${LONGITUDE}`);
+		const { LATITUDE, LONGITUDE } = selectedAddress;
+		props.onCoordinatesChange(LATITUDE, LONGITUDE);
+		console.log("Passed in lat and lng" + LATITUDE + LONGITUDE)
+
 	};
+	
 
 	const displayResults = () => {
+		if (!searchVal) {
+			return;
+		}
 		const params = new URLSearchParams();
 		params.append('searchVal', searchVal);
 		params.append('returnGeom', 'Y');
@@ -57,7 +63,7 @@ function Search(props) {
 					<label htmlFor="results">Select Current Location:</label>
 					<select id="results" onChange={handleClick} value={selectedValue}>
 						console.log(value)
-						<option disabled selected value="">
+						<option disabled defaultValue="" value="">
 							Select Destination
 						</option>
 						{addresses.map((address, index) => (

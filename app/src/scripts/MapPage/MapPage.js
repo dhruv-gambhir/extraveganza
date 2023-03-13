@@ -11,19 +11,31 @@ import SimpleMap from "./SimpleMap";
  * @typedef {MapPage}
  * @extends {Component}
  */
+
 export default class MapPage extends Component {
-    /**
-     * Renders the component's content
-     * @date 3/13/2023 - 1:52:06 PM
-     *
-     * @returns {*}
-     */
+    constructor(props) {
+        super(props);
+        this.state = {
+            lat: 1.3402,
+            lng: 103.6755
+        };
+        this.handleCoordinatesChange = this.handleCoordinatesChange.bind(this);
+    }
+
+    handleCoordinatesChange(lat, lng) {
+        this.setState({
+            lat: lat,
+            lng: lng
+        });
+    }
+
     render() {
         return (
             <Fragment>
                 <div className="main-content-container">
-                    <Search />
-                    <SimpleMap />
+                    <Search onCoordinatesChange={this.handleCoordinatesChange} />
+                    {console.log("Passed in lat and lng" + this.state.lat)}
+                    <SimpleMap center={[this.state.lat, this.state.lng]} />
                 </div>
             </Fragment>
         );
