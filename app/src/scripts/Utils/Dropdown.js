@@ -91,8 +91,8 @@ export default class DropdownMenu extends Component {
                 <div className='dropdown-header' onClick={this.toggleList}>
                     <div className='dropdown-header-title'>{headerTitle}</div>
                     {isListOpen
-                        ? <FontAwesome name="angle-up" size="1x" />
-                        : <FontAwesome name="angle-down" size="1x" />}
+                        ? <FontAwesome name="angle-up" size="lg" />
+                        : <FontAwesome name="angle-down" size="lg" />}
                 </div>
                 {isListOpen && (
                     <div

@@ -67,5 +67,5 @@ export default class OverlayComponent extends Component {
 }
 
 OverlayComponent.propTypes = {
-    toggleButton: PropTypes.func.isRequired
+    toggleButton: PropTypes.func
 };

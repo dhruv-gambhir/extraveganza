@@ -1,4 +1,5 @@
 import { Component, Fragment } from "react";
+import RestaurantTitleCard from "./RestaurantTitleCard";
 
 /**
  * A React component to render the list page
@@ -10,6 +11,23 @@ import { Component, Fragment } from "react";
  * @extends {Component}
  */
 export default class ListPage extends Component {
+    
+    /**
+     * Retrieves the list of restaurants from the database
+     * @date 3/13/2023 - 3:41:36 PM
+     */
+    retrieveRestaurantsList = () => {
+
+    };
+    
+    /**
+     * Retrieves the restaurant information
+     * @date 3/13/2023 - 3:41:49 PM
+     */
+    retrieveResaurantInfo = () => {
+
+    };
+
     /**
      * Renders the component's content
      * @date 3/13/2023 - 1:51:56 PM
@@ -21,22 +39,10 @@ export default class ListPage extends Component {
             <Fragment>
                 {/* This will be generated automatically in the future */}
                 <div className="main-content-container list-page-card-container">
-                    <div className="list-page-card">
-                        <div className="list-page-card-image">
-                            asdas<image></image>
-                        </div>
-                        <div className="list-page-card-text">
-                            <div className="list-page-card-text-header">
-                                Restaurant name here
-                            </div>
-                            <div className="list-page-card-text-description">
-                                Distance, rating, type here
-                            </div>
-                        </div>
-                        <div className="list-page-card-select">
-                            select
-                        </div>
-                    </div>
+                    <RestaurantTitleCard imagePath="image path">
+                        <div>Restaurant Title</div>
+                        <div>Restaurant Description</div>
+                    </RestaurantTitleCard>
                 </div>
             </Fragment>
         );
