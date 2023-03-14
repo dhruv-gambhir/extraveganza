@@ -35,7 +35,7 @@ export default class MapPage extends Component {
                 <div className="main-content-container">
                     <Search onCoordinatesChange={this.handleCoordinatesChange} />
                     {console.log("Passed in lat and lng" + this.state.lat)}
-                    <SimpleMap center={[this.state.lat, this.state.lng]} />
+                    <SimpleMap center={{ lat: this.state.lat, lng: this.state.lng }} />
                 </div>
             </Fragment>
         );
