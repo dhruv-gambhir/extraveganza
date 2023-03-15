@@ -28,7 +28,7 @@ export default function SimpleMap({ center }) {
         }}
       >
         {console.log("The centre is" + center.lat)}
-        <AnyReactComponent lat={1.3402} lng={103.6755} text="My Marker" />
+        <AnyReactComponent lat={center.lat} lng={center.lng} text="My Marker" />
       </GoogleMapReact>
     </div>
   );
