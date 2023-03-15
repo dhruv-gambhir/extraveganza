@@ -17,6 +17,14 @@
 	justify-content: center;
 
 	color: var(--really-green);
+
+	cursor: pointer;
+	transition: 0.4s ease;
+}
+
+.list-page-card:hover {
+	transition: 0.4s ease;
+	background-color: var(--less-green-dark);
 }
 
 .list-page-card-image {
@@ -57,4 +65,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	cursor: pointer;
 }

@@ -5,6 +5,7 @@ import './styles/dropdown.css';
 import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import './styles/listPage.css';
+import './styles/communityPage.css';
 
 // Import modules
 import React, { Component, createRef, Fragment } from 'react';
@@ -16,7 +17,7 @@ import LoginSignupRouter from './scripts/AccountPage/LoginSignup';
 import AccountPage from './scripts/AccountPage/AccountPage';
 import MapPage from './scripts/MapPage/MapPage';
 import ListPage from './scripts/ListPage/ListPage';
-import CommunityPage from './scripts/CommunityPage';
+import CommunityPage from './CommunityPage/CommunityPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 
@@ -112,7 +113,7 @@ class App extends Component {
 				}
 			})
 			.catch((error) => {
-				console.log(error.response)
+				console.log(error.response);
 				userInfo.isUserLoggedIn = false;
 				userInfo.isLoginValid = false;
 				this.setState({

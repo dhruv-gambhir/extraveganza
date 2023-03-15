@@ -77,7 +77,7 @@ export default class DropdownMenu extends Component {
     };
 
     /**
-     * Description placeholder
+     * Renders the component
      * @date 3/13/2023 - 1:52:33 PM
      *
      * @returns {*}
