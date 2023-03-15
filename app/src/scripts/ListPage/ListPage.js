@@ -11,7 +11,6 @@ import RestaurantTitleCard from "./RestaurantTitleCard";
  * @extends {Component}
  */
 export default class ListPage extends Component {
-
     /**
      * Retrieves the list of restaurants from the database
      * @date 3/13/2023 - 3:41:36 PM
