@@ -1,0 +1,50 @@
+.community-page-card-container {
+	overflow-y: scroll;
+}
+
+.community-page-card {
+	width: 90%;
+	height: auto;
+	background-color: var(--less-green);
+
+	margin: 10px;
+	padding: 10px;
+	border-radius: 10px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	color: var(--really-green);
+
+	cursor: pointer;
+	transition: 0.4s ease;
+}
+
+.community-page-card-text {
+	width: 100%;
+	height: auto;
+
+	padding-left: 10px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+}
+
+.community-page-card-text-header {
+	font-weight: 500;
+	font-size: 20px;
+}
+
+.community-page-card-text-description {
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.community-page-card-text-content {
+	font-weight: 400;
+	font-size: 17px;
+}
