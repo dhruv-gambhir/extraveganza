@@ -273,7 +273,7 @@ class App extends Component {
 	 * @returns An HTML div for the footer
 	 */
 	renderFooter() {
-		const location = window.location.href.split('/').pop();
+		const location = window.location.href.split('/').pop().split('?')[0];
 		// the empty set state on click is to make sure this footer thing is rerendered
 		return (<div className="bottom-container">
 			<div className="bottom-button-container">

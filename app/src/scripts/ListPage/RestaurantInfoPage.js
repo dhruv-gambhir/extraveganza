@@ -1,23 +1,22 @@
-import { Component } from 'react';
-import OverlayComponent from '../Utils/OverlayComponent';
+import { Component, Fragment } from 'react';
 
 export default class RestaurantInfoPage extends Component {
 	render() {
 		return (
-			<OverlayComponent>
+			<Fragment>
 				<div>
 					<div>
-						<div>Restaurant Name</div>
-						<div>Restaurant Info</div>
+						<div>{"this.props.restaurantName"}</div>
+						<div>{"this.props.restaurantInfo"}</div>
 					</div>
 					<div>
-						<img src={this.props.imagePath} alt="not found">Restaurant image</img>
+						<img src={this.props.imagePath} alt="not found"></img>
 					</div>
 				</div>
 				<div>
 					Content
 				</div>
-			</OverlayComponent>
+			</Fragment>
 		);
 	}
 }
