@@ -13,10 +13,14 @@ function Search(props) {
 
 	const handleClick = (event) => {
 		setSelectedValue(event.target.value);
+		console.log(event.target.value);
 		const selectedAddress = addresses.find(
 			(address) => address.SEARCHVAL + ' - ' + address.ADDRESS === event.target.value
 		);
 		const { LATITUDE, LONGITUDE } = selectedAddress;
+		const AddressName = event.target.value;
+		//console.log(address);
+		props.onAddressChange(AddressName);
 		props.onCoordinatesChange(LATITUDE, LONGITUDE);
 		console.log("Passed in lat and lng" + LATITUDE + LONGITUDE)
 
@@ -57,7 +61,6 @@ function Search(props) {
 				/>
 				<button onClick={displayResults}>Search</button>
 			</div>
-			<br />
 			{showResults && (
 				<div>
 					<label htmlFor="results">Select Current Location:</label>

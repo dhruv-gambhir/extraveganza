@@ -17,9 +17,11 @@ export default class MapPage extends Component {
         super(props);
         this.state = {
             lat: 1.3402,
-            lng: 103.6755
+            lng: 103.6755,
+            address: 'Nanyang Technological University'
         };
         this.handleCoordinatesChange = this.handleCoordinatesChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
     }
 
     handleCoordinatesChange(lat, lng) {
@@ -29,13 +31,19 @@ export default class MapPage extends Component {
         });
     }
 
+    handleAddressChange(address) {
+        this.setState({
+            address: address
+        });
+    }
+
     render() {
         return (
             <Fragment>
                 <div className="main-content-container">
-                    <Search onCoordinatesChange={this.handleCoordinatesChange} />
-                    {console.log("Passed in lat and lng" + this.state.lat)}
-                    <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} />
+                    <Search onCoordinatesChange={this.handleCoordinatesChange} onAddressChange={this.handleAddressChange} />
+                    {console.log(this.state.address)}
+                    <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} address={this.state.address}/>
                 </div>
             </Fragment>
         );
