@@ -341,18 +341,18 @@ class App extends Component {
 							</Routes>
 
 							<div className="right-buttons">
-								<NavButton imagePath="./images/account.png" resetButton={this.resetAllOverlay} >
-									<OverlayComponent resetAllOverlay={this.resetAllOverlay}>
+								<NavButton imagePath="./images/account.png" >
+									<OverlayComponent>
 										{!this.state.userInfo.isUserLoggedIn ?
 											<LoginSignupRouter authenticateUser={this.authenticateUser} signUpUser={this.signUpUser} /> :
 											<AccountPage user={this.state.userInfo.user} deleteUserAccount={this.deleteUserAccount} updateUser={this.updateUser} signUserOut={this.signUserOut} />}
 									</OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/help.png' >
-									<OverlayComponent resetAllOverlay={this.resetAllOverlay}><HelpPage /></OverlayComponent>
+									<OverlayComponent><HelpPage /></OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/settings.png' fun={() => { }}>
-									<OverlayComponent resetAllOverlay={this.resetAllOverlay}><SettingsPage /></OverlayComponent>
+									<OverlayComponent><SettingsPage /></OverlayComponent>
 								</NavButton>
 							</div>
 						</div>
@@ -363,7 +363,7 @@ class App extends Component {
 								< Navigate to={"/map"} />
 							} />
 							<Route path='/list' element={
-								< ListPage />
+								< ListPage sortingChoice={this.state.sortingChoice} />
 							} />
 							<Route path='/map' element={
 								< MapPage />

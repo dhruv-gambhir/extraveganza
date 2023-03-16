@@ -313,3 +313,19 @@ body {
     width: auto;
     align-self: center;
 }
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 6px;
+}
