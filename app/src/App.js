@@ -17,7 +17,7 @@ import LoginSignupRouter from './scripts/AccountPage/LoginSignup';
 import AccountPage from './scripts/AccountPage/AccountPage';
 import MapPage from './scripts/MapPage/MapPage';
 import ListPage from './scripts/ListPage/ListPage';
-import CommunityPage from './CommunityPage/CommunityPage';
+import CommunityPage from './scripts/CommunityPage/CommunityPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 

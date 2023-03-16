@@ -30,6 +30,18 @@ export default class CommunityPost extends Component {
                         {this.props.children[2]}
                     </div>
                 </div>
+
+                <div className="community-page-card-bottom">
+                    <div className="community-page-card-bottom-elem-container">
+                        <div className="community-page-card-bottom-elem">💖</div>
+                        <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
+
+                    </div>
+                    <div className="community-page-card-bottom-elem-container">
+                        <div className="community-page-card-bottom-elem">💬</div>
+                        <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
+                    </div>
+                </div>
             </div>);
     }
 }
