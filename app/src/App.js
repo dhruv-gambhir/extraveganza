@@ -195,7 +195,6 @@ class App extends Component {
 	 * A function to let the user sign out of their account
 	 */
 	signUserOut = () => {
-		this.resetAllOverlay();
 		const userInfo = this.state.userInfo;
 		userInfo.isUserLoggedIn = false;
 		userInfo.user = {};
@@ -214,7 +213,6 @@ class App extends Component {
 			.then((response) => {
 				console.log(response.status);
 				if (response.status === 204) {
-					this.resetAllOverlay();
 					userInfo.isUserLoggedIn = false;
 					userInfo.user = {};
 					this.setState({ userInfo: userInfo });
@@ -240,15 +238,6 @@ class App extends Component {
 		this.setState({
 			[key]: temp,
 			sortingChoice: temp[id].title
-		});
-	};
-
-	/**
-	 * @deprecated
-	 * A helper function reset all overlay open boolean to false
-	 */
-	resetAllOverlay = () => {
-		this.setState({
 		});
 	};
 
@@ -363,7 +352,7 @@ class App extends Component {
 								< Navigate to={"/map"} />
 							} />
 							<Route path='/list' element={
-								< ListPage sortingChoice={this.state.sortingChoice} />
+								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} />
 							} />
 							<Route path='/map' element={
 								< MapPage />
