@@ -1,35 +1,29 @@
-import React, { useRef, useEffect } from "react";
-import GoogleMapReact from "google-map-react";
+import React, { Component } from 'react';
+import { GoogleMap, LoadScript,Marker } from '@react-google-maps/api';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const containerStyle = {
+  width: '100%',
+  height: '100%'
+};
 
-export default function SimpleMap({ center }) {
-  const mapRef = useRef(null);
 
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.setCenter(center);
-      console.log("The center is", center);
-
-    }
-  }, [center]);
-
-  return (
-    <div style={{ height: "100%", width: "80%" }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{
-          key: "AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo",
-        }}
-        defaultCenter={center}
-        defaultZoom={15}
-        yesIWantToUseGoogleMapApiInternals={true}
-        onGoogleApiLoaded={({ map }) => {
-          mapRef.current = map;
-        }}
+export default class SimpleMap extends Component {
+  render() {
+    return (
+      <LoadScript
+        googleMapsApiKey="AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo"
       >
-        {console.log("The centre is" + center.lat)}
-        <AnyReactComponent lat={center.lat} lng={center.lng} text="My Marker" />
-      </GoogleMapReact>
-    </div>
-  );
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={this.props.center}
+          zoom={13}
+        >
+        <Marker position={this.props.center} />
+
+          { /* Child components, such as markers, info windows, etc. */ }
+          <></>
+        </GoogleMap>
+      </LoadScript>
+    )
+  }
 }
