@@ -120,10 +120,10 @@ export default class ListPage extends Component {
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
                 <div className="main-content-container list-page-card-container">
                     {list.map((item) => (
-                        <RestaurantTitleCard imagePath={item.imagePath} key={item.id}>
-                            <div>{item.name}</div>
-                            <div>{item.description}, {item.dietaryRestrictions.vegan && 'vegan, '}{item.dietaryRestrictions.vegetarian && 'vegetarian, '}{item.dietaryRestrictions.lactoseFree && 'lactose-free, '}{item.dietaryRestrictions.glutenFree && 'gluten-free, '}{item.rating} / 5</div>
-                        </RestaurantTitleCard>
+                            <RestaurantTitleCard imagePath={item.imagePath} key={item.id} restID={item.id}>
+                                <div>{item.name}</div>
+                                <div>{item.description}, {item.dietaryRestrictions.vegan && 'vegan, '}{item.dietaryRestrictions.vegetarian && 'vegetarian, '}{item.dietaryRestrictions.lactoseFree && 'lactose-free, '}{item.dietaryRestrictions.glutenFree && 'gluten-free, '}{item.rating} / 5</div>
+                            </RestaurantTitleCard>
                     ))}
                 </div>
             </Fragment>

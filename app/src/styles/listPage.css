@@ -18,6 +18,8 @@
 
 	color: var(--really-green);
 
+	text-decoration: none;
+
 	cursor: pointer;
 	transition: 0.4s ease;
 }

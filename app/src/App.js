@@ -17,7 +17,7 @@ import LoginSignupRouter from './scripts/AccountPage/LoginSignup';
 import AccountPage from './scripts/AccountPage/AccountPage';
 import MapPage from './scripts/MapPage/MapPage';
 import ListPage from './scripts/ListPage/ListPage';
-import CommunityPage from './CommunityPage/CommunityPage';
+import CommunityPage from './scripts/CommunityPage/CommunityPage';
 import HelpPage from './scripts/HelpPage';
 import SettingsPage from './scripts/SettingsPage';
 
@@ -273,7 +273,7 @@ class App extends Component {
 	 * @returns An HTML div for the footer
 	 */
 	renderFooter() {
-		const location = window.location.href.split('/').pop();
+		const location = window.location.href.split('/').pop().split('?')[0];
 		// the empty set state on click is to make sure this footer thing is rerendered
 		return (<div className="bottom-container">
 			<div className="bottom-button-container">
