@@ -37,6 +37,7 @@ export default class ListPage extends Component {
             { id: 4, name: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69 }, imagePath: "" },
         ];
         this.listBuffer = restaurantList;
+
         return restaurantList;
     };
 
@@ -105,6 +106,17 @@ export default class ListPage extends Component {
     };
 
     /**
+     * Filters the restaurants by search bar query
+     * @date 3/17/2023 - 5:25:54 PM
+     */
+    filterRestaurantsBySearchQuery = () => {
+        var foo = this.listBuffer;
+        foo = foo.filter((bar) => bar.name.toLowerCase().includes(this.props.searchbarValue.toLowerCase()));
+        this.listBuffer = foo;
+        return foo;
+    };
+
+    /**
      * Renders the component's content
      * @date 3/13/2023 - 1:51:56 PM
      *
@@ -112,6 +124,7 @@ export default class ListPage extends Component {
      */
     render() {
         this.retrieveRestaurantsList();
+        this.filterRestaurantsBySearchQuery();
         this.reorderRestaurantsListDietaryRestrictions();
         const list = this.reorderRestaurantsListSortingChoice();
 
@@ -120,10 +133,10 @@ export default class ListPage extends Component {
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
                 <div className="main-content-container list-page-card-container">
                     {list.map((item) => (
-                            <RestaurantTitleCard imagePath={item.imagePath} key={item.id} restID={item.id}>
-                                <div>{item.name}</div>
-                                <div>{item.description}, {item.dietaryRestrictions.vegan && 'vegan, '}{item.dietaryRestrictions.vegetarian && 'vegetarian, '}{item.dietaryRestrictions.lactoseFree && 'lactose-free, '}{item.dietaryRestrictions.glutenFree && 'gluten-free, '}{item.rating} / 5</div>
-                            </RestaurantTitleCard>
+                        <RestaurantTitleCard imagePath={item.imagePath} key={item.id} restID={item.id}>
+                            <div>{item.name}</div>
+                            <div>{item.description}, {item.dietaryRestrictions.vegan && 'vegan, '}{item.dietaryRestrictions.vegetarian && 'vegetarian, '}{item.dietaryRestrictions.lactoseFree && 'lactose-free, '}{item.dietaryRestrictions.glutenFree && 'gluten-free, '}{item.rating} / 5</div>
+                        </RestaurantTitleCard>
                     ))}
                 </div>
             </Fragment>

@@ -58,6 +58,7 @@ class App extends Component {
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
 			sortingChoice: 'A - Z',
+			searchbarValue: '',
 
 			userInfo: {
 				user: {},
@@ -314,7 +315,7 @@ class App extends Component {
 							<Routes>
 								<Route path='/list' element={
 									<div className="searchbar-container">
-										<input className="searchbar searchbar-smaller" type="text" placeholder="Search"></input>
+										<input className="searchbar searchbar-smaller" type="text" placeholder="Search" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
 										<DropdownMenu
 											className="uid"
 											title={this.state.sortingChoices.find(x => x.selected).title}
@@ -353,7 +354,7 @@ class App extends Component {
 								< Navigate to={"/map"} />
 							} />
 							<Route path='/list' element={
-								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} />
+								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
 							} />
 							<Route path='/map' element={
 								< MapPage />
