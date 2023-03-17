@@ -6,6 +6,7 @@ import './styles/overlay.css';
 import './styles/CSSTransition.css';
 import './styles/listPage.css';
 import './styles/communityPage.css';
+import './styles/restaurantInfo.css';
 
 // Import modules
 import React, { Component, createRef, Fragment } from 'react';

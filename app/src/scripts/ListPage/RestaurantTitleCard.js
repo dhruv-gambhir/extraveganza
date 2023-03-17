@@ -1,4 +1,4 @@
-import { Component, cloneElement } from "react";
+import { Component, cloneElement, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import FontAwesome from "react-fontawesome";
@@ -39,24 +39,30 @@ export default class RestaurantTitleCard extends Component {
 	 */
 	render() {
 		return (
-			<Link className="list-page-card" to={`/list?rest=${this.props.restID}`} onClick={this.toggleCard}>
-				<div className="list-page-card-image">
-					<img src={this.props.imagePath} alt="not found" />
-				</div>
-				<div className="list-page-card-text">
-					<div className="list-page-card-text-header">
-						{this.props.children[0]}
+			<Fragment>
+				<Link className="list-page-card" to={`/list?rest=${this.props.restID}`} onClick={this.toggleCard}>
+					<div className="list-page-card-image">
+						<img src={this.props.imagePath} alt="not found" />
 					</div>
-					<div className="list-page-card-text-description">
-						{this.props.children[1]}
+					<div className="list-page-card-text">
+						<div className="list-page-card-text-header">
+							{this.props.children[0]}
+						</div>
+						<div className="list-page-card-text-description">
+							{this.props.children[1]}
+						</div>
 					</div>
-				</div>
-				<div className="list-page-card-select">
-					<FontAwesome name="angle-down" size="2x" />
-				</div>
-
-				{this.state.isChildRendered && cloneElement(<OverlayComponent><RestaurantInfoPage /></OverlayComponent>, { toggleButton: this.toggleCard })}
-			</Link>);
+					<div className="list-page-card-select">
+						<FontAwesome name="angle-down" size="2x" />
+					</div>
+				</Link>
+				{this.state.isChildRendered && cloneElement(
+					<OverlayComponent>
+						<RestaurantInfoPage />
+					</OverlayComponent>,
+					{ toggleButton: this.toggleCard })}
+			</Fragment>
+		);
 	}
 }
 
