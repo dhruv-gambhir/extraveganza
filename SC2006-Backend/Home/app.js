@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import router from './routes/restaurant-route';
+import router from './routes/restaurant-route.js';
 const app = express();
 
 app.use(express.json());
