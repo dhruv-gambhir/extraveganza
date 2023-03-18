@@ -345,7 +345,7 @@ class App extends Component {
 									</div>
 								} />
 								<Route path='/map' element={
-									<MapSearch setAddressAndCoords={this.setAddressAndCoords} currentAddress={this.state.mapSearchInfo.address}/>
+									<MapSearch setAddressAndCoords={this.setAddressAndCoords} currentAddress={this.state.mapSearchInfo.address} />
 								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">
@@ -370,23 +370,23 @@ class App extends Component {
 								</NavButton>
 							</div>
 						</div>
-
-						<Routes>
-							{/* Route to map as home page */}
-							<Route path='/' element={
-								< Navigate to={"/map"} />
-							} />
-							<Route path='/list' element={
-								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
-							} />
-							<Route path='/map'
-								element={
-									< MapPage mapSearchInfo={this.state.mapSearchInfo} />
+						
+						{/* Route element would not receive updated value */}
+						{this.props.router.location.pathname === '/map' ?
+							< MapPage mapSearchInfo={this.state.mapSearchInfo} /> :
+							<Routes>
+								{/* Route to map as home page */}
+								<Route path='/' element={
+									< Navigate to={"/map"} />
 								} />
-							<Route path='/community' element={
-								< CommunityPage />
-							} />
-						</Routes>
+								<Route path='/list' element={
+									< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
+								} />
+								<Route path='/community' element={
+									< CommunityPage />
+								} />
+							</Routes>
+							}
 					</div>
 				</div>
 			</Fragment>

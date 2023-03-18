@@ -17,22 +17,26 @@ export default class MapPage extends Component {
         this.state = {
             lat: this.props.mapSearchInfo.lat,
             lng: this.props.mapSearchInfo.lng,
-            address: this.props.mapSearchInfo.address
+            address: this.props.mapSearchInfo.address,
         };
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data) {
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps !== this.props) {
+            this.setState({
+                ...nextProps.mapSearchInfo
+            });
             this.forceUpdate();
-            console.log(this.props.data)
+            return true;
         }
+        return false;
     }
 
     render() {
+        { console.log(this.state); }
         return (
             <Fragment>
                 <div className="main-content-container">
-                    {console.log(this.state)}
                     <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} address={this.state.address} />
                 </div>
             </Fragment>
