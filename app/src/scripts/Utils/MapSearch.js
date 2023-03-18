@@ -18,7 +18,7 @@ function MapSearch(props) {
 		const selectedAddress = addresses.find(
 			(address) => ((address.SEARCHVAL + ' - ' + address.ADDRESS) === (value.SEARCHVAL + ' - ' + value.ADDRESS))
 		);
-		
+
 		setSearchVal(selectedAddress.SEARCHVAL + ' - ' + selectedAddress.ADDRESS);
 
 		const { LATITUDE, LONGITUDE } = selectedAddress;
@@ -26,7 +26,6 @@ function MapSearch(props) {
 
 		props.setAddressAndCoords(AddressName, LATITUDE, LONGITUDE);
 	};
-
 
 	const displayResults = () => {
 		if (!searchVal) {
@@ -41,7 +40,7 @@ function MapSearch(props) {
 		fetch(url)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
+				console.log(data);
 				setAddresses(data.results);
 				setShowResults(true);
 			})
@@ -65,12 +64,13 @@ function MapSearch(props) {
 						onKeyDown={
 							(evt) => {
 								if (evt.key === 'Enter') displayResults();
-								if (evt.key === 'Esc') setShowResults(false);
+								if (evt.key === 'Escape') setShowResults(false);
 							}
 						}
+						onBlur={() => { }}
 					/>
 				</div>
-				{showResults && (
+				{(showResults && addresses.length > 0) && (
 					<div role="list"
 						className="location-dropdown-list">
 						{addresses.map((address, index) => (

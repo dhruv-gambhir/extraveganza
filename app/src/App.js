@@ -370,23 +370,23 @@ class App extends Component {
 								</NavButton>
 							</div>
 						</div>
-						
-						{/* Route element would not receive updated value */}
-						{this.props.router.location.pathname === '/map' ?
-							< MapPage mapSearchInfo={this.state.mapSearchInfo} /> :
-							<Routes>
-								{/* Route to map as home page */}
-								<Route path='/' element={
-									< Navigate to={"/map"} />
-								} />
-								<Route path='/list' element={
-									< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
-								} />
-								<Route path='/community' element={
-									< CommunityPage />
-								} />
-							</Routes>
-							}
+
+						<Routes>
+							{/* Route to map as home page */}
+							<Route path='/' element={
+								< Navigate to={"/map"} />
+							} />
+							<Route path='/list' element={
+								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
+							} />
+							<Route path='/map' element={
+								< MapPage mapSearchInfo={this.state.mapSearchInfo} />
+							} />
+							<Route path='/community' element={
+								< CommunityPage />
+							} />
+						</Routes>
+
 					</div>
 				</div>
 			</Fragment>
