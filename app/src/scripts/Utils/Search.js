@@ -23,7 +23,6 @@ function Search(props) {
 		props.onAddressChange(AddressName);
 		props.onCoordinatesChange(LATITUDE, LONGITUDE);
 		console.log("Passed in lat and lng" + LATITUDE + LONGITUDE)
-
 	};
 	
 
