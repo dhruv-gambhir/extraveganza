@@ -3,7 +3,7 @@
 import React, { Fragment, useState } from 'react';
 
 function MapSearch(props) {
-	const [searchVal, setSearchVal] = useState('');
+	const [searchVal, setSearchVal] = useState(props.currentAddress);
 	const [addresses, setAddresses] = useState([]);
 	const [showResults, setShowResults] = useState(false);
 	const [selectedValue, setSelectedValue] = useState('');

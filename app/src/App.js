@@ -299,7 +299,7 @@ class App extends Component {
 		// the empty set state on click is to make sure this footer thing is rerendered
 		return (<div className="bottom-container">
 			<div className="bottom-button-container">
-				<Link className={`bottom-button ${location === '/map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => { this.setState({ searchbarValue: "" }); }} state={{ mapSearchInfo: this.state.mapSearchInfo }}>
+				<Link className={`bottom-button ${location === '/map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => { this.setState({ searchbarValue: "" }); }}>
 					<img className="bot-img" src="images/map.png" alt="map button" id="map-button" />
 				</Link>
 
@@ -345,7 +345,7 @@ class App extends Component {
 									</div>
 								} />
 								<Route path='/map' element={
-									<MapSearch setAddressAndCoords={this.setAddressAndCoords} />
+									<MapSearch setAddressAndCoords={this.setAddressAndCoords} currentAddress={this.state.mapSearchInfo.address}/>
 								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">
