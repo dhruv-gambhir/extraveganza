@@ -10,7 +10,7 @@ import './styles/restaurantInfo.css';
 
 // Import modules
 import React, { Component, createRef, Fragment } from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages & components
@@ -26,6 +26,8 @@ import OverlayComponent from './scripts/Utils/OverlayComponent';
 import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSidebar';
 import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
+import Search from './scripts/Utils/Search';
+import MapSearch from './scripts/Utils/MapSearch';
 
 /**
  * App.js
@@ -58,7 +60,14 @@ class App extends Component {
 				{ id: 2, title: 'Rating', selected: false, key: 'sort' },
 			],
 			sortingChoice: 'A - Z',
+
 			searchbarValue: '',
+
+			mapSearchInfo: {
+				lat: 1.34640300173588,
+				lng: 103.686721630348,
+				address: 'Nanyang Technological University Hall 1'
+			},
 
 			userInfo: {
 				user: {},
@@ -258,6 +267,17 @@ class App extends Component {
 		});
 	};
 
+	setAddressAndCoords = (address, latitude, longitude) => {
+		const mapSearchInfo = this.state.mapSearchInfo;
+		mapSearchInfo.lat = latitude;
+		mapSearchInfo.lng = longitude;
+		mapSearchInfo.address = address;
+		this.setState({
+			mapSearchInfo: mapSearchInfo
+		});
+		console.log(this.state.mapSearchInfo);
+	};
+
 	/**
 	 * A helper function to render the header
 	 * @returns An HTML div for the header
@@ -279,19 +299,19 @@ class App extends Component {
 		// the empty set state on click is to make sure this footer thing is rerendered
 		return (<div className="bottom-container">
 			<div className="bottom-button-container">
-				<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => this.setState({})}>
-					<img className="bot-img" src="images/map.png" alt="map button" id="map-button"></img>
+				<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => { this.setState({ searchbarValue: "" }); }}>
+					<img className="bot-img" src="images/map.png" alt="map button" id="map-button" />
 				</Link>
 
-				<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/list' onClick={() => this.setState({})}>
-					<img className="bot-img" src="images/list.png" alt="list button" id="list-button"></img>
+				<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/list' onClick={() => { this.setState({ searchbarValue: "" }); }}>
+					<img className="bot-img" src="images/list.png" alt="list button" id="list-button" />
 				</Link>
 
-				<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/community' onClick={() => this.setState({})}>
-					<img className="bot-img" src="images/community.png" alt="community button" id="community-button"></img>
+				<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/community' onClick={() => { this.setState({ searchbarValue: "" }); }}>
+					<img className="bot-img" src="images/community.png" alt="community button" id="community-button" />
 				</Link>
-			</div>
-		</div>);
+			</div >
+		</div >);
 	}
 
 	/**
@@ -315,7 +335,7 @@ class App extends Component {
 							<Routes>
 								<Route path='/list' element={
 									<div className="searchbar-container">
-										<input className="searchbar searchbar-smaller" type="text" placeholder="Search" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
+										<input className="searchbar searchbar-smaller" type="text" placeholder="Search Restaurant" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
 										<DropdownMenu
 											className="uid"
 											title={this.state.sortingChoices.find(x => x.selected).title}
@@ -324,9 +344,12 @@ class App extends Component {
 										</DropdownMenu>
 									</div>
 								} />
+								<Route path='/map' element={
+									<MapSearch setAddressAndCoords={this.setAddressAndCoords} />
+								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">
-										<input className="searchbar" type="text" placeholder="Search"></input>
+										<input className="searchbar" type="text" placeholder="Search Post" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
 									</div>
 								} />
 							</Routes>
@@ -356,9 +379,10 @@ class App extends Component {
 							<Route path='/list' element={
 								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
 							} />
-							<Route path='/map' element={
-								< MapPage />
-							} />
+							<Route path='/map'
+								element={
+									< MapPage mapSearchInfo={this.state.mapSearchInfo} />
+								} />
 							<Route path='/community' element={
 								< CommunityPage />
 							} />
