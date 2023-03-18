@@ -10,7 +10,7 @@ import './styles/restaurantInfo.css';
 
 // Import modules
 import React, { Component, createRef, Fragment } from 'react';
-import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 // Import pages & components
@@ -295,19 +295,19 @@ class App extends Component {
 	 * @returns An HTML div for the footer
 	 */
 	renderFooter() {
-		const location = window.location.href.split('/').pop().split('?')[0];
+		const location = this.props.router.location.pathname;
 		// the empty set state on click is to make sure this footer thing is rerendered
 		return (<div className="bottom-container">
 			<div className="bottom-button-container">
-				<Link className={`bottom-button ${location === 'map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => { this.setState({ searchbarValue: "" }); }}>
+				<Link className={`bottom-button ${location === '/map' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to="/map" onClick={() => { this.setState({ searchbarValue: "" }); }} state={{ mapSearchInfo: this.state.mapSearchInfo }}>
 					<img className="bot-img" src="images/map.png" alt="map button" id="map-button" />
 				</Link>
 
-				<Link className={`bottom-button ${location === 'list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/list' onClick={() => { this.setState({ searchbarValue: "" }); }}>
+				<Link className={`bottom-button ${location === '/list' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/list' onClick={() => { this.setState({ searchbarValue: "" }); }}>
 					<img className="bot-img" src="images/list.png" alt="list button" id="list-button" />
 				</Link>
 
-				<Link className={`bottom-button ${location === 'community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/community' onClick={() => { this.setState({ searchbarValue: "" }); }}>
+				<Link className={`bottom-button ${location === '/community' ? 'bottom-button-bordered' : 'bottom-button-unbordered'}`} to='/community' onClick={() => { this.setState({ searchbarValue: "" }); }}>
 					<img className="bot-img" src="images/community.png" alt="community button" id="community-button" />
 				</Link>
 			</div >
@@ -411,4 +411,20 @@ class App extends Component {
 	}
 }
 
-export default App;
+function withRouter(Component) {
+	function ComponentWithRouterProp(props) {
+		let location = useLocation();
+		let navigate = useNavigate();
+		let params = useParams();
+		return (
+			<Component
+				{...props}
+				router={{ location, navigate, params }}
+			/>
+		);
+	}
+
+	return ComponentWithRouterProp;
+}
+
+export default withRouter(App);
