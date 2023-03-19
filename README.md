@@ -1,4 +1,4 @@
-# SC2006-Project: exdtraVEGANza
+# SC2006-Project: extraVEGANza
 
 Team : Anyhow Anything Anywhere
 

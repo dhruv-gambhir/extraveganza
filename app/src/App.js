@@ -26,7 +26,6 @@ import OverlayComponent from './scripts/Utils/OverlayComponent';
 import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSidebar';
 import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
-import Search from './scripts/Utils/Search';
 import MapSearch from './scripts/Utils/MapSearch';
 
 /**
