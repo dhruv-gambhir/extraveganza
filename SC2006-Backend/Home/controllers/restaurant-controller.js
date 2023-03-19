@@ -1,9 +1,9 @@
-import retaurant from "../models/retaurant.js";
+import Restaurant from "../models/restaurant.js";
 
 export const getRestaurants = async (req, res, next) => {
     let restaurants;
     try {
-        restaurants = await retaurant.find();
+        restaurants = await Restaurant.find();
     } catch (err) {
         console.log(err);
     }
@@ -13,13 +13,13 @@ export const getRestaurants = async (req, res, next) => {
     return res.status(200).json({ restaurants: restaurants});
 };
 
-export const addRestaurants = async (req, res, next) => {
+export const addRestaurant = async (req, res, next) => {
     const{name,location} = req.body;
 
     let existingRestaurant;
 
     try{
-        existingRestaurant = await restaurants.findOne({name:name});
+        existingRestaurant = await Restaurant.findOne({name:name});
     } catch (err) {
         console.log(err);
     }
@@ -47,4 +47,20 @@ export const addRestaurants = async (req, res, next) => {
     return res.status(201).json({message: "Restaurant added."});
 };
 
+// Fetches restaurant menu
+export const getRestaurantMenu = async (req, res) =>
+{
+  try {
+    const { id } = req.params;
+    const restaurant = await Restaurant.findById(id); 
+
+    const menu = await Promise.all(
+      restaurant.menu.map((id) => Restaurant.findById(id))
+    );
+
+    res.status(200).json(menu);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
 
