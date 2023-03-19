@@ -1,14 +1,6 @@
 import mongoose from "mongoose";
 import Menu from "./menu";
 
-//TODO: use from frontend
-const Dietary_Restriction = {
-    Vegan: "vegan",
-    Vegetarian: "vegetarian",
-    Halal: "halal",
-    None: "none"
-}
-
 const RestaurantSchema = new mongoose.schema(
     {
         id: {
@@ -22,18 +14,27 @@ const RestaurantSchema = new mongoose.schema(
             type: String,
             required: true,
         },
-        distance: {
+        latitude: {
             type: Number,
-            required: false,
+        },
+        longtitude: {
+            type: Number,
+        },
+        vegan: {
+            type: Number,
+        },
+        vegetarian: {
+            type: Number,
+        },
+        glutenFree: {
+            type: Number,
+        },
+        lactoseFree: {
+            type: Number,
         },
         rating: {
             type: Number,
             required: false,
-        },
-        dietaryRestriction: {
-            type: Dietary_Restriction,
-            required: true,
-            default: "none",
         },
         menu: Menu,
     }
