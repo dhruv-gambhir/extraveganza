@@ -1,9 +1,15 @@
-import retaurant from "../models/retaurant.js";
+import Restaurant from "../models/restaurant.js";
 
-export const getRestaurants = async (req, res, next) => {
+/**
+ * This function calls and gets the list of restaurants required from the database.
+ * An error message is shown if no restaurant is returned.
+ * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
+ * @returns Restaurant records
+ */
+export const getRestaurants = async (res) => {
     let restaurants;
     try {
-        restaurants = await retaurant.find();
+        restaurants = await Restaurant.find();
     } catch (err) {
         console.log(err);
     }
@@ -13,13 +19,20 @@ export const getRestaurants = async (req, res, next) => {
     return res.status(200).json({ restaurants: restaurants});
 };
 
-export const addRestaurants = async (req, res, next) => {
+/**
+ * This function writes to the database to add a restaurant record.
+ * An error message is shown when restaurant that function is trying to add has already existed.
+ * @param {*} req represents the HTTP request and has properties for the request query string, parameters, body and HTTP headers
+ * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
+ * @returns String confirmation message
+ */
+export const addRestaurant = async (req, res) => {
     const{name,location} = req.body;
 
     let existingRestaurant;
 
     try{
-        existingRestaurant = await restaurants.findOne({name:name});
+        existingRestaurant = await Restaurant.findOne({name:name});
     } catch (err) {
         console.log(err);
     }
@@ -27,7 +40,7 @@ export const addRestaurants = async (req, res, next) => {
         return res.status(402).json({message: "Restaurant already exists."});
     }
 
-    const newRestaurant = new retaurant({
+    const newRestaurant = new Restaurant({
         id,
         name,
         x: 0,
@@ -47,4 +60,25 @@ export const addRestaurants = async (req, res, next) => {
     return res.status(201).json({message: "Restaurant added."});
 };
 
+/**
+ * This function calls and gets the menu list of the particular restaurant by its id.
+ * @param {*} req represents the HTTP request and has properties for the request query string, parameters, body and HTTP headers
+ * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
+ * @returns Menu options
+ */
+export const getRestaurantMenu = async (req, res) =>
+{
+  try {
+    const { id } = req.params;
+    const restaurant = await Restaurant.findById(id); 
+
+    const menu = await Promise.all(
+      restaurant.menu.map((id) => Restaurant.findById(id))
+    );
+
+    res.status(200).json(menu);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  } return res.status(200).json({ menu: menu });
+};
 
