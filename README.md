@@ -48,14 +48,14 @@
 
 ### Comments from frontend
 
-- When user reach the home page, they will be redirected to the map page, i.e. there is no home page, but I think can keep the Home Page blob in the Dialogue Map.
+- When user reach the home page, they will be redirected to the map page, i.e. there is no home page, but I think can keep the Home Page blob in the Dialogue Map. - Renamed Map Page to map interface instead, can help check if its ok?
 
-- There's also the dietary restrictions options (e.g. vegan, vegetarian, etc.) option, I think that should also be included in the map.
+- There's also the dietary restrictions options (e.g. vegan, vegetarian, etc.) option, I think that should also be included in the map. - added as an arrow
 
 - Some functions that might not be implemented
 
-  - Forgot password (process might be simplified)
-  - Follow user / friends function
+  - Forgot password (process might be simplified) - removed
+  - Follow user / friends function - removed
 
 &nbsp;
 
