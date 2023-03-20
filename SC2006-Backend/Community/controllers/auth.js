@@ -4,7 +4,7 @@ import User from "../models/User.js";
 
 /**
  * REGISTER USER
-*/
+ */
 export const register = async (req, res) => {
 	try {
 		const {
@@ -58,7 +58,9 @@ export const login = async (req, res) => {
 	}
 };
 
-/* UPDATE PASSWORD */
+/** 
+ * UPDATE PASSWORD 
+ */
 export const update = async (req, res) => {
 	try {
 		const { username, newUsername, newPassword } = req.body;
@@ -79,7 +81,9 @@ export const update = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
-/* DELETE ACCOUNT*/
+/**
+ * DELETE ACCOUNT
+ */
 export const deleteAccount = async (req, res) => {
 	try {
 		const { username } = req.body;
