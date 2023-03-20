@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+/* Schema of how posts are stored */
+
 const postSchema = mongoose.Schema(
   {
     userId: {
@@ -11,15 +13,7 @@ const postSchema = mongoose.Schema(
       type:String,
       required: true,
     },
-    // firstName: {
-    //   type: String,
-    //   required: true,
-    // },
-    // lastName: {
-    //   type: String,
-    //   required: true,
-    // },
-    // location: String,
+
     description: String,
     picturePath: String,
     userPicturePath: String,
