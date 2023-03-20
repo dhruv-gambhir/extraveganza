@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+/* Schema that how users are stored */
+
 const UserSchema = new mongoose.Schema(
   {
 
