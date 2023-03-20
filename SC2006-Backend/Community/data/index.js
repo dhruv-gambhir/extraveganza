@@ -1,4 +1,5 @@
-// Fake Data
+/* Fake Data */
+// FOR TESTING
 
 import mongoose from "mongoose";
 
