@@ -36,7 +36,7 @@ export const register = async (req, res) => {
 	}
 };
 
-/* LOGGING IN */
+/* LOG IN */
 export const login = async (req, res) => {
 	try {
 		const { username, password } = req.body;
@@ -54,6 +54,7 @@ export const login = async (req, res) => {
 	}
 };
 
+/* UPDATE PASSWORD */
 export const update = async (req, res) => {
 	try {
 		const { username, newUsername, newPassword } = req.body;
@@ -74,7 +75,7 @@ export const update = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
-
+/* DELETE ACCOUNT*/
 export const deleteAccount = async (req, res) => {
 	try {
 		const { username } = req.body;
