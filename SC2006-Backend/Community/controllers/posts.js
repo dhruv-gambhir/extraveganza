@@ -1,7 +1,7 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
 
-
+/* CREATE POSTS*/
 export const createPost = async (req, res) => 
 {
   try 
@@ -30,7 +30,7 @@ export const createPost = async (req, res) =>
   }
 };
 
-/* READ */
+/* READ POST */
 export const getFeedPosts = async (req, res) => 
 {
   try {
@@ -41,7 +41,7 @@ export const getFeedPosts = async (req, res) =>
   }
 };
 
-// getPosts
+/* GET USER'S POSTS*/
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -52,7 +52,7 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
-/* UPDATE */
+/* LIKE POST*/
 export const likePost = async (req, res) => {
   try {
     const { id } = req.params;
@@ -78,7 +78,7 @@ export const likePost = async (req, res) => {
   }
 };
 
-/* COMMENT */
+/* COMMENT POSTS*/
 
 export const commentPost = async (req, res) => {
   try {
