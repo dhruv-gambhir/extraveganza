@@ -91,7 +91,7 @@ Please provide comment if any :3
 
 ## **Sequence Diagram**
 
-Please upload to GitHub, or upload to Google Drive, before final submission
+Please upload to GitHub, or upload to Google Drive
 
 Remember to also update accordingly to our current application status
 
