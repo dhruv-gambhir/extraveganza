@@ -1,11 +1,11 @@
 import express from 'express';
-import { addRestaurants, getRestaurants } from '../controllers/restaurant-controller.js';
-
+import { addRestaurant, getRestaurants, getRestaurantMenu } from '../controllers/restaurant-controller.js';
 
 const router = express.Router();
 
 router.get('/',getRestaurants);
-router.post('/add', addRestaurants);
+router.post('/add', addRestaurant);
+router.get('/', getRestaurantMenu);
 router.put('restrictions/update',)
 
 

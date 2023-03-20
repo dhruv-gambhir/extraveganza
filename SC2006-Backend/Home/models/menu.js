@@ -1,33 +1,31 @@
 import mongoose from "mongoose";
-import Menu from "./menu";
 
-//TODO: use from frontend
+/**
+ * Enumeration of Dietary Restriction: Vegan, Vegetarian, GlutenFree and LactoseFree
+ */
 const Dietary_Restriction = {
     Vegan: "vegan",
     Vegetarian: "vegetarian",
-    Halal: "halal",
+    GlutenFree: "glutenFree",
+    LactoseFree: "lactoseFree",
     None: "none"
-}
+  }
 
-const RestaurantSchema = new mongoose.schema(
+  /**
+   * Schema of menu options of a restaurant
+   */
+const MenuSchema = new mongoose.schema(
     {
-        id: {
-            type: Number,
-        },
-        name: {
+        item: {
             type: String,
             required: true,
         },
-        address: {
-            type: String,
-            required: true,
-        },
-        distance: {
+        price: {
             type: Number,
             required: false,
         },
-        rating: {
-            type: Number,
+        ingredients: {
+            type: Array,
             required: false,
         },
         dietaryRestriction: {
@@ -35,9 +33,8 @@ const RestaurantSchema = new mongoose.schema(
             required: true,
             default: "none",
         },
-        menu: Menu,
     }
 )
 
-const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
-export default Restaurant;
+const Menu = mongoose.model("Menu", MenuSchema);
+export default Menu;
