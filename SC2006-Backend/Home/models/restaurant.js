@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 import Menu from './menu';
 
+/**
+ * Schema of a restaurant from restaurant records
+ */
 const RestaurantSchema = new mongoose.Schema({
     id: {
         type: Number,

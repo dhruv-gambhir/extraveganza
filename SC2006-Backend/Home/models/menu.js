@@ -1,12 +1,19 @@
 import mongoose from "mongoose";
 
+/**
+ * Enumeration of Dietary Restriction: Vegan, Vegetarian, GlutenFree and LactoseFree
+ */
 const Dietary_Restriction = {
     Vegan: "vegan",
     Vegetarian: "vegetarian",
-    Halal: "halal",
+    GlutenFree: "glutenFree",
+    LactoseFree: "lactoseFree",
     None: "none"
   }
 
+  /**
+   * Schema of menu options of a restaurant
+   */
 const MenuSchema = new mongoose.schema(
     {
         item: {
