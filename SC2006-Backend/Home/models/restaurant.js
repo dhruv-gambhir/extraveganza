@@ -48,6 +48,19 @@ const RestaurantSchema = new mongoose.Schema({
     menu: Menu
 });
 
+/**
+ * Model of a restaurant from restaurant records
+ * @typedef Restaurant
+ * @property {number} id.required - id of the restaurant
+ * @property {number} x.required - x coordinate of the restaurant
+ * @property {number} y.required - y coordinate of the restaurant
+ * @property {string} name.required - name of the restaurant
+ * @property {string} address.required - address of the restaurant
+ * @property {number} vegan.required - vegan options of the restaurant
+ * @property {number} vegetarian.required - vegetarian options of the restaurant
+ * @property {number} glutenFree.required - gluten free options of the restaurant
+ * @property {number} lactoseFree.required - lactose free options of the restaurant
+*/
 const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
 export default Restaurant;
 

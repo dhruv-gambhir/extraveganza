@@ -3,9 +3,16 @@ import mongoose from 'mongoose';
 import router from './routes/restaurant-route.js';
 const app = express();
 
+/*
+* Middleware
+*/
 app.use(express.json());
 app.use("/api/restaurants",router);
 
+
+/*
+* Connect to MongoDB
+*/
 mongoose.connect(
     "mongodb+srv://admin:admin@cluster0.nuzoaig.mongodb.net/?retryWrites=true&w=majority"
     ).then(() => app.listen(3000))
