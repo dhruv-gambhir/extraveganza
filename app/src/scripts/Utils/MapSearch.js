@@ -49,6 +49,8 @@ function MapSearch(props) {
 			});
 	};
 
+	console.log(props.currentAddress);
+
 	return (
 		<Fragment>
 			<div className='searchbar-container dropdown-wrapper'>
@@ -59,7 +61,7 @@ function MapSearch(props) {
 						id="input"
 						name="input"
 						placeholder='Search Location'
-						value={searchVal}
+						value={props.currentAddress}
 						onChange={handleChange}
 						onKeyDown={
 							(evt) => {

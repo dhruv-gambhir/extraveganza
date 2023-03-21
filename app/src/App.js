@@ -81,7 +81,7 @@ class App extends Component {
 
 	/**
 	 * @override
-	 * To retrieve user data from local storage
+	 * To retrieve user data from local storage, and also map location
 	 */
 	componentDidMount() {
 		const loggedInUser = localStorage.getItem("loggedInUser");
@@ -92,6 +92,13 @@ class App extends Component {
 			userInfo.isUserLoggedIn = true;
 			userInfo.user = foundUser;
 			this.setState({ userInfo: userInfo });
+		}
+
+		const coordsAndAddress = localStorage.getItem("coordsAndAddress");
+
+		if (coordsAndAddress) {
+			const foo = JSON.parse(coordsAndAddress);
+			this.setAddressAndCoords(foo.address, foo.lat, foo.lng);
 		}
 	}
 
@@ -185,7 +192,7 @@ class App extends Component {
 		await axios.post('http://localhost:2006/auth/update/', newInfo)
 			.then((response) => {
 				if (response.status === 201) {
-					localStorage.clear();
+					localStorage.removeItem("loggedInUser");
 					console.log(response.data);
 					userInfo.user = response.data.user;
 					this.setState({
@@ -209,7 +216,7 @@ class App extends Component {
 		userInfo.isUserLoggedIn = false;
 		userInfo.user = {};
 		this.setState({ userInfo: userInfo });
-		localStorage.clear();
+		localStorage.removeItem("loggedInUser");
 	};
 
 	/**
@@ -226,7 +233,7 @@ class App extends Component {
 					userInfo.isUserLoggedIn = false;
 					userInfo.user = {};
 					this.setState({ userInfo: userInfo });
-					localStorage.clear();
+					localStorage.removeItem("loggedInUser");
 					console.log(response.data);
 				}
 			})
@@ -266,6 +273,14 @@ class App extends Component {
 		});
 	};
 
+	/**
+	 * Set address and coordinates for map
+	 * @date 3/21/2023 - 12:50:46 PM
+	 *
+	 * @param {*} address
+	 * @param {*} latitude
+	 * @param {*} longitude
+	 */
 	setAddressAndCoords = (address, latitude, longitude) => {
 		const mapSearchInfo = this.state.mapSearchInfo;
 		mapSearchInfo.lat = latitude;
@@ -274,6 +289,7 @@ class App extends Component {
 		this.setState({
 			mapSearchInfo: mapSearchInfo
 		});
+		localStorage.setItem("coordsAndAddress", JSON.stringify(this.state.mapSearchInfo));
 		console.log(this.state.mapSearchInfo);
 	};
 
@@ -382,7 +398,7 @@ class App extends Component {
 								< MapPage mapSearchInfo={this.state.mapSearchInfo} />
 							} />
 							<Route path='/community' element={
-								< CommunityPage />
+								< CommunityPage searchbarValue={this.state.searchbarValue} />
 							} />
 						</Routes>
 
@@ -410,6 +426,13 @@ class App extends Component {
 	}
 }
 
+/**
+ * Description placeholder
+ * @date 3/21/2023 - 12:50:46 PM
+ *
+ * @param {*} Component
+ * @returns {(props: any) => any}
+ */
 function withRouter(Component) {
 	function ComponentWithRouterProp(props) {
 		let location = useLocation();

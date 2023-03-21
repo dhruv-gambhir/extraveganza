@@ -11,6 +11,11 @@ import CommunityPost from "./CommunityPost";
  * @extends {Component}
  */
 export default class CommunityPage extends Component {
+	constructor(props) {
+		super(props);
+		this.listBuffer = [];
+	}
+
 	/**
 	 * Retrieves the community posts
 	 * @date 3/15/2023 - 7:13:26 PM
@@ -19,14 +24,24 @@ export default class CommunityPage extends Component {
 	 */
 	retrieveCommunityPostsList = () => {
 		// For now just return a const list
-		var restaurantList = [
-			{ id: 101010101, title: "Nice restaurant", description: "i luv veggies", rating: 5, content: "So nice mmmmmm i like it " },
-			{ id: 1, title: "Title 1", description: "Some description", rating: 5, content: "lorem ipsum dolor sit amet" },
-			{ id: 2, title: "Title 2", description: "Some description", rating: 5, content: <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dignissimos, autem repellat, quaerat illum neque obcaecati nulla hic ipsam dolore eligendi minima asperiores repellendus perspiciatis velit ducimus cum quo culpa? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit inventore voluptas dicta ab odio accusantium accusamus. Ducimus tempore, cupiditate dignissimos, a nisi fugit quas molestiae consectetur accusantium perferendis magnam enim.</div> },
-			{ id: 3, title: "Title 3", description: "Some description", rating: 5, content: "lorem ipsum dolor sit amet" },
-			{ id: 4, title: "Title 4", description: "Some description", rating: 5, content: "lorem ipsum dolor sit amet" },
+		var communityPostList = [
+			{ id: 101010101, title: "Nice restaurant", restaurant: "i luv veggies", rating: 5, content: "So nice mmmmmm i like it " },
+			{ id: 1, title: "Title 1", restaurant: "Restaurant Name", rating: 5, content: "lorem ipsum dolor sit amet" },
+			{ id: 2, title: "Title 2", restaurant: "Restaurant Name", rating: 5, content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dignissimos, autem repellat, quaerat illum neque obcaecati nulla hic ipsam dolore eligendi minima asperiores repellendus perspiciatis velit ducimus cum quo culpa? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit inventore voluptas dicta ab odio accusantium accusamus. Ducimus tempore, cupiditate dignissimos, a nisi fugit quas molestiae consectetur accusantium perferendis magnam enim." },
+			{ id: 3, title: "Title 3", restaurant: "Restaurant Name", rating: 5, content: "lorem ipsum dolor sit amet" },
+			{ id: 4, title: "Title 4", restaurant: "Restaurant Name", rating: 5, content: "lorem ipsum dolor sit amet" },
 		];
-		return restaurantList;
+		this.listBuffer = communityPostList;
+		return communityPostList;
+	};
+
+
+	filterRestaurantsBySearchQuery = () => {
+		var foo = this.listBuffer;
+		console.log(foo);
+		var foo = foo.filter((bar) => (bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) || bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) || bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
+		this.listBuffer = foo;
+		return foo;
 	};
 
 	/**
@@ -36,7 +51,8 @@ export default class CommunityPage extends Component {
 	 * @returns {*}
 	 */
 	render() {
-		const list = this.retrieveCommunityPostsList();
+		this.retrieveCommunityPostsList();
+		const list = this.filterRestaurantsBySearchQuery();
 
 		return (
 			<Fragment>
@@ -45,7 +61,7 @@ export default class CommunityPage extends Component {
 					{list.map((item) => (
 						<CommunityPost key={item.id}>
 							<div>{item.title}</div>
-							<div>{item.description}</div>
+							<div>{item.restaurant}</div>
 							<div>{item.content}</div>
 						</CommunityPost>
 					))}

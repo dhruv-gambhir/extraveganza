@@ -33,7 +33,6 @@ export default class MapPage extends Component {
     }
 
     render() {
-        { console.log(this.state); }
         return (
             <Fragment>
                 <div className="main-content-container">
