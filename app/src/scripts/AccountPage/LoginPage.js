@@ -99,10 +99,6 @@ export default class LoginPage extends Component {
                                 }} />
                         </div>
 
-                        <div className="login-element-container">
-                            <button className='forgot-password-label'>Forgot your password?</button>
-                        </div>
-
                         <div className="login-element-container"
                             onClick={this.authenticateUser}>
                             <button className='login-submit-label'>Login</button>
