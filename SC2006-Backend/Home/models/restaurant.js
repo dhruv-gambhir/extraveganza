@@ -57,7 +57,7 @@ const RestaurantSchema = new mongoose.Schema({
  * @property {number} vegetarian.required - vegetarian options of the restaurant
  * @property {number} glutenFree.required - gluten free options of the restaurant
  * @property {number} lactoseFree.required - lactose free options of the restaurant
-*/
+ */
 const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
 export default Restaurant;
 

@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
-/* Schema that how users are stored */
-
+/**
+ * Schema that how users are stored 
+ * @property {string} username - username unique to the account user that is between 2-50 characters
+ * @property {string} password - password of the account user of minimum 5 characters
+ * @property {string} picturePath - address of profile picture of account user
+ * @property {array} friends - other account users that account user has followed and followed by
+ * @property {number} viewedProfile - number of profiles account user has viewed
+ * @property {number} impressions - number of times others has viewed this account user's profile 
+ */ 
 const UserSchema = new mongoose.Schema(
   {
 
