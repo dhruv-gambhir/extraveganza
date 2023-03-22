@@ -22,12 +22,20 @@ export default class RestaurantInfoPage extends Component {
 				<div className='overlay-content overlay-content-body'>
 					<div className='restaurant-header'>
 						<div className='restaurant-header-text'>
-							<div className='restaurant-header-text-title'>{"this.props.restaurantName"}</div>
-							<div className='restaurant-header-text-restrictions'>Vegan, vegetarian, lactose-free, glucose-free ✔️✔️✔️✔️</div>
-							<div className='restaurant-header-text-description'>{"this.props.restaurantInfo"}</div>
+							<div className='restaurant-header-text-title'>{this.props.restaurantName}</div>
+							<div className='restaurant-header-text-description restaurant-header-text-rating'>
+								{'★'.repeat(this.props.rating) + '☆'.repeat(5 - this.props.rating)}
+							</div>
+							<div className='restaurant-header-text-description restaurant-header-text-restrictions'>
+								{this.props.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img' src='/images/vegan.png'/>}
+								{this.props.dietaryRestrictions.vegetarian && <img className='restaurant-header-restrictions-img' src='/images/vegetarian.png'/>}
+								{this.props.dietaryRestrictions.lactoseFree && <img className='restaurant-header-restrictions-img' src='/images/lactose-free.png'/>}
+								{this.props.dietaryRestrictions.glutenFree && <img className='restaurant-header-restrictions-img' src='/images/gluten-free.png'/>}
+							</div>
+							<div className='restaurant-header-text-description'>{this.props.location.address}</div>
 						</div>
-						<div className='restaurant-header-image'>
-							<img src={this.props.imagePath} alt="not found"></img>
+						<div className='restaurant-header-rate-container'>
+							<button className='restaurant-header-rate'>Share</button>
 						</div>
 					</div>
 					<div className='overlay-content-body restaurant-info-content'>

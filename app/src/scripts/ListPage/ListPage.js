@@ -30,11 +30,11 @@ export default class ListPage extends Component {
     retrieveRestaurantsList = () => {
         // For now just return a const list
         var restaurantList = [
-            { id: 101010101, name: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 12, name: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 2, name: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 3, name: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 4, name: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69, address: "Block N 2, 1,#01 76 Nanyang Dr, #08 Nanyang Technological University, 637331" }, imagePath: "" },
+            { id: 101010101, restaurantName: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 12, restaurantName: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 2, restaurantName: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 3, restaurantName: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 4, restaurantName: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69, address: "Block N 2, 1,#01 76 Nanyang Dr, #08 Nanyang Technological University, 637331" }, imagePath: "" },
         ];
         this.listBuffer = restaurantList;
 
@@ -58,10 +58,10 @@ export default class ListPage extends Component {
         var sortingChoice = this.props.sortingChoice;
         switch (sortingChoice) {
             case 'A - Z':
-                this.listBuffer = this.listBuffer.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+                this.listBuffer = this.listBuffer.sort((a, b) => a.restaurantName.toLowerCase().localeCompare(b.restaurantName.toLowerCase()));
                 break;
             case 'Z - A':
-                this.listBuffer = this.listBuffer.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+                this.listBuffer = this.listBuffer.sort((a, b) => b.restaurantName.toLowerCase().localeCompare(a.restaurantName.toLowerCase()));
                 break;
             case 'Rating':
                 this.listBuffer = this.listBuffer.sort((a, b) => b.rating - a.rating);
@@ -111,7 +111,7 @@ export default class ListPage extends Component {
      */
     filterRestaurantsBySearchQuery = () => {
         var foo = this.listBuffer;
-        foo = foo.filter((bar) => bar.name.toLowerCase().includes(this.props.searchbarValue.toLowerCase()));
+        foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.location.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
         this.listBuffer = foo;
         return foo;
     };
@@ -133,12 +133,10 @@ export default class ListPage extends Component {
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
                 <div className="main-content-container list-page-card-container">
                     {list.map((item) => (
-                        <RestaurantTitleCard
-                            key={item.id}
-                            restID={item.id}
-                            restaurantName={item.name}
-                            rating={item.rating}
-                            restaurantLocation={item.location.address} />
+                        < RestaurantTitleCard
+                            key = { item.id }
+                            restID = { item.id }
+                            { ...item } />
                     ))}
                 </div>
             </Fragment>

@@ -42,14 +42,14 @@ export default class RestaurantTitleCard extends Component {
 			<Fragment>
 				<Link className="list-page-card" to={`/list?rest=${this.props.restID}`} onClick={this.toggleCard}>
 					<div className="list-page-card-left">
-						<div>{this.props.rating} ⭐</div>
+						<div>{this.props.rating} ★</div>
 					</div>
 					<div className="list-page-card-middle">
 						<div className="list-page-card-text-header">
 							{this.props.restaurantName}
 						</div>
 						<div className="list-page-card-text-description">
-							{this.props.restaurantLocation}
+							{this.props.location.address}
 						</div>
 					</div>
 					<div className="list-page-card-select">
@@ -58,7 +58,9 @@ export default class RestaurantTitleCard extends Component {
 				</Link>
 				{this.state.isChildRendered && cloneElement(
 					<OverlayComponent>
-						<RestaurantInfoPage />
+						<RestaurantInfoPage
+							{...this.props}
+						/>
 					</OverlayComponent>,
 					{ toggleButton: this.toggleCard })}
 			</Fragment>

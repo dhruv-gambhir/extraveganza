@@ -20,12 +20,7 @@
 
 .restaurant-header-text-title {
 	font-weight: 500;
-	font-size: 20px;
-}
-
-.restaurant-header-text-restrictions {
-	font-weight: 400;
-	font-size: 15px;
+	font-size: 25px;
 }
 
 .restaurant-header-text-description {
@@ -33,10 +28,51 @@
 	font-size: 15px;
 }
 
-.restaurant-header-image {
+.restaurant-header-text-restrictions {
+	height: auto;
+}
+
+.restaurant-header-restrictions-img {
+	margin: 0px 3px;
+	width: 25px;
+}
+
+.restaurant-header-text-rating {
+	font-size: 20px;
+	color: var(--really-green);
+}
+
+.restaurant-header-rate-container {
 	width: 28%;
 	margin: 1%;
 	padding: 1%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.restaurant-header-rate {
+	font-family: inherit;
+
+	width: 75%;
+	height: 3rem;
+
+	border: 2px solid var(--really-green);
+    background-color: var(--less-green);
+	border-radius: 10px;
+	outline: transparent;
+
+	color: var(--really-green);
+	font-weight: bold;
+	font-size: 18px;
+
+	transition: 0.4s ease;
+}
+
+.restaurant-header-rate:hover {
+    color: white;
+    background-color: var(--really-green);
 }
 
 .restaurant-info-content {
