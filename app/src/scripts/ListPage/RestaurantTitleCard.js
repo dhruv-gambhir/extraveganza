@@ -41,15 +41,15 @@ export default class RestaurantTitleCard extends Component {
 		return (
 			<Fragment>
 				<Link className="list-page-card" to={`/list?rest=${this.props.restID}`} onClick={this.toggleCard}>
-					<div className="list-page-card-image">
-						<img src={this.props.imagePath} alt="not found" />
+					<div className="list-page-card-left">
+						<div>{this.props.rating} ⭐</div>
 					</div>
-					<div className="list-page-card-text">
+					<div className="list-page-card-middle">
 						<div className="list-page-card-text-header">
-							{this.props.children[0]}
+							{this.props.restaurantName}
 						</div>
 						<div className="list-page-card-text-description">
-							{this.props.children[1]}
+							{this.props.restaurantLocation}
 						</div>
 					</div>
 					<div className="list-page-card-select">

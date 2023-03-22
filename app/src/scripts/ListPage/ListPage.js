@@ -30,11 +30,11 @@ export default class ListPage extends Component {
     retrieveRestaurantsList = () => {
         // For now just return a const list
         var restaurantList = [
-            { id: 101010101, name: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69 }, imagePath: "" },
-            { id: 12, name: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69 }, imagePath: "" },
-            { id: 2, name: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69 }, imagePath: "" },
-            { id: 3, name: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69 }, imagePath: "" },
-            { id: 4, name: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69 }, imagePath: "" },
+            { id: 101010101, name: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 12, name: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 2, name: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 3, name: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 4, name: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69, address: "Block N 2, 1,#01 76 Nanyang Dr, #08 Nanyang Technological University, 637331" }, imagePath: "" },
         ];
         this.listBuffer = restaurantList;
 
@@ -133,10 +133,12 @@ export default class ListPage extends Component {
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
                 <div className="main-content-container list-page-card-container">
                     {list.map((item) => (
-                        <RestaurantTitleCard imagePath={item.imagePath} key={item.id} restID={item.id}>
-                            <div>{item.name}</div>
-                            <div>{item.description}, {item.dietaryRestrictions.vegan && 'vegan, '}{item.dietaryRestrictions.vegetarian && 'vegetarian, '}{item.dietaryRestrictions.lactoseFree && 'lactose-free, '}{item.dietaryRestrictions.glutenFree && 'gluten-free, '}{item.rating} / 5</div>
-                        </RestaurantTitleCard>
+                        <RestaurantTitleCard
+                            key={item.id}
+                            restID={item.id}
+                            restaurantName={item.name}
+                            rating={item.rating}
+                            restaurantLocation={item.location.address} />
                     ))}
                 </div>
             </Fragment>
