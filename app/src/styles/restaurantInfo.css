@@ -1,8 +1,8 @@
 .restaurant-header {
 	display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 
 	width: 100%;
 }
@@ -59,7 +59,7 @@
 	height: 3rem;
 
 	border: 2px solid var(--really-green);
-    background-color: var(--less-green);
+	background-color: var(--less-green);
 	border-radius: 10px;
 	outline: transparent;
 
@@ -71,8 +71,8 @@
 }
 
 .restaurant-header-rate:hover {
-    color: white;
-    background-color: var(--really-green);
+	color: white;
+	background-color: var(--really-green);
 }
 
 .restaurant-info-content {
@@ -83,37 +83,88 @@
 .restaurant-menu {
 	width: 98%;
 	padding: 1%;
+
+	display: flex;
+	flex-direction: row;
+
+	align-items: baseline;
+	justify-content: space-between;
+}
+
+.restaurant-menu-column {
+	width: 49%;
+	padding: 1%;
+
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
+	justify-content: center;
 }
 
 .restaurant-menu-item {
 	background-color: var(--less-green-dark);
-	border-radius: 4px;
-	margin: 1%;
+	border-radius: 10px;
+	margin: 2% 1%;
 	padding: 3%;
 	width: 94%;
-	height: 2.5rem;
+	height: auto;
+
+	display: flex;
+	flex-direction: row;
+
+	align-items: center;
+	justify-content: space-between;
+}
+
+.restaurant-menu-item-header {
+	width: 85%;
+	padding: 0px 1%;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+}
+
+.restaurant-menu-item-header-title {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.restaurant-menu-item-header-desc {
+	font-size: 15px;
+	font-weight: 400;
+}
+
+.restaurant-menu-item-price {
+	font-size: 15px;
+	font-weight: 500;
 }
 
 .vegan {
 	padding: 1%;
-	background-color: var(--more-green);
+	background-color: var(--pale-green);
+	border: 2px solid #5AB651;
 	border-radius: 50%;
 }
 
 .vegetarian {
 	padding: 1%;
-	background-color: var(--extra-green);
+	background-color: var(--pale-green);
+	border: 2px solid #6ca962;
 	border-radius: 50%;
 }
 
 .lactose-free {
 	padding: 1%;
-	background-color: var(--more-green);
+	background-color: var(--pale-green);
+	border: 2px solid #ADC76F;
 	border-radius: 50%;
 }
 
 .gluten-free {
 	padding: 1%;
-	background-color: var(--really-green);
+	background-color: var(--pale-green);
+	border: 2px solid #99C45E;
 	border-radius: 50%;
 }
