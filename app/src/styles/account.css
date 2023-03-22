@@ -26,7 +26,8 @@
 .login-top-title {
     width: 100%;
     text-align: left;
-    margin: 5%;
+
+    font-weight: 500;
 }
 
 .login-element-container {

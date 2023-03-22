@@ -30,7 +30,7 @@ export default class ListPage extends Component {
     retrieveRestaurantsList = () => {
         // For now just return a const list
         var restaurantList = [
-            { id: 101010101, restaurantName: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
+            { id: 101010101, restaurantName: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: true }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
             { id: 12, restaurantName: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
             { id: 2, restaurantName: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
             { id: 3, restaurantName: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },

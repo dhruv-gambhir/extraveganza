@@ -93,3 +93,27 @@
 	width: 94%;
 	height: 2.5rem;
 }
+
+.vegan {
+	padding: 1%;
+	background-color: var(--more-green);
+	border-radius: 50%;
+}
+
+.vegetarian {
+	padding: 1%;
+	background-color: var(--extra-green);
+	border-radius: 50%;
+}
+
+.lactose-free {
+	padding: 1%;
+	background-color: var(--more-green);
+	border-radius: 50%;
+}
+
+.gluten-free {
+	padding: 1%;
+	background-color: var(--really-green);
+	border-radius: 50%;
+}
