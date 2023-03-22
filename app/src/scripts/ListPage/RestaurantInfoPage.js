@@ -48,10 +48,10 @@ export default class RestaurantInfoPage extends Component {
 								{'★'.repeat(this.props.rating) + '☆'.repeat(5 - this.props.rating)}
 							</div>
 							<div className='restaurant-header-text-description restaurant-header-text-restrictions'>
-								{this.props.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img vegan' src='/images/vegan.png' />}
-								{this.props.dietaryRestrictions.vegetarian && <img className='restaurant-header-restrictions-img vegetarian' src='/images/vegetarian.png' />}
-								{this.props.dietaryRestrictions.lactoseFree && <img className='restaurant-header-restrictions-img lactose-free' src='/images/lactose-free.png' />}
-								{this.props.dietaryRestrictions.glutenFree && <img className='restaurant-header-restrictions-img gluten-free' src='/images/gluten-free.png' />}
+								{this.props.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img vegan' src='/images/vegan.png' alt='not found' />}
+								{this.props.dietaryRestrictions.vegetarian && <img className='restaurant-header-restrictions-img vegetarian' src='/images/vegetarian.png' alt='not found' />}
+								{this.props.dietaryRestrictions.lactoseFree && <img className='restaurant-header-restrictions-img lactose-free' src='/images/lactose-free.png' alt='not found' />}
+								{this.props.dietaryRestrictions.glutenFree && <img className='restaurant-header-restrictions-img gluten-free' src='/images/gluten-free.png' alt='not found' />}
 							</div>
 							<div className='restaurant-header-text-description'>{this.props.location.address}</div>
 						</div>

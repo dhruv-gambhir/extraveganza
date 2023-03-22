@@ -290,7 +290,6 @@ class App extends Component {
 			mapSearchInfo: mapSearchInfo
 		});
 		localStorage.setItem("coordsAndAddress", JSON.stringify(this.state.mapSearchInfo));
-		console.log(this.state.mapSearchInfo);
 	};
 
 	/**
@@ -360,7 +359,8 @@ class App extends Component {
 									</div>
 								} />
 								<Route path='/map' element={
-									<MapSearch setAddressAndCoords={this.setAddressAndCoords} currentAddress={this.state.mapSearchInfo.address} />
+									<MapSearch setAddressAndCoords={this.setAddressAndCoords} 
+									currentAddress={() => (localStorage.getItem("coordsAndAddress") ? JSON.parse(localStorage.getItem("coordsAndAddress")).address : this.state.mapSearchInfo.address)} />
 								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">

@@ -1,12 +1,16 @@
 // I modified the code from Search.js
 
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 function MapSearch(props) {
 	const [searchVal, setSearchVal] = useState(props.currentAddress);
 	const [addresses, setAddresses] = useState([]);
 	const [showResults, setShowResults] = useState(false);
 	const [selectedValue, setSelectedValue] = useState('');
+
+	useEffect(() => {
+		setSearchVal(props.currentAddress);
+	}, []);
 
 	const handleChange = (event) => {
 		setSearchVal(event.target.value);
@@ -49,8 +53,6 @@ function MapSearch(props) {
 			});
 	};
 
-	console.log(props.currentAddress);
-
 	return (
 		<Fragment>
 			<div className='searchbar-container dropdown-wrapper'>
@@ -61,7 +63,7 @@ function MapSearch(props) {
 						id="input"
 						name="input"
 						placeholder='Search Location'
-						value={props.currentAddress}
+						value={searchVal}
 						onChange={handleChange}
 						onKeyDown={
 							(evt) => {
