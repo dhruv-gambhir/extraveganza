@@ -37,10 +37,11 @@ export default class CommunityPost extends Component {
                         <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
 
                     </div>
-                    <div className="community-page-card-bottom-elem-container">
+                    {/* Comment section is disabled --> Find out why */}
+                    {/* <div className="community-page-card-bottom-elem-container">
                         <div className="community-page-card-bottom-elem">💬</div>
                         <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
-                    </div>
+                    </div> */}
                 </div>
             </div>);
     }
