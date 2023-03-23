@@ -343,3 +343,7 @@ body {
     background: lightgray;
     border-radius: 6px;
 }
+
+.help-page-content {
+    overflow-y: scroll;
+}
