@@ -6,7 +6,7 @@ import Restaurant from "../models/restaurant.js";
  * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
  * @returns Restaurant records
  */
-export const getRestaurants = async (res) => {
+export const getRestaurants = async (req, res) => {
     let restaurants;
     try {
         restaurants = await Restaurant.find();
@@ -16,7 +16,7 @@ export const getRestaurants = async (res) => {
     if (!restaurants) {
         return res.status(404).json({ message: "Could not find restaurants." });
     }
-    return res.status(200).json({ restaurants: restaurants});
+    return res.status(200).json({ restaurants: restaurants });
 };
 
 /**
@@ -27,17 +27,17 @@ export const getRestaurants = async (res) => {
  * @returns String confirmation message
  */
 export const addRestaurant = async (req, res) => {
-    const{name,location} = req.body;
+    const { name, location } = req.body;
 
     let existingRestaurant;
 
-    try{
-        existingRestaurant = await Restaurant.findOne({name:name});
+    try {
+        existingRestaurant = await Restaurant.findOne({ name: name });
     } catch (err) {
         console.log(err);
     }
-    if(existingRestaurant){
-        return res.status(402).json({message: "Restaurant already exists."});
+    if (existingRestaurant) {
+        return res.status(402).json({ message: "Restaurant already exists." });
     }
 
     const newRestaurant = new Restaurant({
@@ -52,12 +52,12 @@ export const addRestaurant = async (req, res) => {
         rating: 0
     });
 
-    try{
+    try {
         newRestaurant.save();
     } catch (err) {
         console.log(err);
     }
-    return res.status(201).json({message: "Restaurant added."});
+    return res.status(201).json({ message: "Restaurant added." });
 };
 
 /**
@@ -66,19 +66,18 @@ export const addRestaurant = async (req, res) => {
  * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
  * @returns Menu options
  */
-export const getRestaurantMenu = async (req, res) =>
-{
-  try {
-    const { id } = req.params;
-    const restaurant = await Restaurant.findById(id); 
+export const getRestaurantMenu = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const restaurant = await Restaurant.findById(id);
 
-    const menu = await Promise.all(
-      restaurant.menu.map((id) => Restaurant.findById(id))
-    );
+        const menu = await Promise.all(
+            restaurant.menu.map((id) => Restaurant.findById(id))
+        );
 
-    res.status(200).json(menu);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  } return res.status(200).json({ menu: menu });
+        res.status(200).json(menu);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    } return res.status(200).json({ menu: menu });
 };
 
