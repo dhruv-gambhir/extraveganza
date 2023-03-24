@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Component, Fragment } from "react";
 import RestaurantTitleCard from "./RestaurantTitleCard";
 
@@ -21,24 +22,72 @@ export default class ListPage extends Component {
     constructor(props) {
         super(props);
         this.listBuffer = [];
+        this.state = {
+            loading: false,
+        };
+    }
+
+    async componentDidMount() {
+        this.retrieveRestaurantsList();
     }
 
     /**
      * Retrieves the list of restaurants from the database
      * @date 3/13/2023 - 3:41:36 PM
      */
-    retrieveRestaurantsList = () => {
-        // For now just return a const list
-        var restaurantList = [
-            { id: 101010101, restaurantName: "le vegan restaurant", dietaryRestrictions: { vegan: true, vegetarian: true, lactoseFree: true, glutenFree: true }, description: "i luv veggies", rating: 5, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 12, restaurantName: "le vegatarian restaurant", dietaryRestrictions: { vegan: false, vegetarian: true, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 4, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 2, restaurantName: "le lactose-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: true, glutenFree: false }, description: "i luv veggies", rating: 3, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 3, restaurantName: "le gluten-free restaurant", dietaryRestrictions: { vegan: false, vegetarian: false, lactoseFree: false, glutenFree: true }, description: "i luv veggies", rating: 2, location: { lat: 69, lon: 69, address: "123 ABC Street 45, Sth. Avenue, 666869" }, imagePath: "" },
-            { id: 4, restaurantName: "McDonald's", dietaryRestrictions: { vegan: false, vegatarian: false, lactoseFree: false, glutenFree: true }, description: "Ba da ba ba ba", rating: 1, location: { lat: 69, lon: 69, address: "Block N 2, 1,#01 76 Nanyang Dr, #08 Nanyang Technological University, 637331" }, imagePath: "" },
-        ];
-        this.listBuffer = restaurantList;
+    retrieveRestaurantsList = async () => {
+        this.setState({ loading: true });
 
-        return restaurantList;
+        // This function only retrieves the first 50 restaurants as I have not implement the scroll to see more function
+        await axios.get('http://localhost:2007/api/restaurants/', {})
+            .then((response) => {
+                if (response.status === 200) {
+                    response.data.restaurants.slice(0, 50).forEach(element => {
+                        // this.fromRestaurantJSON(element);
+                        this.listBuffer.push(this.fromRestaurantJSON(element));
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+
+        console.log(this.listBuffer);
+        this.setState({ loading: false });
+
+        return this.listBuffer;
+    };
+
+    /**
+     * Converts restaurant JSON retrived from database to local format
+     * @date 3/24/2023 - 5:46:49 PM
+     *
+     * @param {*} restaurantJSON
+     * @returns {{}}
+     */
+    fromRestaurantJSON = (restaurantJSON) => {
+        const restaurant = restaurantJSON;
+        const id = restaurant.id;
+        const restaurantName = restaurant.name;
+        const dietaryRestrictions = {
+            vegan: restaurant.vegan > 0,
+            vegetarian: restaurant.vegetarian > 0,
+            lactoseFree: restaurant.lactoseFree > 0,
+            glutenFree: restaurant.glutenFree > 0
+        };
+        const description = ""; // No description provided
+        const rating = restaurant.rating;
+        const location = { lat: restaurant.x, lng: restaurant.y, address: restaurant.address };
+        // Menu is not loaded for this section
+        var rest = {
+            key: id,
+            restaurantName: restaurantName,
+            dietaryRestrictions: dietaryRestrictions,
+            description: description,
+            rating: rating,
+            location: location
+        };
+        return rest;
     };
 
     /**
@@ -111,8 +160,7 @@ export default class ListPage extends Component {
      */
     filterRestaurantsBySearchQuery = () => {
         var foo = this.listBuffer;
-        foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.location.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
-        this.listBuffer = foo;
+        foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.location.address && bar.location.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
         return foo;
     };
 
@@ -123,22 +171,22 @@ export default class ListPage extends Component {
      * @returns {*}
      */
     render() {
-        this.retrieveRestaurantsList();
-        this.filterRestaurantsBySearchQuery();
+        // if (this.listBuffer.length === 0)
+        //     this.retrieveRestaurantsList();
         this.reorderRestaurantsListDietaryRestrictions();
-        const list = this.reorderRestaurantsListSortingChoice();
+        this.reorderRestaurantsListSortingChoice();
+        const list = this.filterRestaurantsBySearchQuery();
 
         return (
             <Fragment>
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
-                <div className="main-content-container list-page-card-container">
+                {!this.state.loading && <div className="main-content-container list-page-card-container">
                     {list.map((item) => (
                         < RestaurantTitleCard
-                            key = { item.id }
-                            restID = { item.id }
-                            { ...item } />
+                            restID={item.key}
+                            {...item} />
                     ))}
-                </div>
+                </div>}
             </Fragment>
         );
     }

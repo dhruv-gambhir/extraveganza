@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
-import Menu from './menu';
+import Menu from './menu.js';
 
 const RestaurantSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true
     },
-    x : {   
+    x: {
         type: Number,
         required: true
     },
-    y : {
+    y: {
         type: Number,
         required: true
     },
@@ -42,7 +42,10 @@ const RestaurantSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    menu: Menu
+    menu: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Menu'
+    }]
 });
 
 /**
