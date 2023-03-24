@@ -4,6 +4,32 @@
 
 > ⚠️ **Please do not commit your node_modules** ⚠️
 
+## TODO
+
+- Scroll to show more function
+  - This see whether backend can get a certain number of restaurants or not
+- Show restaurant info
+  - This see whether backend done with menu
+  - Also frontend and backend need implement share post functionality
+  - Restaurant backend also need to be able to get particular information
+- Community page
+  - Frontend retrieve posts
+  - User can like post
+  - Backend store post information
+- Settings page
+  - I don't know what to put here
+  - Reset map page to default
+  - Reset app to default
+  - IDK
+- Map page
+  - Show nearby restaurants
+
+## Changelog
+
+- Changed home backend to port 2007, this will be merged (if possible) with the community backend to the same port
+- Some issues from home backend is fixed (? not sure will work on other's side)
+- Frontend list page can now retrieve restaurant from backend, but (temporarily) would only get the first 50 restaurant, since there are like 12000 restaurants
+
 ## **Comment Outline**
 
 1. [Application Skeleton](#application-skeleton)
