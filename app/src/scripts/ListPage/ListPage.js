@@ -42,7 +42,7 @@ export default class ListPage extends Component {
         // this.listBuffer = restaurantList;
 
         // return restaurantList;
-        await axios.get('http://localhost:3000/api/restaurants/', {})
+        await axios.get('http://localhost:2007/api/restaurants/', {})
             .then((response) => {
                 console.log(response);
             })
