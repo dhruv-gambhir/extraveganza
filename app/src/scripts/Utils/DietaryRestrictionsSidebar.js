@@ -1,16 +1,15 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import FontAwesome from 'react-fontawesome';
+import RestaurantFilter from "./RestaurantFilter"; // Import the other component
 
-/**
- * A React component to render the Dietary Restrictions Sidebar
- * @date 3/13/2023 - 2:04:29 PM
- *
- * @export
- * @class DietaryRestrictionsSidebar
- * @typedef {DietaryRestrictionsSidebar}
- * @extends {Component}
- */
 export default class DietaryRestrictionsSidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: {}
+        };
+    }
+
     /**
      * A Function to select the dietary restrictions
      * @param {{id: Number, title: String, selected:Boolean, key: String, imagePath:String}} item 
@@ -18,8 +17,15 @@ export default class DietaryRestrictionsSidebar extends Component {
     selectItem = (item) => {
         const { resetThenSet } = this.props;
         const { id, key } = item;
+        const { selected } = this.state;
 
-        this.setState({}, () => { resetThenSet(id, key); });
+        selected[id] = !selected[id];
+
+        this.setState({
+            selected: selected
+        }, () => {
+            resetThenSet(id, key, selected[id]);
+        });
     };
 
     /**
@@ -30,9 +36,10 @@ export default class DietaryRestrictionsSidebar extends Component {
      */
     render() {
         const { list } = this.props;
+        const { selected } = this.state; // Get the selected items from the component's state
 
         return (
-            <React.Fragment>
+            <Fragment>
                 <div
                     className="left-buttons">
                     {list.map((item) => (
@@ -41,11 +48,12 @@ export default class DietaryRestrictionsSidebar extends Component {
                             key={item.id} >
                             <img className="left-img" src={item.imagePath} alt="vegan button"></img>
                             <div className="left-desc">{item.title}</div>
-                            <div className="left-checkbox" onClick={() => this.selectItem(item)} >{item.selected === true && <FontAwesome name="check" />}</div>
+                            <div className="left-checkbox" onClick={() => this.selectItem(item)} >{selected[item.id] === true && <FontAwesome name="check" />}</div>
                         </div>
                     ))}
                 </div>
-            </React.Fragment>
+                <RestaurantFilter selectedItems={selected} /> 
+            </Fragment>
         );
     }
 }
