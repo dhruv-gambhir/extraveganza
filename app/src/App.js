@@ -3,7 +3,7 @@ import './App.css';
 import './styles/account.css';
 import './styles/dropdown.css';
 import './styles/overlay.css';
-import './styles/CSSTransition.css';
+import './styles/settings.css';
 import './styles/listPage.css';
 import './styles/communityPage.css';
 import './styles/restaurantInfo.css';
@@ -99,6 +99,13 @@ class App extends Component {
 		if (coordsAndAddress) {
 			const foo = JSON.parse(coordsAndAddress);
 			this.setAddressAndCoords(foo.address, foo.lat, foo.lng);
+		}
+
+		const dietaryRestrictions = localStorage.getItem("dietaryRestrictions");
+
+		if (dietaryRestrictions && JSON.parse(dietaryRestrictions).length == 4) {
+			const foo = JSON.parse(dietaryRestrictions);
+			this.setState({ dietaryRestrictions: foo });
 		}
 	}
 
@@ -271,6 +278,8 @@ class App extends Component {
 		this.setState({
 			[key]: temp
 		});
+
+		localStorage.setItem("dietaryRestrictions", JSON.stringify(this.state.dietaryRestrictions));
 	};
 
 	/**
@@ -290,6 +299,28 @@ class App extends Component {
 			mapSearchInfo: mapSearchInfo
 		});
 		localStorage.setItem("coordsAndAddress", JSON.stringify(this.state.mapSearchInfo));
+	};
+
+	/**
+	 * Reset address and coords
+	 * @date 3/25/2023 - 1:37:17 PM
+	 */
+	resetAddressAndCoords = () => {
+		// Default location
+		var lat = 1.34640300173588;
+		var lng = 103.686721630348;
+		var address = 'Nanyang Technological University Hall 1';
+		this.setAddressAndCoords(address, lat, lng);
+	};
+
+	/**
+	 * Reset local storage
+	 * @date 3/25/2023 - 1:47:02 PM
+	 */
+	resetApp = () => {
+		localStorage.clear();
+		this.resetAddressAndCoords();
+		window.location.reload();
 	};
 
 	/**
@@ -359,8 +390,10 @@ class App extends Component {
 									</div>
 								} />
 								<Route path='/map' element={
-									<MapSearch setAddressAndCoords={this.setAddressAndCoords} 
-									currentAddress={() => (localStorage.getItem("coordsAndAddress") ? JSON.parse(localStorage.getItem("coordsAndAddress")).address : this.state.mapSearchInfo.address)} />
+									<MapSearch
+										mapSearchInfo={this.state.mapSearchInfo}
+										setAddressAndCoords={this.setAddressAndCoords}
+										currentAddress={() => (localStorage.getItem("coordsAndAddress") ? JSON.parse(localStorage.getItem("coordsAndAddress")).address : this.state.mapSearchInfo.address)} />
 								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">
@@ -381,7 +414,7 @@ class App extends Component {
 									<OverlayComponent><HelpPage /></OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/settings.png' fun={() => { }}>
-									<OverlayComponent><SettingsPage /></OverlayComponent>
+									<OverlayComponent><SettingsPage resetAddressAndCoords={this.resetAddressAndCoords} resetApp={this.resetApp}/></OverlayComponent>
 								</NavButton>
 							</div>
 						</div>

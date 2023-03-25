@@ -180,13 +180,15 @@ export default class ListPage extends Component {
         return (
             <Fragment>
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
-                {!this.state.loading && <div className="main-content-container list-page-card-container">
-                    {list.map((item) => (
-                        < RestaurantTitleCard
-                            restID={item.key}
-                            {...item} />
-                    ))}
-                </div>}
+                <div className="main-content-container list-page-card-container">
+                    {!this.state.loading && <Fragment>
+                        {list.map((item) => (
+                            < RestaurantTitleCard
+                                restID={item.key}
+                                {...item} />
+                        ))}
+                    </Fragment>}
+                </div>
             </Fragment>
         );
     }

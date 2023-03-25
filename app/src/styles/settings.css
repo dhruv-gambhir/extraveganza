@@ -1,0 +1,42 @@
+.settings-container {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: row;
+
+	align-items: left;
+	justify-content: space-between;
+
+	overflow-y: scroll;
+
+	font-size: 17px;
+}
+
+.settings-container-col {
+	width: 50%;
+	height: auto;
+
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
+}
+
+.settings-element {
+	font: inherit;
+
+	width: 90%;
+	height: 5rem;
+
+	margin: 3%;
+	padding: 10px;
+
+	outline: transparent;
+	border: none;
+	border-radius: 5px;
+
+	background-color: var(--less-green-dark);
+
+	cursor: pointer;
+}

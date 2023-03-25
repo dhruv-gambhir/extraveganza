@@ -25,7 +25,18 @@ export default class SettingsPage extends Component {
 						Settings
 					</div>
 					<div className="overlay-content-body">
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, iure. Corrupti voluptatum ad quo totam tempore nostrum. Ipsa dolores quod esse sunt aliquid cupiditate nemo, atque pariatur labore molestiae iure?
+						<div className="settings-container">
+							<div className="settings-container-col">
+								<button className="settings-element" onClick={() => { this.props.resetAddressAndCoords(); window.location.reload(); }}>
+									Reset map location to default
+								</button>
+							</div>
+							<div className="settings-container-col">
+								<button className="settings-element" onClick={this.props.resetApp}>
+									Reset application
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</Fragment>);
