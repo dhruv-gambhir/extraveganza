@@ -130,7 +130,7 @@ export default class ListPage extends Component {
      * e.g. If choose none, all will show up
      * @date 3/16/2023 - 11:11:51 AM
      */
-    reorderRestaurantsListDietaryRestrictions = () => {
+    reorderRestaurantsListDietaryRestrictions = (arr) => {
         // Retrieve dietary restictions combo
         var dietaryRestrictions = this.props.dietaryRestrictions;
         var foo = {
@@ -144,7 +144,7 @@ export default class ListPage extends Component {
 
         // So now need to check whether restaurant.vegan === foo.vegan === true, or the rest, if either one of the comparison if false, then filter out the restaurant
         var bar = [];
-        this.listBuffer.forEach(restaurant => {
+        arr.forEach(restaurant => {
             if ((restaurant.dietaryRestrictions.vegan && restaurant.dietaryRestrictions.vegan === foo.vegan) ||
                 (restaurant.dietaryRestrictions.vegetarian && restaurant.dietaryRestrictions.vegetarian === foo.vegetarian) ||
                 (restaurant.dietaryRestrictions.lactoseFree && restaurant.dietaryRestrictions.lactoseFree === foo.lactoseFree) ||
@@ -152,7 +152,6 @@ export default class ListPage extends Component {
                 bar.push(restaurant);
             }
         });
-        this.listBuffer = bar;
         return bar;
     };
 
@@ -160,8 +159,8 @@ export default class ListPage extends Component {
      * Filters the restaurants by search bar query
      * @date 3/17/2023 - 5:25:54 PM
      */
-    filterRestaurantsBySearchQuery = () => {
-        var foo = this.listBuffer;
+    filterRestaurantsBySearchQuery = (arr) => {
+        var foo = arr;
         foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.location.address && bar.location.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
         return foo;
     };
@@ -173,11 +172,9 @@ export default class ListPage extends Component {
      * @returns {*}
      */
     render() {
-        // if (this.listBuffer.length === 0)
-        //     this.retrieveRestaurantsList();
-        this.reorderRestaurantsListDietaryRestrictions();
         this.reorderRestaurantsListSortingChoice();
-        const list = this.filterRestaurantsBySearchQuery();
+        var list = this.reorderRestaurantsListDietaryRestrictions(this.listBuffer);
+        list = this.filterRestaurantsBySearchQuery(list);
 
         return (
             <Fragment>
