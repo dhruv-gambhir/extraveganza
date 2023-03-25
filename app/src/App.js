@@ -27,7 +27,7 @@ import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSideb
 import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
 import MapSearch from './scripts/Utils/MapSearch';
-
+import RestaurantFilter from './scripts/MapPage/RestaurantFilter';
 /**
  * App.js
  * @date 3/13/2023 - 2:07:26 PM
@@ -450,6 +450,7 @@ class App extends Component {
 	render() {
 		return (
 			<Fragment>
+				<RestaurantFilter dietaryRestrictions={this.state.dietaryRestrictions} />
 				{this.renderHeader()}
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
