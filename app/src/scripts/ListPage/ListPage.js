@@ -1,15 +1,8 @@
 import axios from "axios";
-import { Component, Fragment, CSSProperties } from "react";
+import { Component, Fragment } from "react";
 import RestaurantTitleCard from "./RestaurantTitleCard";
 
 import * as Spinners from 'react-spinners';
-
-const override = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "var(--really-green)",
-};
-
 
 /**
  * A React component to render the list page
@@ -206,8 +199,9 @@ export default class ListPage extends Component {
                                 </Fragment>
                         ) :
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90%' }}>
-                            <Spinners.MoonLoader cssOverride={override} loading={true} size={70} />
-                        </div>}
+                            <Spinners.MoonLoader loading={this.state.loading} size={70} />
+                        </div>
+                    }
                 </div>
             </Fragment >
         );

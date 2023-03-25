@@ -2,6 +2,7 @@
 	overflow-y: scroll;
 }
 
+
 .community-page-card {
 	width: 94%;
 	height: auto;
@@ -59,6 +60,8 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: left;
+
+	user-select: none;
 }
 
 .community-page-card-bottom-elem-container {

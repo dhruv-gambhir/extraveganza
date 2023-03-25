@@ -1,6 +1,8 @@
 import { Component, Fragment } from "react";
 import CommunityPost from "./CommunityPost";
 
+import * as Spinners from 'react-spinners';
+
 /**
  * A React Component to render the community page
  * @date 3/13/2023 - 2:06:37 PM
@@ -14,10 +16,15 @@ export default class CommunityPage extends Component {
 	constructor(props) {
 		super(props);
 		this.listBuffer = [];
+		this.state = {
+			loading: false,
+		};
 	}
 
 	componentDidMount() {
+		this.setState({ loading: true });
 		this.retrieveCommunityPostsList();
+		setTimeout(() => { this.setState({ loading: false }); }, 500); //  temporary wait 
 	}
 
 	/**
@@ -73,19 +80,32 @@ export default class CommunityPage extends Component {
 			<Fragment>
 				{/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
 				<div className="main-content-container community-page-card-container">
-					{list.map((item) => (
-						<CommunityPost
-							key={item.id}
-							itemID={item.id}
-							liked={item.liked}
-							likeCount={item.likeCount}
-							toggleItemLike={this.toggleItemLike}
-						>
-							<div>{item.title}</div>
-							<div>{item.restaurant}</div>
-							<div>{item.content}</div>
-						</CommunityPost>
-					))}
+					{!this.state.loading ?
+						(this.listBuffer.length === 0 ?
+							<Fragment>
+								Content couldn't be load 0.o
+							</Fragment>
+							:
+							<Fragment>
+								{list.map((item) => (
+									<CommunityPost
+										key={item.id}
+										itemID={item.id}
+										liked={item.liked}
+										likeCount={item.likeCount}
+										toggleItemLike={this.toggleItemLike}
+									>
+										<div>{item.title}</div>
+										<div>{item.restaurant}</div>
+										<div>{item.content}</div>
+									</CommunityPost>
+								))}
+							</Fragment>) :
+						<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90%' }}>
+							<Spinners.MoonLoader loading={this.state.loading} size={70} />
+						</div>
+					}
+
 				</div>
 			</Fragment>
 		);
