@@ -1,6 +1,6 @@
 import { Component, Fragment, useState, useEffect } from "react";
 
-function RestaurantFilter(props) {
+function RestaurantDRFilter(props) {
     const [data, setData] = useState([]);
     useEffect(() => {
       fetch('http://localhost:2007/api/restaurants')
@@ -8,7 +8,7 @@ function RestaurantFilter(props) {
         .then(data => setData(data.restaurants));
     }, []);
   
-    const { dietaryRestrictions } = props;
+    const { dietaryRestrictions,rsCentre } = props;
   
     const filteredRestaurants = data.filter(restaurant => {
         const selectedRestrictions = dietaryRestrictions.filter(restriction => restriction.selected);
@@ -50,10 +50,44 @@ function RestaurantFilter(props) {
         }
         return true;
       });
-      
-      //const first10FilteredRestaurants = filteredRestaurants.slice(0, 10);
+      console.log(filteredRestaurants)
+      console.log("Filtered Restaurants")
 
-      //console.log(first10FilteredRestaurants);
+
+      function calculateDistance(lat1, lng1, lat2, lng2) {
+        const R = 6371; // Radius of the earth in km
+        const dLat = deg2rad(lat2 - lat1);
+        const dLng = deg2rad(lng2 - lng1);
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+          Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c; // Distance in km
+        return distance;
+      }
+      
+      function deg2rad(deg) {
+        return deg * (Math.PI/180)
+      }
+      
+      const filteredRestaurantsWithinDistance = filteredRestaurants.filter(restaurant => {
+        const distance = calculateDistance(rsCentre.lat, rsCentre.lng, restaurant.y, restaurant.x);
+        return distance <= 2; // Filter within 2 km
+      });
+      
+
+      console.log(filteredRestaurantsWithinDistance)
+      console.log("filteredRestaurantsWithinDistance")
+
+
+
+      
+      
+
+      /* const first5FilteredRestaurants = filteredRestaurantsWithinDistance.slice(0, 5);
+      console.log(first5FilteredRestaurants);
+      console.log("Restaurant DR filter")  */
     return (
       <div>
         {/* your component JSX here */}
@@ -62,4 +96,4 @@ function RestaurantFilter(props) {
   }
   
 
-export default RestaurantFilter;
+export default RestaurantDRFilter;

@@ -71,7 +71,7 @@ export default class SimpleMap extends Component {
                   width="100%"
                   height="200"
                   frameBorder="0"
-                  src={`https://www.google.com/maps/embed/v1/streetview?key=YOUR_API_KEY&location=${this.props.center.lat},${this.props.center.lng}&heading=210&pitch=10`}
+                  src={`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo&location=${this.props.center.lat},${this.props.center.lng}&heading=210&pitch=10`}
                   allowFullScreen
                 />
               </div>
