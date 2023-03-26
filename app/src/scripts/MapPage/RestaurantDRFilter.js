@@ -50,8 +50,8 @@ function RestaurantDRFilter(props) {
         }
         return true;
       });
-      console.log(filteredRestaurants)
-      console.log("Filtered Restaurants")
+      //console.log(filteredRestaurants)
+      //console.log("Filtered Restaurants")
 
 
       function calculateDistance(lat1, lng1, lat2, lng2) {
@@ -77,17 +77,9 @@ function RestaurantDRFilter(props) {
       });
       
 
-      console.log(filteredRestaurantsWithinDistance)
-      console.log("filteredRestaurantsWithinDistance")
+      //console.log(filteredRestaurantsWithinDistance)
+      //console.log("filteredRestaurantsWithinDistance")
 
-
-
-      
-      
-
-      /* const first5FilteredRestaurants = filteredRestaurantsWithinDistance.slice(0, 5);
-      console.log(first5FilteredRestaurants);
-      console.log("Restaurant DR filter")  */
     return (
       <div>
         {/* your component JSX here */}
