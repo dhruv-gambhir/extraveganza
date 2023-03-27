@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Component, Fragment } from "react";
+import { Component, createRef, Fragment } from "react";
 import RestaurantTitleCard from "./RestaurantTitleCard";
 
 import * as Spinners from 'react-spinners';
@@ -24,8 +24,10 @@ export default class ListPage extends Component {
     constructor(props) {
         super(props);
         this.listBuffer = [];
+        this.listAreaRef = createRef();
         this.state = {
             loading: false,
+            loadAmount: 20,
         };
     }
 
@@ -40,13 +42,14 @@ export default class ListPage extends Component {
     retrieveRestaurantsList = async () => {
         this.setState({ loading: true });
 
-        // This function only retrieves the first 50 restaurants as I have not implement the scroll to see more function
         await axios.get('http://localhost:2007/api/restaurants/', {})
             .then((response) => {
                 if (response.status === 200) {
-                    response.data.restaurants.slice(0, 50).forEach(element => {
-                        // this.fromRestaurantJSON(element);
-                        this.listBuffer.push(this.fromRestaurantJSON(element));
+                    response.data.restaurants.forEach(element => {
+                        var foo = this.fromRestaurantJSON(element);
+                        if (!this.listBuffer.some((obj) => (obj.key === foo.key))) {
+                            this.listBuffer.push(foo);
+                        }
                     });
                 }
             })
@@ -54,7 +57,6 @@ export default class ListPage extends Component {
                 console.log(error.response);
             });
 
-        console.log(this.listBuffer);
         this.setState({ loading: false });
 
         return this.listBuffer;
@@ -72,14 +74,14 @@ export default class ListPage extends Component {
         const id = restaurant.id;
         const restaurantName = restaurant.name;
         const dietaryRestrictions = {
-            vegan: restaurant.vegan > 0,
-            vegetarian: restaurant.vegetarian > 0,
-            lactoseFree: restaurant.lactoseFree > 0,
-            glutenFree: restaurant.glutenFree > 0
+            vegan: restaurant.vegan > 5,
+            vegetarian: restaurant.vegetarian > 5,
+            lactoseFree: restaurant.lactoseFree > 5,
+            glutenFree: restaurant.glutenFree > 5
         };
         const description = ""; // No description provided
         const rating = restaurant.rating;
-        const location = { lat: restaurant.x, lng: restaurant.y, address: restaurant.address };
+        const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address };
         // Menu is not loaded for this section
         var rest = {
             key: id,
@@ -130,7 +132,7 @@ export default class ListPage extends Component {
      * e.g. If choose none, all will show up
      * @date 3/16/2023 - 11:11:51 AM
      */
-    reorderRestaurantsListDietaryRestrictions = (arr) => {
+    filterRestaurantsListDietaryRestrictions = (arr) => {
         // Retrieve dietary restictions combo
         var dietaryRestrictions = this.props.dietaryRestrictions;
         var foo = {
@@ -165,6 +167,15 @@ export default class ListPage extends Component {
         return foo;
     };
 
+    handleListAreaScroll = () => {
+        const div = this.listAreaRef.current;
+        if (div.scrollTop + div.clientHeight >= div.scrollHeight) {
+            this.setState(prevState => ({
+                loadAmount: prevState.loadAmount + 20,
+            }));
+        }
+    };
+
     /**
      * Renders the component's content
      * @date 3/13/2023 - 1:51:56 PM
@@ -173,13 +184,13 @@ export default class ListPage extends Component {
      */
     render() {
         this.reorderRestaurantsListSortingChoice();
-        var list = this.reorderRestaurantsListDietaryRestrictions(this.listBuffer);
+        var list = this.filterRestaurantsListDietaryRestrictions(this.listBuffer);
         list = this.filterRestaurantsBySearchQuery(list);
 
         return (
             <Fragment>
                 {/* This will be generated automatically in the future, and updated when user scroll to the "end" of the list */}
-                <div className="main-content-container list-page-card-container">
+                <div className="main-content-container list-page-card-container" ref={this.listAreaRef} onScroll={this.handleListAreaScroll}>
                     {!this.state.loading ?
                         (
                             this.listBuffer.length === 0 ?
@@ -188,7 +199,7 @@ export default class ListPage extends Component {
                                 </Fragment>
                                 :
                                 <Fragment>
-                                    {list.map((item) => (
+                                    {list.slice(0, this.state.loadAmount).map((item) => (
                                         < RestaurantTitleCard
                                             restID={item.key}
                                             {...item} />

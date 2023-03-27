@@ -68,6 +68,8 @@
 	font-size: 18px;
 
 	transition: 0.4s ease;
+
+	cursor: pointer;
 }
 
 .restaurant-header-rate:hover {
