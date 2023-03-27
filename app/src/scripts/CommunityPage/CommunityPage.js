@@ -1,6 +1,7 @@
 import { Component, Fragment } from "react";
 import CommunityPost from "./CommunityPost";
 
+import axios from "axios";
 import * as Spinners from 'react-spinners';
 
 /**
@@ -18,13 +19,12 @@ export default class CommunityPage extends Component {
 		this.listBuffer = [];
 		this.state = {
 			loading: false,
+			loadAmount: 20
 		};
 	}
 
-	componentDidMount() {
-		this.setState({ loading: true });
+	async componentDidMount() {
 		this.retrieveCommunityPostsList();
-		setTimeout(() => { this.setState({ loading: false }); }, 500); //  temporary wait 
 	}
 
 	/**
@@ -33,17 +33,36 @@ export default class CommunityPage extends Component {
 	 *
 	 * @returns {{}}
 	 */
-	retrieveCommunityPostsList = () => {
-		// For now just return a const list
-		var communityPostList = [
-			{ id: 101010101, title: "Nice restaurant", restaurant: "i luv veggies", rating: 5, liked: true, likeCount: 69, content: "So nice mmmmmm i like it " },
-			{ id: 4, title: "Title 4", restaurant: "Restaurant Name", rating: 5, liked: false, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-			{ id: 1, title: "Title 1", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-			{ id: 2, title: "Title 2", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dignissimos, autem repellat, quaerat illum neque obcaecati nulla hic ipsam dolore eligendi minima asperiores repellendus perspiciatis velit ducimus cum quo culpa? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit inventore voluptas dicta ab odio accusantium accusamus. Ducimus tempore, cupiditate dignissimos, a nisi fugit quas molestiae consectetur accusantium perferendis magnam enim." },
-			{ id: 3, title: "Title 3", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-		];
-		this.listBuffer = communityPostList;
-		return communityPostList;
+	retrieveCommunityPostsList = async () => {
+		this.setState({ loading: true });
+
+		await axios.get('http://localhost:2007/api/communityPost/', {})
+			.then((response) => {
+				if (response.status === 200) {
+					// response.data.restaurants.forEach(element => {
+					// 	var foo = this.fromRestaurantJSON(element);
+					// 	if (!this.listBuffer.some((obj) => (obj.key === foo.key))) {
+					// 		this.listBuffer.push(foo);
+					// 	}
+					// });
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+			});
+
+		// var communityPostList = [
+		// 	{ id: 101010101, title: "Nice restaurant", restaurant: "i luv veggies", rating: 5, liked: true, likeCount: 69, content: "So nice mmmmmm i like it " },
+		// 	{ id: 4, title: "Title 4", restaurant: "Restaurant Name", rating: 5, liked: false, likeCount: 69, content: "lorem ipsum dolor sit amet" },
+		// 	{ id: 1, title: "Title 1", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
+		// 	{ id: 2, title: "Title 2", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dignissimos, autem repellat, quaerat illum neque obcaecati nulla hic ipsam dolore eligendi minima asperiores repellendus perspiciatis velit ducimus cum quo culpa? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit inventore voluptas dicta ab odio accusantium accusamus. Ducimus tempore, cupiditate dignissimos, a nisi fugit quas molestiae consectetur accusantium perferendis magnam enim." },
+		// 	{ id: 3, title: "Title 3", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
+		// ];
+		// this.listBuffer = communityPostList;
+
+		this.setState({ loading: false });
+
+		return [{}];
 	};
 
 	filterRestaurantsBySearchQuery = () => {
@@ -70,10 +89,6 @@ export default class CommunityPage extends Component {
 	 * @returns {*}
 	 */
 	render() {
-		if (this.listBuffer.length === 0) {
-			this.retrieveCommunityPostsList();
-		}
-
 		var list = this.filterRestaurantsBySearchQuery();
 
 		return (

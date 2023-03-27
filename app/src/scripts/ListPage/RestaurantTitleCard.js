@@ -42,14 +42,14 @@ export default class RestaurantTitleCard extends Component {
 			<Fragment>
 				<Link className="list-page-card" to={`/list?rest=${this.props.restID}`} onClick={this.toggleCard}>
 					<div className="list-page-card-left">
-						<div>{typeof(this.props.rating) === typeof(69420) ? this.props.rating : '?'} ★</div>
+						<div>{typeof (this.props.rating) === typeof (69420) ? this.props.rating : '?'} ★</div>
 					</div>
 					<div className="list-page-card-middle">
 						<div className="list-page-card-text-header">
 							{this.props.restaurantName}
 						</div>
 						<div className="list-page-card-text-description">
-							{(this.props.location.address && this.props.location.address.length !== 0) ? this.props.location.address : 'No address :<'}
+							{(this.props.location.address && this.props.location.address.length !== 0) ? this.props.location.address : ("x: " + this.props.location.lng + ", y: " + this.props.location.lat)}
 						</div>
 					</div>
 					<div className="list-page-card-select">
