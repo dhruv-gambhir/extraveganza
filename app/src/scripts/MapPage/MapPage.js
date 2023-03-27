@@ -33,6 +33,9 @@ export default class MapPage extends Component {
     }
 
     render() {
+        const { filteredRestaurantsWithinDistance } = this.props;
+        console.log("in mappage filteredRestaurants" + filteredRestaurantsWithinDistance);
+
         return (
             <Fragment>
                 <div className="main-content-container">

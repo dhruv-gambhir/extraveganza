@@ -74,8 +74,10 @@ function RestaurantDRFilter(props) {
       const filteredRestaurantsWithinDistance = filteredRestaurants.filter(restaurant => {
         const distance = calculateDistance(rsCentre.lat, rsCentre.lng, restaurant.y, restaurant.x);
         return distance <= 2; // Filter within 2 km
-      });
+      }).map(restaurant => ({name: restaurant.name, x: restaurant.x, y: restaurant.y}));
+
       
+      console.log(filteredRestaurantsWithinDistance);
 
       //console.log(filteredRestaurantsWithinDistance)
       //console.log("filteredRestaurantsWithinDistance")
