@@ -1,5 +1,6 @@
 import { Component, Fragment } from "react";
 import SimpleMap from "./SimpleMap";
+import RestaurantDRFilter from "./RestaurantDRFilter";
 
 /**
  * A React component to render the map page
@@ -18,13 +19,14 @@ export default class MapPage extends Component {
             lat: this.props.mapSearchInfo.lat,
             lng: this.props.mapSearchInfo.lng,
             address: this.props.mapSearchInfo.address,
+            filteredRestaurantsWithinDistance: []
         };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps !== this.props) {
             this.setState({
-                ...nextProps.mapSearchInfo
+                ...nextProps.mapSearchInfo,
             });
             this.forceUpdate();
             return true;
@@ -32,12 +34,18 @@ export default class MapPage extends Component {
         return false;
     }
 
+    setFilteredRestaurantsWithinRestaurants = (foo) => {
+        console.log("Setting restaurant output to array of length " + foo.length);
+        this.setState({ filteredRestaurantsWithinDistance: foo });
+        this.forceUpdate();
+    };
+
     render() {
-        const { filteredRestaurantsWithinDistance } = this.props;
-        console.log("in mappage filteredRestaurants" + filteredRestaurantsWithinDistance);
+        console.log("MapPage has " + this.state.filteredRestaurantsWithinDistance.length);
 
         return (
             <Fragment>
+                <RestaurantDRFilter {...this.props} setFilteredRestaurantsWithinRestaurants={this.setFilteredRestaurantsWithinRestaurants} />
                 <div className="main-content-container">
                     <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} address={this.state.address} />
                 </div>

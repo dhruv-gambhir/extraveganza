@@ -427,10 +427,8 @@ class App extends Component {
 							<Route path='/list' element={
 								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
 							} />
-							<Route path='/map' element={<MapPage
-								mapSearchInfo={this.state.mapSearchInfo}
-								filteredRestaurantsWithinDistance={filteredRestaurantsWithinDistance}
-							/>} />
+							<Route path='/map' element={
+								<MapPage mapSearchInfo={this.state.mapSearchInfo} dietaryRestrictions={this.state.dietaryRestrictions} />} />
 
 							<Route path='/community' element={
 								< CommunityPage searchbarValue={this.state.searchbarValue} />
@@ -452,8 +450,6 @@ class App extends Component {
 	render() {
 		return (
 			<Fragment>
-
-				<RestaurantDRFilter dietaryRestrictions={this.state.dietaryRestrictions} rsCentre={this.state.mapSearchInfo} />
 				{this.renderHeader()}
 				{this.renderMiddleContent()}
 				{this.renderFooter()}
