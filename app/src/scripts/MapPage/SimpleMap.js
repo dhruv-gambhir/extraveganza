@@ -22,6 +22,7 @@ export default class SimpleMap extends Component {
     // Set the initial state of the component
     this.state = {
       showInfoWindow: false // Whether to show the info window or not
+      
     };
   }
 
@@ -35,8 +36,14 @@ export default class SimpleMap extends Component {
     this.setState({ showInfoWindow: false });
   };
 
+  
+
   // The render method for the component
   render() {
+
+    console.log("filteredRestaurantsWithinDistance:");
+    console.log(this.props.filteredRestaurantsWithinDistance);
+ 
     return (
       // Use the LoadScript component to load the Google Maps API with the provided API key
       <LoadScript
@@ -53,6 +60,8 @@ export default class SimpleMap extends Component {
             position={this.props.center} // Set the position of the marker to the "center" prop passed in
             onClick={this.handleMarkerClick} // Set the onClick handler for the marker
           />
+
+          
 
           {/* Use the InfoWindow component to display an info window on the map */}
           {/* The info window will be displayed if the "showInfoWindow" property in the component's state is true */}

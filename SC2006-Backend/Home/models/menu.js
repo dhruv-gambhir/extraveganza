@@ -14,7 +14,7 @@ const Dietary_Restriction = {
   /**
    * Schema of menu options of a restaurant
    */
-const MenuSchema = new mongoose.schema(
+const MenuSchema = new mongoose.Schema(
     {
         menuItemID: {
             type: Number,
@@ -33,7 +33,8 @@ const MenuSchema = new mongoose.schema(
             required: false,
         },
         dietaryRestriction: {
-            type: Dietary_Restriction,
+            type: String,
+            enum: Object.values(Dietary_Restriction),
             required: true,
             default: "none",
         },
