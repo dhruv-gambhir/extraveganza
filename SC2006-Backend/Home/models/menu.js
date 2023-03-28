@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /**
- * Enumeration of Dietary Restriction: Vegan, Vegetarian, GlutenFree, LactoseFree and None
+ * Enumeration of Dietary Restriction: Vegan, Vegetarian, GlutenFree and LactoseFree
  */
 const Dietary_Restriction = {
     Vegan: "vegan",
@@ -9,20 +9,17 @@ const Dietary_Restriction = {
     GlutenFree: "glutenFree",
     LactoseFree: "lactoseFree",
     None: "none"
-};
+  }
 
-/**
- * Schema of menu options of a restaurant
- * @typedef Menu
- * @property {string} item.required - name of the menu item
- * @property {number} price.required - price of the menu item
- * @property {Array} ingredients.required - ingredients of the menu item
- * @property {Dietary_Restriction} dietaryRestriction.required - dietary restriction of the menu item
- * @property {string} dietaryRestriction.default - None
- * @property {string} dietaryRestriction.enum - Vegan, Vegetarian, GlutenFree, LactoseFree, None
- */
-const MenuSchema = new mongoose.Schema(
+  /**
+   * Schema of menu options of a restaurant
+   */
+const MenuSchema = new mongoose.schema(
     {
+        menuItemID: {
+            type: Number,
+            required: true,
+        },
         item: {
             type: String,
             required: true,
@@ -36,13 +33,12 @@ const MenuSchema = new mongoose.Schema(
             required: false,
         },
         dietaryRestriction: {
-            type: String,
-            enum: Object.values(Dietary_Restriction),
+            type: Dietary_Restriction,
             required: true,
             default: "none",
         },
     }
-);
+)
 
 const Menu = mongoose.model("Menu", MenuSchema);
 export default Menu;
