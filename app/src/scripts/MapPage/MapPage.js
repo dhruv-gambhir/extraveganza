@@ -48,7 +48,7 @@ export default class MapPage extends Component {
                 <RestaurantDRFilter {...this.props} setFilteredRestaurantsWithinRestaurants={this.setFilteredRestaurantsWithinRestaurants} />
                 <div className="main-content-container">
                     {console.log("In mappage" + this.state.filteredRestaurantsWithinDistance)}
-                    <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} address={this.state.address} />
+                    <SimpleMap center={{ lat: Number(this.state.lat), lng: Number(this.state.lng) }} address={this.state.address} filteredRestaurantsWithinDistance={this.state.filteredRestaurantsWithinDistance} />
                 </div>
             </Fragment>
         );
