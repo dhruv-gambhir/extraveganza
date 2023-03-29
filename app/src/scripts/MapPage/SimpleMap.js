@@ -15,16 +15,24 @@ const containerStyle = {
   height: '100%'
 };
 
+const markerOptions = {
+  icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // specify the URL of the image to use as the marker icon
+};
+
 // Define the SimpleMap component
 export default class SimpleMap extends Component {
   constructor(props) {
     super(props);
     // Set the initial state of the component
     this.state = {
-      showInfoWindow: false // Whether to show the info window or not
-      
+      showInfoWindow: false, // Whether to show the info window or not
+      selectedRestaurantMarker: null,
     };
   }
+
+  handleRestaurantMarkerClick = (marker) => {
+    this.setState({ selectedRestaurantMarker: marker });
+  };
 
   // A method that toggles the "showInfoWindow" property in the component's state
   handleMarkerClick = () => {
@@ -33,22 +41,26 @@ export default class SimpleMap extends Component {
 
   // A method that sets the "showInfoWindow" property to false
   handleInfoWindowClose = () => {
-    this.setState({ showInfoWindow: false });
+    this.setState({ showInfoWindow: false, selectedRestaurantMarker: null });
   };
 
-  
+
 
   // The render method for the component
   render() {
 
     console.log("filteredRestaurantsWithinDistance:");
     console.log(this.props.filteredRestaurantsWithinDistance);
- 
+
     return (
       // Use the LoadScript component to load the Google Maps API with the provided API key
       <LoadScript
         googleMapsApiKey="AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo"
       >
+        {console.log("in simple map")}
+        {console.log(this.props.filteredRestaurantsWithinDistance)}
+
+
         {/* Use the GoogleMap component to display the map */}
         <GoogleMap
           mapContainerStyle={containerStyle} // Set the size of the map container
@@ -59,9 +71,20 @@ export default class SimpleMap extends Component {
           <Marker
             position={this.props.center} // Set the position of the marker to the "center" prop passed in
             onClick={this.handleMarkerClick} // Set the onClick handler for the marker
+            options={markerOptions}
           />
 
-          
+
+          {this.props.filteredRestaurantsWithinDistance.map((restaurant) => (
+            <Marker
+              key={restaurant.name}
+              position={{ lat: restaurant.y, lng: restaurant.x }}
+              onClick={() => this.handleRestaurantMarkerClick(restaurant)}
+            />
+          ))}
+
+
+
 
           {/* Use the InfoWindow component to display an info window on the map */}
           {/* The info window will be displayed if the "showInfoWindow" property in the component's state is true */}
@@ -86,6 +109,29 @@ export default class SimpleMap extends Component {
               </div>
             </InfoWindow>
           )}
+
+        {this.state.selectedRestaurantMarker && (
+            <InfoWindow
+              position={{ lat: this.state.selectedRestaurantMarker.y, lng: this.state.selectedRestaurantMarker.x }}
+              onCloseClick={this.handleInfoWindowClose}
+            >
+              <div>
+                <h3>{this.state.selectedRestaurantMarker.name}</h3>
+                <p>Info window content for restaurant marker goes here.</p>
+                {/* Embed a Street View panorama using the Google Maps Embed API */}
+                {/* The URL of the panorama is constructed using the latitude and longitude of the center of the map passed in as props */}
+                <iframe
+                  width="100%"
+                  height="200"
+                  frameBorder="0"
+                  src={`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo&location=${this.state.selectedRestaurantMarker.y},${this.state.selectedRestaurantMarker.x}&heading=210&pitch=10`}
+                  allowFullScreen
+                />
+              </div>
+            </InfoWindow>
+          )}
+
+
         </GoogleMap>
       </LoadScript>
     )

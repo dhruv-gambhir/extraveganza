@@ -105,7 +105,7 @@ function RestaurantDRFilter(props) {
 		return filteredRestaurants.filter(restaurant => {
 			const distance = calculateDistance(mapSearchInfo.lat, mapSearchInfo.lng, restaurant.y, restaurant.x);
 			return distance <= 2; // Filter within 2 km
-		}).map(restaurant => ({ name: restaurant.name, x: restaurant.x, y: restaurant.y }));
+		}).map(restaurant => ({ name: restaurant.name, x: restaurant.x, y: restaurant.y })).slice(0,20);
 	}
 
 	return (
