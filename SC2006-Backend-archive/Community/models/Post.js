@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Restaurant from "./restaurant.js";
+
 
 /**
  * Schema of how posts are stored
