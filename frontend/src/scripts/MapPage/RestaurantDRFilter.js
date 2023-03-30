@@ -10,7 +10,7 @@ function RestaurantDRFilter(props) {
 	useEffect(() => {
 		async function help() {
 			var buf = [];
-			await axios.get('http://localhost:2007/api/restaurants', {})
+			await axios.get('http://localhost:2006/api/restaurants', {})
 				.then((response) => {
 					if (response.status === 200) {
 						response.data.restaurants.forEach(element => {
@@ -105,7 +105,7 @@ function RestaurantDRFilter(props) {
 		return filteredRestaurants.filter(restaurant => {
 			const distance = calculateDistance(mapSearchInfo.lat, mapSearchInfo.lng, restaurant.y, restaurant.x);
 			return distance <= 2; // Filter within 2 km
-		}).map(restaurant => ({ name: restaurant.name, x: restaurant.x, y: restaurant.y })).slice(0,20);
+		}).map(restaurant => ({ name: restaurant.name, x: restaurant.x, y: restaurant.y })).slice(0, 20);
 	}
 
 	return (

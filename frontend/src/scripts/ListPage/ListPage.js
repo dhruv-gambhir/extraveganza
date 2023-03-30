@@ -42,7 +42,7 @@ export default class ListPage extends Component {
     retrieveRestaurantsList = async () => {
         this.setState({ loading: true });
 
-        await axios.get('http://localhost:2007/api/restaurants/', {})
+        await axios.get('http://localhost:2006/api/restaurants/', {})
             .then((response) => {
                 if (response.status === 200) {
                     response.data.restaurants.forEach(element => {

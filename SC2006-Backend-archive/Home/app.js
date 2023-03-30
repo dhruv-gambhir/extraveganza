@@ -24,7 +24,7 @@ app.use(cors()); // enable CORS for all routes
 /*
 * Middleware
 */
-app.use("/api/restaurants",router);
+app.use("/api/restaurants", router);
 
 
 /*
@@ -32,6 +32,6 @@ app.use("/api/restaurants",router);
 */
 mongoose.connect(
     "mongodb+srv://admin:admin@cluster0.nuzoaig.mongodb.net/?retryWrites=true&w=majority"
-    ).then(() => app.listen(2007))
+).then(() => app.listen(2007))
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err));

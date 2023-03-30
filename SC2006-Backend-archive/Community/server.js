@@ -8,15 +8,12 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register, login } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/posts.js";
+import restaurant_router from "./routes/restaurant-route.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import User from "./models/User.js";
-import Post from "./models/Post.js";
-import { users, posts } from "./data/index.js";
+import router from "./routes/restaurant-route.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -34,24 +31,27 @@ app.use(cors()); // enable CORS for all routes
 app.use("/assets", express.static(path.join(__dirname, "public/assets"))); // serve static files
 
 /* FILE STORAGE */
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, "public/assets");
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.originalname);
-	},
-});
-const upload = multer({ storage });
+// const storage = multer.diskStorage({
+// 	destination: function (req, file, cb) {
+// 		cb(null, "public/assets");
+// 	},
+// 	filename: function (req, file, cb) {
+// 		cb(null, file.originalname);
+// 	},
+// });
+// const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
 // upload a photo for a post
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+// app.post("/api/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
-app.use("/auth", authRoutes); // handle authentication routes
-app.get("/users", userRoutes); // handle user routes
+app.use("/api/auth", authRoutes); // handle authentication routes
+app.get("/api/users", userRoutes); // handle user routes
 // app.use("/posts", postRoutes); // handle post routes
+
+// Restaraurants
+app.use("/api/restaurants", restaurant_router);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 20066;

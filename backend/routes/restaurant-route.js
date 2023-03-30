@@ -4,7 +4,7 @@ import { addRestaurant, getRestaurants, getRestaurantMenu } from '../controllers
 /** 
  * Router
 */
-const router = express.Router();
+const restaurant_router = express.Router();
 
 /**
 * Routes
@@ -13,25 +13,25 @@ const router = express.Router();
 /**
  * Get restaurants list
  */
-router.get('/',getRestaurants);
+restaurant_router.get('/', getRestaurants);
 
 /**
  * Write to add restaurant
  */
-router.post('/add', addRestaurant);
+restaurant_router.post('/add', addRestaurant);
 
 /**
  * Get restaurant menu
  */
-router.get('/', getRestaurantMenu);
+restaurant_router.get('/', getRestaurantMenu);
 
 /**
  * Update dietary restrictions
  */
-router.put('restrictions/update',)
+restaurant_router.put('restrictions/update',);
 
 
-export default router;
+export default restaurant_router;
 
 
 

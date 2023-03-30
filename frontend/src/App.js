@@ -119,7 +119,7 @@ class App extends Component {
 	authenticateUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/auth/login/', {
+		await axios.post('http://localhost:2006/api/auth/login/', {
 			username: username,
 			password: password
 
@@ -157,7 +157,7 @@ class App extends Component {
 	signUpUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/auth/register/', {
+		await axios.post('http://localhost:2006/api/auth/register/', {
 			username: username,
 			password: password
 		})
@@ -196,7 +196,7 @@ class App extends Component {
 	updateUser = async (newInfo) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/auth/update/', newInfo)
+		await axios.post('http://localhost:2006/api/auth/update/', newInfo)
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.removeItem("loggedInUser");
