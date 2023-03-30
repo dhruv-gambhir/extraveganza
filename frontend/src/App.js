@@ -27,7 +27,6 @@ import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSideb
 import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
 import MapSearch from './scripts/Utils/MapSearch';
-import RestaurantDRFilter from './scripts/MapPage/RestaurantDRFilter';
 /**
  * App.js
  * @date 3/13/2023 - 2:07:26 PM

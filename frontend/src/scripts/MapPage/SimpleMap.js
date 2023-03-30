@@ -44,22 +44,16 @@ export default class SimpleMap extends Component {
     this.setState({ showInfoWindow: false, selectedRestaurantMarker: null });
   };
 
-
-
   // The render method for the component
   render() {
 
-    console.log("filteredRestaurantsWithinDistance:");
+    // console.log("filteredRestaurantsWithinDistance:");
     console.log(this.props.filteredRestaurantsWithinDistance);
 
     return (
       // Use the LoadScript component to load the Google Maps API with the provided API key
-      <LoadScript
-        googleMapsApiKey="AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo"
-      >
-        {console.log("in simple map")}
-        {console.log(this.props.filteredRestaurantsWithinDistance)}
-
+      <LoadScript googleMapsApiKey="AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo">
+        {/* {console.log("In simple map: " + this.props.filteredRestaurantsWithinDistance.length + " restaurants")} */}
 
         {/* Use the GoogleMap component to display the map */}
         <GoogleMap
@@ -110,7 +104,7 @@ export default class SimpleMap extends Component {
             </InfoWindow>
           )}
 
-        {this.state.selectedRestaurantMarker && (
+          {this.state.selectedRestaurantMarker && (
             <InfoWindow
               position={{ lat: this.state.selectedRestaurantMarker.y, lng: this.state.selectedRestaurantMarker.x }}
               onCloseClick={this.handleInfoWindowClose}
@@ -134,6 +128,6 @@ export default class SimpleMap extends Component {
 
         </GoogleMap>
       </LoadScript>
-    )
+    );
   }
 }
