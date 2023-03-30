@@ -1,11 +1,10 @@
-import { Component, Fragment, useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function RestaurantDRFilter(props) {
 	const [data, setData] = useState([]);
 	const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 	const [outputRestaurants, setOutputRestaurants] = useState([]);
-	const [anyhow, setAnyhow] = useState(0);
 
 	useEffect(() => {
 		async function help() {
@@ -34,53 +33,44 @@ function RestaurantDRFilter(props) {
 	}, [filteredRestaurants]);
 
 	useEffect(() => {
-		console.log("Filter has " + outputRestaurants.length);
 		props.setFilteredRestaurantsWithinRestaurants(outputRestaurants);
-		setAnyhow(anyhow + 1);
 	}, [outputRestaurants]);
+
+	useEffect(() => {
+		setFilteredRestaurants(filterRestaurants());
+	}, [props.dietaryRestrictions[0].selected,
+	props.dietaryRestrictions[1].selected,
+	props.dietaryRestrictions[2].selected,
+	props.dietaryRestrictions[3].selected]);
 
 	const { dietaryRestrictions, mapSearchInfo } = props;
 
 	function filterRestaurants() {
 		return data.filter(restaurant => {
-			const selectedRestrictions = dietaryRestrictions.filter(restriction => restriction.selected);
-			const hasVegan = selectedRestrictions.some(restriction => restriction.title === 'vegan');
-			const hasVegetarian = selectedRestrictions.some(restriction => restriction.title === 'vegetarian');
-			const hasGlutenFree = selectedRestrictions.some(restriction => restriction.title === 'gluten-free');
-			const hasLactoseFree = selectedRestrictions.some(restriction => restriction.title === 'lactose-free');
+			// If vegan is selected, that means any restaurants with more than 5 vegan options will return true
+			const selectedRestrictions = {
+				vegan: dietaryRestrictions[0].selected,
+				vegetarian: dietaryRestrictions[1].selected,
+				lactoseFree: dietaryRestrictions[2].selected,
+				glutenFree: dietaryRestrictions[3].selected,
+			};
 
-			if (hasVegan && hasVegetarian && hasGlutenFree && hasLactoseFree) {
-				return restaurant.vegan > 5 && restaurant.vegetarian > 5 && restaurant.glutenFree > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegan && hasVegetarian && hasGlutenFree) {
-				return restaurant.vegan > 5 && restaurant.vegetarian > 5 && restaurant.glutenFree > 5;
-			} else if (hasVegan && hasVegetarian && hasLactoseFree) {
-				return restaurant.vegan > 5 && restaurant.vegetarian > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegetarian && hasGlutenFree && hasLactoseFree) {
-				return restaurant.vegetarian > 5 && restaurant.glutenFree > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegan && hasGlutenFree && hasLactoseFree) {
-				return restaurant.vegan > 5 && restaurant.glutenFree > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegan && hasVegetarian) {
-				return restaurant.vegan > 5 && restaurant.vegetarian > 5;
-			} else if (hasVegan && hasGlutenFree) {
-				return restaurant.vegan > 5 && restaurant.glutenFree > 5;
-			} else if (hasVegan && hasLactoseFree) {
-				return restaurant.vegan > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegetarian && hasGlutenFree) {
-				return restaurant.vegetarian > 5 && restaurant.glutenFree > 5;
-			} else if (hasVegetarian && hasLactoseFree) {
-				return restaurant.vegetarian > 5 && restaurant.lactoseFree > 5;
-			} else if (hasGlutenFree && hasLactoseFree) {
-				return restaurant.glutenFree > 5 && restaurant.lactoseFree > 5;
-			} else if (hasVegan) {
-				return restaurant.vegan > 5;
-			} else if (hasVegetarian) {
-				return restaurant.vegetarian > 5;
-			} else if (hasGlutenFree) {
-				return restaurant.glutenFree > 5;
-			} else if (hasLactoseFree) {
-				return restaurant.lactoseFree > 5;
+			if (!selectedRestrictions.vegan && !selectedRestrictions.vegetarian && !selectedRestrictions.lactoseFree && !selectedRestrictions.glutenFree) return true;
+
+			// Check if restaurants vegan option is more than 5 --> that means the restaurant is vegan
+			// Then check if the user wants vegan (through selectedRestrictions)
+			// E.g. If user selects vegan, and glutenFree
+			// If restaurants offer more than 5 vegan options, then return true
+			// Or if restauratns offer more than 5 glutenFree options, then return true
+			// But if both above cases return false, then this filter will also return false
+			if ((restaurant.vegan > 5 && selectedRestrictions.vegan) ||
+				(restaurant.vegetarian > 5 && selectedRestrictions.vegetarian) ||
+				(restaurant.lactoseFree > 5 && selectedRestrictions.lactoseFree) ||
+				(restaurant.glutenFree > 5 && selectedRestrictions.glutenFree)) {
+				return true;
 			}
-			return true;
+
+			return false;
 		});
 	}
 
