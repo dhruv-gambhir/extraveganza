@@ -16,6 +16,7 @@ export const createPost = async (req, res) =>
       // lastName: user.lastName,
       username: user.username,
       location: user.location,
+      restaurantID,
       description,
       userPicturePath: user.picturePath,
       picturePath,
