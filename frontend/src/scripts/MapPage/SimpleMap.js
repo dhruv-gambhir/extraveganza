@@ -111,7 +111,7 @@ export default class SimpleMap extends Component {
             >
               <div>
                 <h3>{this.state.selectedRestaurantMarker.name}</h3>
-                <p>Info window content for restaurant marker goes here.</p>
+                {/* <p>Info window content for restaurant marker goes here.</p> */}
                 {/* Embed a Street View panorama using the Google Maps Embed API */}
                 {/* The URL of the panorama is constructed using the latitude and longitude of the center of the map passed in as props */}
                 <iframe
