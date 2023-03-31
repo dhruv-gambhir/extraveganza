@@ -58,6 +58,35 @@ export const login = async (req, res) => {
 	}
 };
 
+// Verifu user token
+export const verifyTokenAndReturnUserData = async (req, res) => {
+	try {
+		const { token } = req.body;
+
+		if (!token) {
+			return res.status(403).send("Access Denied");
+		}
+
+		if (token.startsWith("Bearer ")) {
+			token = token.slice(7, token.length).trimLeft();
+		}
+
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		const userID = decoded.id;
+		const user = await User.findOne({ _id: userID });
+
+		if (user) {
+			const newToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+			delete user.password;
+			res.status(200).json({ token: newToken, user });
+		} else {
+			res.status(501).json("User cannot be verified");
+		}
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+
 /** 
  * UPDATE PASSWORD 
  */

@@ -15,18 +15,18 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    
-    username:{
-      type:String,
+
+    username: {
+      type: String,
       required: true,
     },
 
     description: String,
     picturePath: String,
     userPicturePath: String,
-    ratings:Number,
-    
-    
+    ratings: Number,
+
+
     likes: {
       type: Map,
       of: Boolean,
