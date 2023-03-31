@@ -17,7 +17,6 @@ export default class CommunityPage extends Component {
 	constructor(props) {
 		super(props);
 		this.listBuffer = [];
-		this.restaurantList = [];
 		this.state = {
 			loading: false,
 			loadAmount: 20,
@@ -28,7 +27,6 @@ export default class CommunityPage extends Component {
 		this.retrieveCommunityPostsList();
 	}
 
-
 	/**
 	 * Retrieves the community posts
 	 * @date 3/15/2023 - 7:13:26 PM
@@ -37,22 +35,6 @@ export default class CommunityPage extends Component {
 	 */
 	retrieveCommunityPostsList = async () => {
 		this.setState({ loading: true });
-
-		// Get restaurant list
-		await axios.get('http://localhost:2006/api/restaurants/', {})
-			.then((response) => {
-				if (response.status === 200) {
-					response.data.restaurants.forEach(element => {
-						var foo = this.fromRestaurantJSON(element);
-						if (!this.restaurantList.some((obj) => (obj.key === foo.key))) {
-							this.restaurantList.push(foo);
-						}
-					});
-				}
-			})
-			.catch((error) => {
-				console.log(error.response);
-			});
 
 		// Get community posts
 		var buf = [];
@@ -76,44 +58,11 @@ export default class CommunityPage extends Component {
 		this.setState({ loading: false });
 	};
 
-	/**
-	 * Converts restaurant JSON retrived from database to local format
-	 * @date 3/24/2023 - 5:46:49 PM
-	 *
-	 * @param {*} restaurantJSON
-	 * @returns {{}}
-	 */
-	fromRestaurantJSON = (restaurantJSON) => {
-		const restaurant = restaurantJSON;
-		const id = restaurant.id;
-		const restaurantName = restaurant.name;
-		const dietaryRestrictions = {
-			vegan: restaurant.vegan > 5,
-			vegetarian: restaurant.vegetarian > 5,
-			lactoseFree: restaurant.lactoseFree > 5,
-			glutenFree: restaurant.glutenFree > 5
-		};
-		const description = ""; // No description provided
-		const rating = restaurant.rating;
-		const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address };
-		// Menu is not loaded for this section
-		var rest = {
-			key: id,
-			restaurantName: restaurantName,
-			dietaryRestrictions: dietaryRestrictions,
-			description: description,
-			rating: rating,
-			location: location
-		};
-		return rest;
-	};
-
 	fromCommunityPostJSON = (postJSON) => {
-		const restaurantID = this.restaurantList.findIndex((rest) => rest.id === postJSON.restaurantID);
 		const post = {
 			postID: postJSON._id,
 			title: postJSON.title,
-			restaurantName: restaurantID ? restaurantID : 'No restaurant',
+			restaurant: !postJSON.restaurantName ? "restaurant not available" : postJSON.restaurantName,
 			rating: postJSON.ratings,
 			datetime: "2023-03-11T06:20:25.683Z",
 			content: postJSON.description
@@ -124,9 +73,9 @@ export default class CommunityPage extends Component {
 	filterRestaurantsBySearchQuery = () => {
 		var foo = this.listBuffer;
 		foo = foo.filter((bar) => (
-			bar.title && bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) ||
-			bar.restaurantName && bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) ||
-			bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
+			(bar.title && bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
+			(bar.restaurantName && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
+			(bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase()))));
 		return foo;
 	};
 
@@ -170,7 +119,7 @@ export default class CommunityPage extends Component {
 										toggleItemLike={this.toggleItemLike}
 									>
 										<div>{item.title}</div>
-										<div>{item.restaurantName}</div>
+										<div>{item.restaurant}</div>
 										<div>{item.content}</div>
 									</CommunityPost>
 								))}

@@ -1,5 +1,4 @@
 import { Component, Fragment } from 'react';
-import axios from 'axios';
 import SharePage from '../CommunityPage/SharePage';
 import OverlayComponent from '../Utils/OverlayComponent';
 

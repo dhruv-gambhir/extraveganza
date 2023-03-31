@@ -27,13 +27,15 @@ export const getRestaurants = async (req, res) => {
  * @returns record of a specific restaurant
  */
 export const getRestaurantByID = async (req, res) => {
-    try 
-    {
+    try {
         const { id } = req.params;
-        const restaurant = await Restaurant.findById(id); 
-        return res.status(200).json(restaurant);
+        const restaurant = await Restaurant.findOne({ id: id });
+        if (restaurant)
+            return res.status(200).json(restaurant);
+        else
+            return res.status(400).json({ message: ("Could not find restaurant of id: " + id) });
     } catch (err) {
-        return res.status(404).json({ message: "Could not find restaurant."  });
+        return res.status(404).json({ message: "Could not find restaurant." });
     }
 };
 
