@@ -8,12 +8,12 @@ const Dietary_Restriction = {
     Vegetarian: "vegetarian",
     GlutenFree: "glutenFree",
     LactoseFree: "lactoseFree",
-    None: "none"
-  }
+    None: "none",
+};
 
-  /**
-   * Schema of menu options of a restaurant
-   */
+/**
+ * Schema of menu options of a restaurant
+ */
 const MenuSchema = new mongoose.Schema(
     {
         menuItemID: {
@@ -33,13 +33,13 @@ const MenuSchema = new mongoose.Schema(
             required: false,
         },
         dietaryRestriction: {
-            type: Array,
+            type: [String],
             enum: Object.values(Dietary_Restriction),
             required: true,
-            default: "none",
+            default: Dietary_Restriction.None,
         },
     }
-)
+);
 
 const Menu = mongoose.model("Menu", MenuSchema);
 export default Menu;

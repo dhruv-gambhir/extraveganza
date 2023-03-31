@@ -1,5 +1,6 @@
 import express from 'express';
-import { addRestaurant, getRestaurants, getRestaurantMenu } from '../controllers/restaurant-controller.js';
+// import { addRestaurant, getRestaurants, getRestaurantMenu } from '../controllers/restaurants.js';
+import { addRestaurant, getRestaurants } from '../controllers/restaurants.js';
 
 /** 
  * Router
@@ -23,7 +24,7 @@ restaurant_router.post('/add', addRestaurant);
 /**
  * Get restaurant menu
  */
-restaurant_router.get('/', getRestaurantMenu);
+// restaurant_router.get('/', getRestaurantMenu);
 
 /**
  * Update dietary restrictions
