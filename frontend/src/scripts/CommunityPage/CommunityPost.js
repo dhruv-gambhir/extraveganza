@@ -9,7 +9,7 @@ import { Component } from "react";
  * @typedef {CommunityPost}
  * @extends {Component}
  */
-export default class CommunityPost extends Component {    
+export default class CommunityPost extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps !== this.props) {
             this.forceUpdate();
@@ -29,17 +29,20 @@ export default class CommunityPost extends Component {
             <div className='community-page-card'>
                 <div className="community-page-card-text">
                     <div className="community-page-card-text-header">
-                        {this.props.children[0]}
+                        {this.props.children[0] ? "No title" : this.props.children[0]}
                     </div>
                     <div className="community-page-card-text-description">
                         {this.props.children[1]}
+                    </div>
+                    <div className="community-page-card-text-description">
+                        {'★'.repeat(Math.round(this.props.rating)) + '☆'.repeat(Math.round(5 - this.props.rating))}
                     </div>
                     <div className="community-page-card-text-content">
                         {this.props.children[2]}
                     </div>
                 </div>
 
-                <div className="community-page-card-bottom">
+                {/* <div className="community-page-card-bottom">
                     <div className="community-page-card-bottom-elem-container">
                         <div
                             className="community-page-card-bottom-elem community-page-card-bottom-elem-text"
@@ -49,12 +52,11 @@ export default class CommunityPost extends Component {
                         <div className="community-page-card-bottom-elem">{this.props.likeCount}</div>
 
                     </div>
-                    {/* Comment section is disabled --> Find out why */}
-                    {/* <div className="community-page-card-bottom-elem-container">
+                    <div className="community-page-card-bottom-elem-container">
                         <div className="community-page-card-bottom-elem">💬</div>
                         <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
-                    </div> */}
-                </div>
+                    </div>
+                </div> */}
             </div>);
     }
 }

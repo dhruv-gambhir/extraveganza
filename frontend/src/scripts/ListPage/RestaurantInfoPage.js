@@ -1,4 +1,7 @@
 import { Component, Fragment } from 'react';
+import axios from 'axios';
+import SharePage from '../CommunityPage/SharePage';
+import OverlayComponent from '../Utils/OverlayComponent';
 
 /**
  * A React Component for Restaurant Info Page
@@ -10,8 +13,16 @@ import { Component, Fragment } from 'react';
  * @extends {Component}
  */
 export default class RestaurantInfoPage extends Component {
+	constructor(props) {
+		super(props);
+		this.restaurantInfo = null;
+		this.state = {
+			isSharing: false
+		};
+	}
+
 	retrieveRestaurantInfo = () => {
-		return ({
+		const info = {
 			id: this.props.restID,
 			restaurantName: this.props.restaurantName,
 			dietaryRestrictions: {
@@ -32,11 +43,13 @@ export default class RestaurantInfoPage extends Component {
 				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 			]
-		});
+		};
+		this.restaurantInfo = info;
 	};
 
 	handleShareButton = () => {
-		console.log("Sharing restaurant of id: " + this.retrieveRestaurantInfo().id);
+		console.log("Sharing restaurant of id: " + this.restaurantInfo.id);
+		this.setState({ isSharing: true });
 	};
 
 	/**
@@ -46,7 +59,8 @@ export default class RestaurantInfoPage extends Component {
 	 * @returns {*}
 	 */
 	render() {
-		const restaurantInfo = this.retrieveRestaurantInfo();
+		if (this.restaurantInfo === null) this.retrieveRestaurantInfo();
+		const restaurantInfo = this.restaurantInfo;
 		return (
 			<Fragment>
 				<div className='overlay-content overlay-content-body'>
@@ -54,7 +68,7 @@ export default class RestaurantInfoPage extends Component {
 						<div className='restaurant-header-text'>
 							<div className='restaurant-header-text-title'>{restaurantInfo.restaurantName}</div>
 							<div className='restaurant-header-text-description restaurant-header-text-rating'>
-								{'★'.repeat(restaurantInfo.rating) + '☆'.repeat(5 - restaurantInfo.rating)}
+								{'★'.repeat(Math.round(restaurantInfo.rating)) + '☆'.repeat(Math.round(5 - restaurantInfo.rating))}
 							</div>
 							<div className='restaurant-header-text-description restaurant-header-text-restrictions'>
 								{restaurantInfo.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img vegan' src='/images/vegan.png' alt='not found' />}
@@ -97,6 +111,14 @@ export default class RestaurantInfoPage extends Component {
 						</div>
 					</div>
 				</div>
+				{/* Sharing restaurant */}
+				{this.state.isSharing &&
+					<div>
+						<OverlayComponent>
+							<SharePage />
+						</OverlayComponent>
+					</div>
+				}
 			</Fragment>
 		);
 	}

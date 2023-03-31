@@ -11,10 +11,9 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
-import restaurant_router from "./routes/restaurant-route.js";
+import restaurantRoutes from "./routes/restaurant-route.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import router from "./routes/restaurant-route.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -34,10 +33,10 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets"))); // se
 // API for user authentication
 app.use("/api/auth", authRoutes); // handle authentication routes
 app.get("/api/users", userRoutes); // handle user routes
-app.use("/posts", postRoutes); // handle post routes
+app.use("/api/communityPost", postRoutes); // handle post routes
 
 // API for restaurants data
-app.use("/api/restaurants", restaurant_router);
+app.use("/api/restaurants", restaurantRoutes);
 
 // Mongoose setup
 const PORT = process.env.PORT || 20066;

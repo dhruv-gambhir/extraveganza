@@ -6,8 +6,9 @@ const router = express.Router();
 
 /** 
  * READ 
+ * Remvoed verify token for reading posts as user is not required to log in to read posts
  */
-router.get("/", verifyToken, getFeedPosts);
+router.get("/", getFeedPosts);
 
 /**
  * GRAB USER POSTS 
