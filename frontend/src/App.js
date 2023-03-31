@@ -258,7 +258,7 @@ class App extends Component {
 	deleteUserAccount = async () => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/auth/deleteAccount/', { username: userInfo.user.username })
+		await axios.post('http://localhost:2006/api/auth/deleteAccount/', { username: userInfo.user.username })
 			.then((response) => {
 				console.log(response.status);
 				if (response.status === 204) {
