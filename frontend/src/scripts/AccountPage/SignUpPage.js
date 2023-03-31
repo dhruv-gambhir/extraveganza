@@ -50,18 +50,15 @@ export default class SignUpPage extends Component {
      * @returns {*}
      */
     signUpUser = async () => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
-    
-        if (this.state.passwordInput === this.state.reenterPasswordInput && passwordRegex.test(this.state.passwordInput)) {
+        if (this.state.passwordInput === this.state.reenterPasswordInput && this.state.passwordInput.length >= 4) {
             var isSignupValid = await this.props.signUpUser(this.state.usernameInput, this.state.passwordInput);
             this.setState({ isSignupValid: isSignupValid });
             console.log(this.props);
             if (isSignupValid) this.props.toggleButton();
         } else {
-            console.log("Password must be at least twelve (12) characters long and consist of at least one (1) uppercase letter, one (1) lowercase letter, one (1) number, and one(1) special character");
+            console.log("bruh");
         }
     };
-    
 
     /**
      * Renders the component's content
@@ -104,7 +101,7 @@ export default class SignUpPage extends Component {
                                         }
                                     }
                                 } */}
-                                {(this.state.passwordInput !== '' && this.state.passwordInput.length < 12) ? "Password must be more than 12 characters long and consist of at least one (1) uppercase letter, one (1) lowercase letter, one (1) number, and one(1) special character" :
+                                {(this.state.passwordInput !== '' && this.state.passwordInput.length < 4) ? "Password must be more than 3 characters long" :
                                     (this.state.passwordInput !== this.state.reenterPasswordInput) ? "Passwords are not the same" :
                                         (!this.state.isSignupValid) ? "Sowwy >_< username is already taken" : "Create a unique username and password"}
                             </div>
