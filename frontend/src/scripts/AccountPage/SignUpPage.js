@@ -50,15 +50,13 @@ export default class SignUpPage extends Component {
      * @returns {*}
      */
     signUpUser = async () => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
-    
-        if (passwordRegex.test(this.state.passwordInput)) {
+        if (this.state.passwordInput === this.state.reenterPasswordInput && this.state.passwordInput.length >= 4) {
             var isSignupValid = await this.props.signUpUser(this.state.usernameInput, this.state.passwordInput);
             this.setState({ isSignupValid: isSignupValid });
             console.log(this.props);
             if (isSignupValid) this.props.toggleButton();
         } else {
-            console.log("Password must be at least twelve (12) characters long and consist of at least one (1) uppercase letter, one (1) lowercase letter, one (1) number, and one (1) special character.");
+            console.log("bruh");
         }
     };
 
