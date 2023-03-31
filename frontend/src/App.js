@@ -83,14 +83,11 @@ class App extends Component {
 	 * To retrieve user data from local storage, and also map location
 	 */
 	componentDidMount() {
-		const loggedInUser = localStorage.getItem("loggedInUser");
+		const userToken = localStorage.getItem("userToken");
 
-		if (loggedInUser) {
-			const foundUser = JSON.parse(loggedInUser);
-			const userInfo = this.state.userInfo;
-			userInfo.isUserLoggedIn = true;
-			userInfo.user = foundUser;
-			this.setState({ userInfo: userInfo });
+		if (userToken) {
+			const parsedUserToken = JSON.parse(userToken);
+			this.verifyUserToken(parsedUserToken);
 		}
 
 		const coordsAndAddress = localStorage.getItem("coordsAndAddress");
@@ -107,6 +104,36 @@ class App extends Component {
 			this.setState({ dietaryRestrictions: foo });
 		}
 	}
+
+	// Verify user token
+	verifyUserToken = async (userToken) => {
+		const userInfo = this.state.userInfo;
+
+		await axios.post('http://localhost:2006/api/auth/verify/', {
+			token: userToken
+		})
+			.then((response) => {
+				console.log(response);
+				if (response.status === 200) {
+					userInfo.isUserLoggedIn = true;
+					userInfo.user = response.data.user;
+					this.setState({
+						userInfo: userInfo
+					});
+					localStorage.setItem("userToken", JSON.stringify(response.data.token));
+					return true; // Successful log in
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+				userInfo.isUserLoggedIn = false;
+				userInfo.isLoginValid = false;
+				this.setState({
+					userInfo: userInfo
+				});
+				return false; // Failed to log in (invalid credentials)
+			});
+	};
 
 	/**
 	 * A function to authenticate the user for log in
@@ -131,7 +158,7 @@ class App extends Component {
 					this.setState({
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+					localStorage.setItem("userToken", JSON.stringify(response.data.token));
 					return true; // Successful log in
 				}
 			})
@@ -168,7 +195,7 @@ class App extends Component {
 					this.setState({
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
+					localStorage.setItem("userToken", JSON.stringify(response.data.token));
 					return true; // Successful signup
 				}
 			})
@@ -198,13 +225,13 @@ class App extends Component {
 		await axios.post('http://localhost:2006/api/auth/update/', newInfo)
 			.then((response) => {
 				if (response.status === 201) {
-					localStorage.removeItem("loggedInUser");
+					localStorage.removeItem("userToken");
 					console.log(response.data);
 					userInfo.user = response.data.user;
 					this.setState({
 						userInfo: userInfo
 					});
-					localStorage.setItem("loggedInUser", JSON.stringify(userInfo.user));
+					localStorage.setItem("userToken", JSON.stringify(response.data.token));
 					return true; // Successful log in
 				}
 			})
@@ -222,7 +249,7 @@ class App extends Component {
 		userInfo.isUserLoggedIn = false;
 		userInfo.user = {};
 		this.setState({ userInfo: userInfo });
-		localStorage.removeItem("loggedInUser");
+		localStorage.removeItem("userToken");
 	};
 
 	/**
@@ -239,7 +266,7 @@ class App extends Component {
 					userInfo.isUserLoggedIn = false;
 					userInfo.user = {};
 					this.setState({ userInfo: userInfo });
-					localStorage.removeItem("loggedInUser");
+					localStorage.removeItem("userToken");
 					console.log(response.data);
 				}
 			})
