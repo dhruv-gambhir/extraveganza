@@ -113,7 +113,6 @@ class App extends Component {
 			token: userToken
 		})
 			.then((response) => {
-				console.log(response);
 				if (response.status === 200) {
 					userInfo.isUserLoggedIn = true;
 					userInfo.user = response.data.user;

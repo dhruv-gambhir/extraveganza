@@ -33,7 +33,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets"))); // se
 // API for user authentication
 app.use("/api/auth", authRoutes); // handle authentication routes
 app.get("/api/users", userRoutes); // handle user routes
-app.use("/posts", postRoutes); // handle post routes
+app.use("/api/communityPost", postRoutes); // handle post routes
 
 // API for restaurants data
 app.use("/api/restaurants", restaurantRoutes);

@@ -54,7 +54,7 @@ export default class RestaurantInfoPage extends Component {
 						<div className='restaurant-header-text'>
 							<div className='restaurant-header-text-title'>{restaurantInfo.restaurantName}</div>
 							<div className='restaurant-header-text-description restaurant-header-text-rating'>
-								{'★'.repeat(restaurantInfo.rating) + '☆'.repeat(5 - restaurantInfo.rating)}
+								{'★'.repeat(Math.round(restaurantInfo.rating)) + '☆'.repeat(Math.round(5 - restaurantInfo.rating))}
 							</div>
 							<div className='restaurant-header-text-description restaurant-header-text-restrictions'>
 								{restaurantInfo.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img vegan' src='/images/vegan.png' alt='not found' />}

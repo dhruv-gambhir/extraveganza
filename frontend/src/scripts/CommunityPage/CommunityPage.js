@@ -17,13 +17,14 @@ export default class CommunityPage extends Component {
 	constructor(props) {
 		super(props);
 		this.listBuffer = [];
+		this.restaurantList = [];
 		this.state = {
 			loading: false,
-			loadAmount: 20
+			loadAmount: 20,
 		};
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		this.retrieveCommunityPostsList();
 	}
 
@@ -36,39 +37,97 @@ export default class CommunityPage extends Component {
 	retrieveCommunityPostsList = async () => {
 		this.setState({ loading: true });
 
-		await axios.get('http://localhost:2007/api/communityPost/', {})
+		// Get restaurant list
+		await axios.get('http://localhost:2006/api/restaurants/', {})
 			.then((response) => {
 				if (response.status === 200) {
-					// response.data.restaurants.forEach(element => {
-					// 	var foo = this.fromRestaurantJSON(element);
-					// 	if (!this.listBuffer.some((obj) => (obj.key === foo.key))) {
-					// 		this.listBuffer.push(foo);
-					// 	}
-					// });
+					response.data.restaurants.forEach(element => {
+						var foo = this.fromRestaurantJSON(element);
+						if (!this.restaurantList.some((obj) => (obj.key === foo.key))) {
+							this.restaurantList.push(foo);
+						}
+					});
 				}
 			})
 			.catch((error) => {
 				console.log(error.response);
 			});
 
-		// var communityPostList = [
-		// 	{ id: 101010101, title: "Nice restaurant", restaurant: "i luv veggies", rating: 5, liked: true, likeCount: 69, content: "So nice mmmmmm i like it " },
-		// 	{ id: 4, title: "Title 4", restaurant: "Restaurant Name", rating: 5, liked: false, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-		// 	{ id: 1, title: "Title 1", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-		// 	{ id: 2, title: "Title 2", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dignissimos, autem repellat, quaerat illum neque obcaecati nulla hic ipsam dolore eligendi minima asperiores repellendus perspiciatis velit ducimus cum quo culpa? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit inventore voluptas dicta ab odio accusantium accusamus. Ducimus tempore, cupiditate dignissimos, a nisi fugit quas molestiae consectetur accusantium perferendis magnam enim." },
-		// 	{ id: 3, title: "Title 3", restaurant: "Restaurant Name", rating: 5, liked: true, likeCount: 69, content: "lorem ipsum dolor sit amet" },
-		// ];
-		// this.listBuffer = communityPostList;
+		// Get community posts
+		var buf = [];
+		await axios.get('http://localhost:2006/api/communityPost/', {})
+			.then((response) => {
+				if (response.status === 200) {
+					response.data.forEach(post => {
+						var foo = this.fromCommunityPostJSON(post);
+						if (!buf.some((i) => i.postID === post.postID)) {
+							buf.push(foo);
+						}
+					});
+				}
+			})
+			.catch((error) => {
+				console.log(error.response);
+			});
+
+		this.listBuffer = buf;
 
 		this.setState({ loading: false });
 
 		return [{}];
 	};
 
+	/**
+	 * Converts restaurant JSON retrived from database to local format
+	 * @date 3/24/2023 - 5:46:49 PM
+	 *
+	 * @param {*} restaurantJSON
+	 * @returns {{}}
+	 */
+	fromRestaurantJSON = (restaurantJSON) => {
+		const restaurant = restaurantJSON;
+		const id = restaurant.id;
+		const restaurantName = restaurant.name;
+		const dietaryRestrictions = {
+			vegan: restaurant.vegan > 5,
+			vegetarian: restaurant.vegetarian > 5,
+			lactoseFree: restaurant.lactoseFree > 5,
+			glutenFree: restaurant.glutenFree > 5
+		};
+		const description = ""; // No description provided
+		const rating = restaurant.rating;
+		const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address };
+		// Menu is not loaded for this section
+		var rest = {
+			key: id,
+			restaurantName: restaurantName,
+			dietaryRestrictions: dietaryRestrictions,
+			description: description,
+			rating: rating,
+			location: location
+		};
+		return rest;
+	};
+
+	fromCommunityPostJSON = (postJSON) => {
+		const restaurantID = this.restaurantList.findIndex((rest) => rest.id === postJSON.restaurantID);
+		const post = {
+			postID: postJSON._id,
+			title: postJSON.title,
+			restaurantName: restaurantID ? restaurantID : 'No restaurant',
+			rating: postJSON.ratings,
+			datetime: "2023-03-11T06:20:25.683Z",
+			content: postJSON.description
+		};
+		return post;
+	};
+
 	filterRestaurantsBySearchQuery = () => {
 		var foo = this.listBuffer;
-		foo = foo.filter((bar) => (bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) || bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) || bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
-		// this.listBuffer = foo;
+		foo = foo.filter((bar) => (
+			bar.title && bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) ||
+			bar.restaurantName && bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase()) ||
+			bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
 		return foo;
 	};
 
@@ -108,10 +167,11 @@ export default class CommunityPage extends Component {
 										itemID={item.id}
 										liked={item.liked}
 										likeCount={item.likeCount}
+										rating={item.rating}
 										toggleItemLike={this.toggleItemLike}
 									>
 										<div>{item.title}</div>
-										<div>{item.restaurant}</div>
+										<div>{item.restaurantName}</div>
 										<div>{item.content}</div>
 									</CommunityPost>
 								))}
