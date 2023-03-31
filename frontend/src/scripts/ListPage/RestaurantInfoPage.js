@@ -1,6 +1,4 @@
 import { Component, Fragment } from 'react';
-import SharePage from '../CommunityPage/SharePage';
-import OverlayComponent from '../Utils/OverlayComponent';
 
 /**
  * A React Component for Restaurant Info Page
@@ -15,9 +13,6 @@ export default class RestaurantInfoPage extends Component {
 	constructor(props) {
 		super(props);
 		this.restaurantInfo = null;
-		this.state = {
-			isSharing: false
-		};
 	}
 
 	retrieveRestaurantInfo = () => {
@@ -47,8 +42,8 @@ export default class RestaurantInfoPage extends Component {
 	};
 
 	handleShareButton = () => {
-		console.log("Sharing restaurant of id: " + this.restaurantInfo.id);
-		this.setState({ isSharing: true });
+		this.props.setSharingID(this.restaurantInfo.id, this.restaurantInfo.restaurantName);
+		this.props.toggleIsSharing();
 	};
 
 	/**
@@ -110,14 +105,6 @@ export default class RestaurantInfoPage extends Component {
 						</div>
 					</div>
 				</div>
-				{/* Sharing restaurant */}
-				{this.state.isSharing &&
-					<div>
-						<OverlayComponent>
-							<SharePage />
-						</OverlayComponent>
-					</div>
-				}
 			</Fragment>
 		);
 	}

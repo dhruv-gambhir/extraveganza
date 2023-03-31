@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from "react-fontawesome";
 import RestaurantInfoPage from "./RestaurantInfoPage";
 import OverlayComponent from "../Utils/OverlayComponent";
+import SharePage from './SharePage';
 
 /**
  * A React Component for rendering restaurant title card
@@ -19,6 +20,9 @@ export default class RestaurantTitleCard extends Component {
 		super(props);
 		this.state = {
 			isChildRendered: false,
+			isSharing: false,
+			shareID: -1,
+			shareRestaurantName: ""
 		};
 	}
 
@@ -29,6 +33,17 @@ export default class RestaurantTitleCard extends Component {
 		this.setState(prevState => ({
 			isChildRendered: !prevState.isChildRendered
 		}));
+	};
+
+	toggleIsSharing = () => {
+		this.setState(prevState => ({
+			isChildRendered: false,
+			isSharing: !prevState.isSharing
+		}));
+	};
+
+	setSharingID = (sid, sname) => {
+		this.setState({ shareID: sid, shareRestaurantName: sname });
 	};
 
 	/**
@@ -60,7 +75,14 @@ export default class RestaurantTitleCard extends Component {
 					<OverlayComponent>
 						<RestaurantInfoPage
 							{...this.props}
+							toggleIsSharing={this.toggleIsSharing}
+							setSharingID={this.setSharingID}
 						/>
+					</OverlayComponent>,
+					{ toggleButton: this.toggleCard })}
+				{this.state.isSharing && cloneElement(
+					<OverlayComponent>
+						<SharePage shareID={this.state.shareID} shareRestaurantName={this.state.shareRestaurantName} />
 					</OverlayComponent>,
 					{ toggleButton: this.toggleCard })}
 			</Fragment>
