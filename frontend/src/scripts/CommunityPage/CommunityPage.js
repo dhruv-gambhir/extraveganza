@@ -28,6 +28,7 @@ export default class CommunityPage extends Component {
 		this.retrieveCommunityPostsList();
 	}
 
+
 	/**
 	 * Retrieves the community posts
 	 * @date 3/15/2023 - 7:13:26 PM
@@ -73,8 +74,6 @@ export default class CommunityPage extends Component {
 		this.listBuffer = buf;
 
 		this.setState({ loading: false });
-
-		return [{}];
 	};
 
 	/**
