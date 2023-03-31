@@ -1,4 +1,4 @@
-import Restaurant from "../models/restaurant.js";
+import Restaurant from "../models/Restaurant.js";
 
 /**
  * This function calls and gets the list of restaurants required from the database.
@@ -26,7 +26,7 @@ export const getRestaurants = async (req, res) => {
  * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
  * @returns record of a specific restaurant
  */
-export const getRestaurantsByID = async (req, res) => {
+export const getRestaurantByID = async (req, res) => {
     try 
     {
         const { id } = req.params;
@@ -84,7 +84,7 @@ export const addRestaurant = async (req, res) => {
  * @param {*} res represents the HTTP response that an Express app sends when it gets an HTTP request
  * @returns Menu options
  */
-export const getRestaurantMenu = async (req, res) => {
+export const getRestaurantMenuByID = async (req, res) => {
     try {
         const { id } = req.params;
         const restaurant = await Restaurant.findById(id);

@@ -33,7 +33,7 @@ const MenuSchema = new mongoose.Schema(
             required: false,
         },
         dietaryRestriction: {
-            type: String,
+            type: Array,
             enum: Object.values(Dietary_Restriction),
             required: true,
             default: "none",
