@@ -12,11 +12,11 @@ export const createPost = async (req, res) =>
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
-      // firstName: user.firstName,
-      // lastName: user.lastName,
       username: user.username,
       location: user.location,
-      restaurantID,
+      restaurantID: req.body.restaurantId,,
+      restaurantName: req.body.restaurantName,
+      title,
       description,
       userPicturePath: user.picturePath,
       picturePath,
