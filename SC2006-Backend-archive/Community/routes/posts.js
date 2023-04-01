@@ -8,7 +8,9 @@ const router = express.Router();
 * CREATE
 */
 
-router.post("/", verifyToken, createPost);
+router.post("/posts/:title", verifyToken, createPost);
+// a new post is being created with the specified title in the URL path parameter.
+
 
 /** 
  * READ 
