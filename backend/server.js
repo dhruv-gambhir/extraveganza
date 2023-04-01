@@ -38,6 +38,14 @@ app.use("/api/communityPost", postRoutes); // handle post routes
 // API for restaurants data
 app.use("/api/restaurants", restaurantRoutes);
 
+// ======================
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('/', function (req, res) {
+	res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+
+
 // Mongoose setup
 const PORT = process.env.PORT || 20066;
 mongoose
