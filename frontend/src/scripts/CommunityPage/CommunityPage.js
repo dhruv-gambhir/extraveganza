@@ -74,7 +74,7 @@ export default class CommunityPage extends Component {
 		var foo = this.listBuffer;
 		foo = foo.filter((bar) => (
 			(bar.title && bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
-			(bar.restaurantName && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
+			(bar.restaurant && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
 			(bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase()))));
 		return foo;
 	};
