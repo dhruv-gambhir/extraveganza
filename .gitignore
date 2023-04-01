@@ -1,0 +1,3 @@
+# Ignore files / directories of the following types
+/.vscode
+/node_modules
