@@ -9,7 +9,7 @@ function RestaurantDRFilter(props) {
 	useEffect(() => {
 		async function help() {
 			var buf = [];
-			await axios.get('http://localhost:2006/api/restaurants', {})
+			await axios.get('/api/restaurants', {})
 				.then((response) => {
 					if (response.status === 200) {
 						response.data.restaurants.forEach(element => {
