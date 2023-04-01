@@ -118,9 +118,9 @@ export default class CommunityPage extends Component {
 										rating={item.rating}
 										toggleItemLike={this.toggleItemLike}
 									>
-										<div>{item.title}</div>
-										<div>{item.restaurant}</div>
-										<div>{item.content}</div>
+										<Fragment>{item.title}</Fragment>
+										<Fragment>{item.restaurant}</Fragment>
+										<Fragment>{item.content}</Fragment>
 									</CommunityPost>
 								))}
 							</Fragment>) :

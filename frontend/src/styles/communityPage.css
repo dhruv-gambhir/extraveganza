@@ -47,6 +47,7 @@
 .community-page-card-text-content {
 	font-weight: 400;
 	font-size: 17px;
+	word-wrap: break-word;
 }
 
 .community-page-card-bottom {
