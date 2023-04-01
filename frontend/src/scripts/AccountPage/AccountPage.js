@@ -24,7 +24,8 @@ export default class AccountPage extends Component {
 		super(props);
 		this.state = {
 			newUsername: this.props.user.username,
-			newPassword: ""
+			newPassword: "",
+			showWarning: false
 		};
 	}
 
@@ -65,30 +66,31 @@ export default class AccountPage extends Component {
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
-								<div className="account-setting-label">
-									account setting
-								</div>
-								<div className="account-setting-option">
-									options
+								<div className="account-setting-label-description">
+									{this.state.showWarning ? "Username taken, or password requirement not met" : ""}
 								</div>
 							</AccountSettingComponent>
-							<div className="account-page-delete-account-container">
-								<div className="login-submit-label account-page-button account-page-delete-account" onClick={this.props.deleteUserAccount}>DELETE ACCOUNT</div>
-							</div>
+							<AccountSettingComponent>
+								{/* checking whether can update username */}
+								<button
+									className="account-save-button"
+									onClick={() => {
+										var newInfo = {
+											username: this.props.user.username,
+											newUsername: this.state.newUsername,
+										};
+										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(this.state.newPassword)) {
+											newInfo['newPassword'] = this.state.newPassword;
+											this.setState({ showWarning: !this.props.updateUser(newInfo) });
+										}
+										else {
+											this.setState({ showWarning: true });
+										}
+									}}>Save Settings</button>
+							</AccountSettingComponent>
 						</div>
-
-						<div>
-							{/* checking whether can update username */}
-							<button onClick={() => {
-								var newInfo = {
-									username: this.props.user.username,
-									newUsername: this.state.newUsername,
-								};
-								if (this.state.newPassword.length >= 4) {
-									newInfo['newPassword'] = this.state.newPassword;
-								}
-								this.props.updateUser(newInfo);
-							}}>save</button>
+						<div className="account-page-delete-account-container">
+							<div className="login-submit-label account-page-button account-page-delete-account" onClick={this.props.deleteUserAccount}>DELETE ACCOUNT</div>
 						</div>
 					</div>
 				</div>
