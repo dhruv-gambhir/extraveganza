@@ -38,7 +38,7 @@ export default class CommunityPage extends Component {
 
 		// Get community posts
 		var buf = [];
-		await axios.get('http://localhost:2006/api/communityPost/', {})
+		await axios.get('/api/communityPost/', {})
 			.then((response) => {
 				if (response.status === 200) {
 					response.data.forEach(post => {
@@ -64,7 +64,7 @@ export default class CommunityPage extends Component {
 			title: postJSON.title,
 			restaurant: !postJSON.restaurantName ? "restaurant not available" : postJSON.restaurantName,
 			rating: postJSON.ratings,
-			datetime: "2023-03-11T06:20:25.683Z",
+			datetime: "datetime not here yet lol",
 			content: postJSON.description
 		};
 		return post;
@@ -74,7 +74,7 @@ export default class CommunityPage extends Component {
 		var foo = this.listBuffer;
 		foo = foo.filter((bar) => (
 			(bar.title && bar.title.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
-			(bar.restaurantName && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
+			(bar.restaurant && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
 			(bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase()))));
 		return foo;
 	};

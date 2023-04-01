@@ -109,7 +109,7 @@ class App extends Component {
 	verifyUserToken = async (userToken) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/api/auth/verify/', {
+		await axios.post('/api/auth/verify/', {
 			token: userToken
 		})
 			.then((response) => {
@@ -144,7 +144,7 @@ class App extends Component {
 	authenticateUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/api/auth/login/', {
+		await axios.post('/api/auth/login/', {
 			username: username,
 			password: password
 
@@ -182,7 +182,7 @@ class App extends Component {
 	signUpUser = async (username, password) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/api/auth/register/', {
+		await axios.post('/api/auth/register/', {
 			username: username,
 			password: password
 		})
@@ -221,7 +221,7 @@ class App extends Component {
 	updateUser = async (newInfo) => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/api/auth/update/', newInfo)
+		await axios.post('/api/auth/update/', newInfo)
 			.then((response) => {
 				if (response.status === 201) {
 					localStorage.removeItem("userToken");
@@ -258,7 +258,7 @@ class App extends Component {
 	deleteUserAccount = async () => {
 		const userInfo = this.state.userInfo;
 
-		await axios.post('http://localhost:2006/api/auth/deleteAccount/', { username: userInfo.user.username })
+		await axios.post('/api/auth/deleteAccount/', { username: userInfo.user.username })
 			.then((response) => {
 				console.log(response.status);
 				if (response.status === 204) {
