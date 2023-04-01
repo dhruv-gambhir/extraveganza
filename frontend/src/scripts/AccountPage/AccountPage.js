@@ -79,7 +79,7 @@ export default class AccountPage extends Component {
 											username: this.props.user.username,
 											newUsername: this.state.newUsername,
 										};
-										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword)) {
+										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(this.state.newPassword)) {
 											newInfo['newPassword'] = this.state.newPassword;
 										}
 										else {
