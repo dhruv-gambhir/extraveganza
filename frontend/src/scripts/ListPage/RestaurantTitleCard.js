@@ -93,10 +93,12 @@ export default class RestaurantTitleCard extends Component {
 	};
 
 	setShareTitle = (title) => {
+		title = title.length > 30 ? title.substr(0, 30) : title;
 		this.setState({ shareTitle: title });
 	};
 
 	setShareContent = (content) => {
+		content = content.length > 500 ? content.substr(0, 500) : content;
 		this.setState({ shareContent: content });
 	};
 
