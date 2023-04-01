@@ -22,7 +22,10 @@ export default class RestaurantTitleCard extends Component {
 			isChildRendered: false,
 			isSharing: false,
 			shareID: -1,
-			shareRestaurantName: ""
+			shareRestaurantName: "",
+			shareRating: '',
+			shareTitle: "",
+			shareContent: ""
 		};
 	}
 
@@ -37,13 +40,43 @@ export default class RestaurantTitleCard extends Component {
 
 	toggleIsSharing = () => {
 		this.setState(prevState => ({
-			isChildRendered: false,
+			isChildRendered: !prevState.isChildRendered,
 			isSharing: !prevState.isSharing
 		}));
 	};
 
 	setSharingID = (sid, sname) => {
 		this.setState({ shareID: sid, shareRestaurantName: sname });
+	};
+
+	handleSharing = async () => {
+		if (this.state.shareRating !== undefined &&
+			this.state.shareTitle.localeCompare("") !== 0 &&
+			this.state.shareContent.localeCompare("") !== 0) {
+			await console.log(`Creating post for "${this.state.shareRestaurantName}"\nRating: ${this.state.shareRating}\nTitle: ${this.state.shareTitle}\nContent: ${this.state.shareContent}`);
+			this.toggleIsSharing();
+			this.toggleCard();
+			this.setShareRating(0);
+			this.setShareTitle('');
+			this.setShareContent('');
+		}
+		else {
+			console.log("Post is not completed");
+		}
+	};
+
+	setShareRating = (rating) => {
+		rating = Math.min(Math.max(0, rating), 5);
+		rating = Math.round(rating * 2) / 2;
+		this.setState({ shareRating: rating });
+	};
+
+	setShareTitle = (title) => {
+		this.setState({ shareTitle: title });
+	};
+
+	setShareContent = (content) => {
+		this.setState({ shareContent: content });
 	};
 
 	/**
@@ -82,9 +115,17 @@ export default class RestaurantTitleCard extends Component {
 					{ toggleButton: this.toggleCard })}
 				{this.state.isSharing && cloneElement(
 					<OverlayComponent>
-						<SharePage shareID={this.state.shareID} shareRestaurantName={this.state.shareRestaurantName} />
+						<SharePage
+							shareID={this.state.shareID}
+							shareRestaurantName={this.state.shareRestaurantName}
+							handleSharing={this.handleSharing}
+							setShareContent={this.setShareContent}
+							setShareRating={this.setShareRating}
+							setShareTitle={this.setShareTitle}
+							{...this.state}
+						/>
 					</OverlayComponent>,
-					{ toggleButton: this.toggleCard })}
+					{ toggleButton: this.toggleIsSharing })}
 			</Fragment>
 		);
 	}

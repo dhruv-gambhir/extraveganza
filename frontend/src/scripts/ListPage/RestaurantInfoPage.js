@@ -26,16 +26,16 @@ export default class RestaurantInfoPage extends Component {
 				glutenFree: this.props.dietaryRestrictions.glutenFree
 			},
 			description: this.props.description ? this.props.description : "No description	",
-			rating: this.props.rating ? this.props.rating : Math.floor(Math.random() * 6),
+			rating: this.props.rating ? this.props.rating : '?',
 			location: { lat: this.props.location.lat, lng: this.props.location.lng, address: this.props.location.address },
 			menu: [
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 			]
 		};
 		this.restaurantInfo = info;
@@ -62,7 +62,9 @@ export default class RestaurantInfoPage extends Component {
 						<div className='restaurant-header-text'>
 							<div className='restaurant-header-text-title'>{restaurantInfo.restaurantName}</div>
 							<div className='restaurant-header-text-description restaurant-header-text-rating'>
-								{'★'.repeat(Math.round(restaurantInfo.rating)) + '☆'.repeat(Math.round(5 - restaurantInfo.rating))}
+								{typeof (restaurantInfo.rating) !== typeof ('lol') ?
+									('★'.repeat(Math.round(restaurantInfo.rating)) + '☆'.repeat(Math.round(5 - restaurantInfo.rating))) :
+									"? ☆ "}
 							</div>
 							<div className='restaurant-header-text-description restaurant-header-text-restrictions'>
 								{restaurantInfo.dietaryRestrictions.vegan && <img className='restaurant-header-restrictions-img vegan' src='/images/vegan.png' alt='not found' />}
