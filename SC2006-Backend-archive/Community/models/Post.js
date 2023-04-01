@@ -7,6 +7,8 @@ import Restaurant from "./restaurant.js";
  * @property {string} userID - user id of the owner of the post
  * @property {username} username - username of the owner of the post
  * @property {mongoose.Schema.Types.ObjectId} restaurantID - the restaurant mentioned in the post
+ * @property {string} restaurantName - restaurant name mentioned in the post
+ * @property {string} title - title of the post
  * @property {string} description - content of post published by the post owner
  * @property {string} picturePath - address of image uploaded by post owner as part of the post
  * @property {string} userPicturePath - address of profile picture of post owner
@@ -27,13 +29,28 @@ const postSchema = mongoose.Schema(
      restaurantID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Restaurant',
-      required: true
+      required: true,
     },
-
+    
+    restaurantName: {
+      type: String,
+      required: true,
+      
+    },
+    
+    title:{
+      type: String,
+      required: true,
+      
+    },
+    
+// content
     description: String,
+    ratings:Number,
+    
     picturePath: String,
     userPicturePath: String,
-    ratings:Number,
+    
     
     
     likes: {
