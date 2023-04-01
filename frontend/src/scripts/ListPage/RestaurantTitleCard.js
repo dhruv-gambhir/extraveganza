@@ -5,6 +5,7 @@ import FontAwesome from "react-fontawesome";
 import RestaurantInfoPage from "./RestaurantInfoPage";
 import OverlayComponent from "../Utils/OverlayComponent";
 import SharePage from './SharePage';
+import axios from 'axios';
 
 /**
  * A React Component for rendering restaurant title card
@@ -53,7 +54,27 @@ export default class RestaurantTitleCard extends Component {
 		if (this.state.shareRating !== undefined &&
 			this.state.shareTitle.localeCompare("") !== 0 &&
 			this.state.shareContent.localeCompare("") !== 0) {
-			await console.log(`Creating post for "${this.state.shareRestaurantName}"\nRating: ${this.state.shareRating}\nTitle: ${this.state.shareTitle}\nContent: ${this.state.shareContent}`);
+			await axios.post("http://localhost:2006/api/communityPost/createPost",
+				{
+					restaurantName: this.state.shareRestaurantName,
+					restaurantID: this.state.shareID,
+					title: this.state.shareTitle,
+					ratings: this.state.shareRating,
+					description: this.state.shareContent
+				},
+				{
+					headers: {
+						Authorization: JSON.parse(localStorage.getItem("userToken"))
+					}
+				})
+				.then((response) => {
+					if (response.status === 203) {
+						console.log(`Created post for "${this.state.shareRestaurantName}"\nRating: ${this.state.shareRating}\nTitle: ${this.state.shareTitle}\nContent: ${this.state.shareContent}`);
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
 			this.toggleIsSharing();
 			this.toggleCard();
 			this.setShareRating(0);

@@ -43,7 +43,7 @@ export default class CommunityPage extends Component {
 				if (response.status === 200) {
 					response.data.forEach(post => {
 						var foo = this.fromCommunityPostJSON(post);
-						if (!buf.some((i) => i.postID === post.postID)) {
+						if (!buf.some((i) => i.postID === post.postID) && post.title !== undefined) {
 							buf.push(foo);
 						}
 					});

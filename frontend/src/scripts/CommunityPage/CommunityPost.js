@@ -29,7 +29,7 @@ export default class CommunityPost extends Component {
             <div className='community-page-card'>
                 <div className="community-page-card-text">
                     <div className="community-page-card-text-header">
-                        {this.props.children[0] ? "No title" : this.props.children[0]}
+                        {this.props.children[0]}
                     </div>
                     <div className="community-page-card-text-description">
                         {this.props.children[1]}

@@ -9,18 +9,18 @@ export const createPost = async (req, res) => {
     const { userId, description, picturePath } = req.body;
     const user = await User.findById(userId);
     const newPost = new Post({
-      userId,
-      // firstName: user.firstName,
-      // lastName: user.lastName,
-      username: user.username,
-      location: user.location,
-      restaurantID,
-      description,
-      userPicturePath: user.picturePath,
-      picturePath,
-      ratings,
-      likes: {},
-      comments: [],
+      // userId,
+      // username: user.username,
+      // location: user.location,
+      restaurantID: req.body.restaurantID,
+      restaurantName: req.body.restaurantName,
+      title: req.body.title,
+      description: req.body.description,
+      // userPicturePath: user.picturePath,
+      // picturePath,
+      ratings: req.body.ratings,
+      // likes: {},
+      // comments: [],
     });
     await newPost.save();
 

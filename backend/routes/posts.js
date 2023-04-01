@@ -13,7 +13,7 @@ router.post("/createPost", verifyToken, createPost);
 /** 
  * READ 
  */
-router.get("/", verifyToken, getFeedPosts);
+router.get("/", getFeedPosts);
 
 /**
  * GRAB USER POSTS 

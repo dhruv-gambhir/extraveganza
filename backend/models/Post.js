@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import Restaurant from "./restaurant.js";
-
 
 /**
  * Schema of how posts are stored
@@ -16,19 +14,18 @@ import Restaurant from "./restaurant.js";
  */
 const postSchema = mongoose.Schema(
   {
-    userId: {
-      type: String,
-      required: true,
-    },
+    // userId: {
+    //   type: String,
+    //   required: false,
+    // },
 
-    username: {
-      type: String,
-      required: true,
-    },
+    // username: {
+    //   type: String,
+    //   required: false
+    // },
 
     restaurantID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Restaurant',
+      type: Number,
       required: true,
     },
 
@@ -45,22 +42,20 @@ const postSchema = mongoose.Schema(
     },
 
     // content
-    description: String,
-    ratings: Number,
+    description: { type: String, required: true },
+    ratings: { type: Number, required: true },
 
-    picturePath: String,
-    userPicturePath: String,
+    // picturePath: String,
+    // userPicturePath: String,
 
-
-
-    likes: {
-      type: Map,
-      of: Boolean,
-    },
-    comments: {
-      type: Array,
-      default: [],
-    },
+    // likes: {
+    //   type: Map,
+    //   of: Boolean,
+    // },
+    // comments: {
+    //   type: Array,
+    //   default: [],
+    // },
   },
   { timestamps: true }
 );
