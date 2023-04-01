@@ -25,34 +25,9 @@ export default class AccountPage extends Component {
 		this.state = {
 			newUsername: this.props.user.username,
 			newPassword: "",
-			showWarning: false,
-			showDeleteConfirmation: false // add this property
-
+			showWarning: false
 		};
 	}
-
-	handleDeleteConfirmation() {
-		// call the deleteUserAccount function passed as a prop to delete the user account
-		this.props.deleteUserAccount()
-			.then(() => {
-				console.log("Account deletion successful");
-				// display a success message to the user
-				alert("Account deletion successful");
-				// do something else after deleting the user account, if necessary
-			})
-			.catch(error => {
-				console.error(`Account deletion failed: ${error}`);
-				// display an error message to the user, if necessary
-			});
-		// hide the confirmation dialog
-		this.setState({ showDeleteConfirmation: false });
-	}
-
-	handleCancelDelete() {
-		this.setState({ showDeleteConfirmation: false });
-	}
-
-
 
 	/**
 	 * Renders the component's content
@@ -103,7 +78,7 @@ export default class AccountPage extends Component {
 							<AccountSettingComponent>
 								<div className="account-setting-label-description">
 									{this.state.showWarning ?
-										"Password must have at least one uppercase, one lowercase, one digit, and one special character" : ""}
+										"Username taken, or password must have at least one uppercase, one lowercase, one digit, and one special character" : ""}
 								</div>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
@@ -143,31 +118,9 @@ export default class AccountPage extends Component {
 
 							</AccountSettingComponent>
 						</div>
-						<div className="account-page-deletes-account-container">
-							<div
-								className="login-submit-label account-page-button account-page-delete-account"
-								onClick={() => this.setState({ showDeleteConfirmation: true })} // show confirmation dialog
-							>
-								DELETE ACCOUNT
-							</div>
+						<div className="account-page-delete-account-container">
+							<div className="login-submit-label account-page-button account-page-delete-account" onClick={this.props.deleteUserAccount}>DELETE ACCOUNT</div>
 						</div>
-
-						{this.state.showDeleteConfirmation && (
-							<div className="overlay-content">
-								<div className="overlay-content-header">Confirm account deletion</div>
-								<div className="overlay-content-body">
-									<p>Are you sure you want to delete your account?</p>
-									<div className="account-page-button" onClick={() => this.handleDeleteConfirmation()}>
-										Yes
-									</div>
-									<div className="account-page-button" onClick={() => this.handleCancelDelete()}>
-										No
-									</div>
-								</div>
-							</div>
-						)}
-
-
 					</div>
 				</div>
 			</Fragment>
