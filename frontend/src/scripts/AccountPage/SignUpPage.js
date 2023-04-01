@@ -102,7 +102,7 @@ export default class SignUpPage extends Component {
                                     }
                                 } */}
                                 {(this.state.passwordInput !== '' && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(this.state.passwordInput)) ?
-                                    "Password must have at least one uppercase, lowercase, symbol & number" :
+                                    "Password must have at least one uppercase, lowercase, symbol & number and at least 12 characters long" :
                                     (this.state.passwordInput !== this.state.reenterPasswordInput) ? "Passwords are not the same" :
                                         (!this.state.isSignupValid) ? "Sowwy >_< username is already taken" : "Create a unique username and password"}
                             </div>
