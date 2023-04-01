@@ -66,56 +66,27 @@ export default class AccountPage extends Component {
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
-								<div className="account-setting-label">
-									Re-enter password
-								</div>
-								<input className="account-setting-option-textbox"
-									type={"password"}
-									value={this.state.confirmPassword}
-									onChange={evt => this.setState({ confirmPassword: evt.target.value })}>
-								</input>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
 								<div className="account-setting-label-description">
-									{this.state.showWarning ?
-										"Username taken, or password must have at least one uppercase, one lowercase, one digit, and one special character" : ""}
+									{this.state.showWarning ? "Username taken, or password requirement not met" : ""}
 								</div>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
 								{/* checking whether can update username */}
 								<button
 									className="account-save-button"
-									disabled={this.state.newPassword !== this.state.confirmPassword} // disable button if passwords don't match
 									onClick={() => {
-										const newInfo = {
+										var newInfo = {
 											username: this.props.user.username,
 											newUsername: this.state.newUsername,
 										};
-										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword)) {
-											newInfo.newPassword = this.state.newPassword;
+										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(this.state.newPassword)) {
+											newInfo['newPassword'] = this.state.newPassword;
 										}
 										else {
 											this.setState({ showWarning: true });
-											return; // do not call updateUser if password does not meet the requirements
 										}
-										this.setState({ showWarning: false }); // reset warning state
-										this.props.updateUser(newInfo)
-											.then(updatedUser => {
-												console.log("Password change successful");
-												// display a success message to the user
-												alert("Password change successful");
-												// do something with the updated user information, if necessary
-											})
-											.catch(error => {
-												console.error(`Password change failed: ${error}`);
-												// display an error message to the user, if necessary
-											});
-									}}
-								>
-									Save Settings
-								</button>
-
-
+										this.setState({ showWarning: !this.props.updateUser(newInfo) });
+									}}>Save Settings</button>
 							</AccountSettingComponent>
 						</div>
 						<div className="account-page-delete-account-container">
@@ -126,7 +97,6 @@ export default class AccountPage extends Component {
 			</Fragment>
 		);
 	}
-
 }
 
 AccountPage.propTypes = {
