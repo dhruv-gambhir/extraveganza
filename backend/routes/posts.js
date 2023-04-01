@@ -1,14 +1,19 @@
 import express from "express";
-import { getFeedPosts, getUserPosts, likePost, commentPost } from "../controllers/posts.js";
+import { createPost, getFeedPosts, getUserPosts, likePost, commentPost } from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
+/**
+* CREATE
+*/
+
+router.post("/createPost", verifyToken, createPost);
+
 /** 
  * READ 
- * Remvoed verify token for reading posts as user is not required to log in to read posts
  */
-router.get("/", getFeedPosts);
+router.get("/", verifyToken, getFeedPosts);
 
 /**
  * GRAB USER POSTS 
