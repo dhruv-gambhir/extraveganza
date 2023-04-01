@@ -81,11 +81,11 @@ export default class AccountPage extends Component {
 										};
 										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(this.state.newPassword)) {
 											newInfo['newPassword'] = this.state.newPassword;
-											this.setState({ showWarning: !this.props.updateUser(newInfo) });
 										}
 										else {
 											this.setState({ showWarning: true });
 										}
+										this.setState({ showWarning: !this.props.updateUser(newInfo) });
 									}}>Save Settings</button>
 							</AccountSettingComponent>
 						</div>
