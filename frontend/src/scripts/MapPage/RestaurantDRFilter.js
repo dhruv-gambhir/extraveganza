@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+/**
+ * A React Component responsible for aggregating restaurants from the database, and filters it
+ * @date 4/1/2023 - 7:57:13 PM
+ *
+ * @param {*} props
+ * @returns {*}
+ */
 function RestaurantDRFilter(props) {
 	const [data, setData] = useState([]);
 	const [filteredRestaurants, setFilteredRestaurants] = useState([]);

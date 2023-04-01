@@ -84,7 +84,7 @@ export default class SignUpPage extends Component {
                                 {
                                     () => {
                                         // If password length is not '' and length is < 4 (interim), then show error message
-                                        if (this.state.passwordInput !== '' && this.state.passwordInput.length < 4) {
+                                        if (this.state.passwordInput not meet requirements) {
                                             return "Password must be more than 3 characters long";
                                         }
                                         // If password and reentered password are different, then show error message

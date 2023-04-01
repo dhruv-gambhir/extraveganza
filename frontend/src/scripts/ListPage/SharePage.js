@@ -1,6 +1,22 @@
 import { Component, Fragment, createRef } from "react";
 
+/**
+ * Share page popup
+ * @date 4/1/2023 - 8:06:30 PM
+ *
+ * @export
+ * @class SharePage
+ * @typedef {SharePage}
+ * @extends {Component}
+ */
 export default class SharePage extends Component {
+	/**
+	 * Creates an instance of SharePage.
+	 * @date 4/1/2023 - 8:06:30 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.ratingRef = createRef();
@@ -8,10 +24,20 @@ export default class SharePage extends Component {
 		this.contentRef = createRef();
 	}
 
+	/**
+	 * @override
+	 * @date 4/1/2023 - 8:06:30 PM
+	 */
 	componentDidMount() {
 		this.ratingRef.current.focus();
 	}
 
+	/**
+	 * Renders the clas
+	 * @date 4/1/2023 - 8:06:30 PM
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<Fragment>

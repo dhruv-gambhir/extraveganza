@@ -14,6 +14,13 @@ import * as Spinners from 'react-spinners';
  * @extends {Component}
  */
 export default class CommunityPage extends Component {
+	/**
+	 * Creates an instance of CommunityPage.
+	 * @date 4/1/2023 - 8:07:04 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.listBuffer = [];
@@ -23,6 +30,10 @@ export default class CommunityPage extends Component {
 		};
 	}
 
+	/**
+	 * @override
+	 * @date 4/1/2023 - 8:07:04 PM
+	 */
 	componentDidMount() {
 		this.retrieveCommunityPostsList();
 	}
@@ -58,6 +69,13 @@ export default class CommunityPage extends Component {
 		this.setState({ loading: false });
 	};
 
+	/**
+	 * Create a restaurant object based on the json
+	 * @date 4/1/2023 - 8:07:04 PM
+	 *
+	 * @param {*} postJSON
+	 * @returns {{ postID: any; title: any; restaurant: any; rating: any; datetime: string; content: any; }}
+	 */
 	fromCommunityPostJSON = (postJSON) => {
 		const post = {
 			postID: postJSON._id,
@@ -70,6 +88,12 @@ export default class CommunityPage extends Component {
 		return post;
 	};
 
+	/**
+	 * Filters restaurants based on search query
+	 * @date 4/1/2023 - 8:07:04 PM
+	 *
+	 * @returns {{}}
+	 */
 	filterRestaurantsBySearchQuery = () => {
 		var foo = this.listBuffer;
 		foo = foo.filter((bar) => (
@@ -77,16 +101,6 @@ export default class CommunityPage extends Component {
 			(bar.restaurant && bar.restaurant.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) ||
 			(bar.content && bar.content.toLowerCase().includes(this.props.searchbarValue.toLowerCase()))));
 		return foo;
-	};
-
-	toggleItemLike = (id) => {
-		const foo = this.listBuffer.findIndex(obj => obj.id === id);
-		if (foo !== -1) {
-			if (this.listBuffer[foo].liked) this.listBuffer[foo].likeCount--; else this.listBuffer[foo].likeCount++;
-			this.listBuffer[foo].liked = !this.listBuffer[foo].liked;
-			this.forceUpdate();
-			// Call function to update user's like post / post's like count
-		}
 	};
 
 	/**
@@ -116,7 +130,6 @@ export default class CommunityPage extends Component {
 										liked={item.liked}
 										likeCount={item.likeCount}
 										rating={item.rating}
-										toggleItemLike={this.toggleItemLike}
 									>
 										<Fragment>{item.title}</Fragment>
 										<Fragment>{item.restaurant}</Fragment>

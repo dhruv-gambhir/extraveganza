@@ -13,6 +13,13 @@ import RestaurantDRFilter from "./RestaurantDRFilter";
  */
 
 export default class MapPage extends Component {
+    /**
+     * Creates an instance of MapPage.
+     * @date 4/1/2023 - 7:56:07 PM
+     *
+     * @constructor
+     * @param {*} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -24,6 +31,14 @@ export default class MapPage extends Component {
         };
     }
 
+    /**
+     * @override updates when state change, or map info change
+     * @date 4/1/2023 - 7:56:07 PM
+     *
+     * @param {*} nextProps
+     * @param {*} nextState
+     * @returns {boolean}
+     */
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps !== this.props) {
             this.setState({
@@ -37,10 +52,22 @@ export default class MapPage extends Component {
         return false;
     }
 
+    /**
+     * Set filtered restaurants
+     * @date 4/1/2023 - 7:56:07 PM
+     *
+     * @param {*} foo
+     */
     setFilteredRestaurantsWithinRestaurants = (foo) => {
         this.setState({ filteredRestaurantsWithinDistance: foo, loading: false });
     };
 
+    /**
+     * Returns the component
+     * @date 4/1/2023 - 7:56:07 PM
+     *
+     * @returns {*}
+     */
     render() {
         return (
             <Fragment>

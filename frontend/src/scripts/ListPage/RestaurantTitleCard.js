@@ -17,6 +17,13 @@ import axios from 'axios';
  * @extends {Component}
  */
 export default class RestaurantTitleCard extends Component {
+	/**
+	 * Creates an instance of RestaurantTitleCard.
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -39,6 +46,10 @@ export default class RestaurantTitleCard extends Component {
 		}));
 	};
 
+	/**
+	 * Toggle whether sharing is activated
+	 * @date 4/1/2023 - 8:05:22 PM
+	 */
 	toggleIsSharing = () => {
 		this.setState(prevState => ({
 			isChildRendered: !prevState.isChildRendered,
@@ -46,10 +57,24 @@ export default class RestaurantTitleCard extends Component {
 		}));
 	};
 
+	/**
+	 * Sets the sharing restaurant ID
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @param {*} sid
+	 * @param {*} sname
+	 */
 	setSharingID = (sid, sname) => {
 		this.setState({ shareID: sid, shareRestaurantName: sname });
 	};
 
+	/**
+	 * Handles the submit post button
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @async
+	 * @returns {*}
+	 */
 	handleSharing = async () => {
 		if (this.state.shareRating !== undefined &&
 			this.state.shareTitle.localeCompare("") !== 0 &&
@@ -86,17 +111,35 @@ export default class RestaurantTitleCard extends Component {
 		}
 	};
 
+	/**
+	 * Sets the sharing restaurant rating
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @param {*} rating
+	 */
 	setShareRating = (rating) => {
 		rating = Math.min(Math.max(0, rating), 5);
 		rating = Math.round(rating * 2) / 2;
 		this.setState({ shareRating: rating });
 	};
 
+	/**
+	 * Sets the sharing post title
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @param {*} title
+	 */
 	setShareTitle = (title) => {
 		title = title.length > 30 ? title.substr(0, 30) : title;
 		this.setState({ shareTitle: title });
 	};
 
+	/**
+	 * Sets the sharing post content
+	 * @date 4/1/2023 - 8:05:22 PM
+	 *
+	 * @param {*} content
+	 */
 	setShareContent = (content) => {
 		content = content.length > 500 ? content.substr(0, 500) : content;
 		this.setState({ shareContent: content });

@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 /**
- * Description placeholder
+ * Community post
  * @date 3/13/2023 - 1:54:12 PM
  *
  * @export
@@ -41,22 +41,6 @@ export default class CommunityPost extends Component {
                         {this.props.children[2]}
                     </div>
                 </div>
-
-                {/* <div className="community-page-card-bottom">
-                    <div className="community-page-card-bottom-elem-container">
-                        <div
-                            className="community-page-card-bottom-elem community-page-card-bottom-elem-text"
-                            onClick={() => { this.props.toggleItemLike(this.props.itemID); }}>
-                            {this.props.liked ? '♥' : '♡'}
-                        </div>
-                        <div className="community-page-card-bottom-elem">{this.props.likeCount}</div>
-
-                    </div>
-                    <div className="community-page-card-bottom-elem-container">
-                        <div className="community-page-card-bottom-elem">💬</div>
-                        <div className="community-page-card-bottom-elem">{Math.round(Math.random() * 69)}</div>
-                    </div>
-                </div> */}
             </div>);
     }
 }

@@ -10,11 +10,24 @@ import { Component, Fragment } from 'react';
  * @extends {Component}
  */
 export default class RestaurantInfoPage extends Component {
+	/**
+	 * Creates an instance of RestaurantInfoPage.
+	 * @date 4/1/2023 - 8:00:41 PM
+	 *
+	 * @constructor
+	 * @param {*} props
+	 */
 	constructor(props) {
 		super(props);
 		this.restaurantInfo = null;
 	}
 
+	/**
+	 * Retrieves the restaurant information from the backend
+	 * 
+	 * Menu is temporarily unavailable
+	 * @date 4/1/2023 - 8:00:41 PM
+	 */
 	retrieveRestaurantInfo = () => {
 		const info = {
 			id: this.props.restID,
@@ -29,18 +42,22 @@ export default class RestaurantInfoPage extends Component {
 			rating: this.props.rating ? this.props.rating : '?',
 			location: { lat: this.props.location.lat, lng: this.props.location.lng, address: this.props.location.address },
 			menu: [
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Happy Pizza", description: "Somebody once told me the world is gonna roll me. ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "冰淇淋冰淇淋", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "豚骨ラーメン", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Kay Eff See", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Curry Laksa", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "순두부찌개", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Maggi mee", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 			]
 		};
 		this.restaurantInfo = info;
 	};
 
+	/**
+	 * Description placeholder
+	 * @date 4/1/2023 - 8:00:41 PM
+	 */
 	handleShareButton = () => {
 		this.props.setSharingID(this.restaurantInfo.id, this.restaurantInfo.restaurantName);
 		this.props.toggleIsSharing();

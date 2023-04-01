@@ -1,26 +1,33 @@
 import React, { Component, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
+const containerStyle = {
+  width: '100%',
+  height: '100%'
+};
+
+
+const markerOptions = {
+  icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // specify the URL of the image to use as the marker icon
+};
+
 /**
  * A React component to render the googlemap 
- * @date 20/13/2023 - 11:51:00 am
+ * @date 4/1/2023 - 7:57:55 PM
  *
  * @export
  * @class SimpleMap
  * @typedef {SimpleMap}
  * @extends {Component}
  */
-const containerStyle = {
-  width: '100%',
-  height: '100%'
-};
-
-const markerOptions = {
-  icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // specify the URL of the image to use as the marker icon
-};
-
-// Define the SimpleMap component
 export default class SimpleMap extends Component {
+  /**
+   * Creates an instance of SimpleMap.
+   * @date 4/1/2023 - 7:57:55 PM
+   *
+   * @constructor
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
     // Set the initial state of the component
@@ -30,30 +37,42 @@ export default class SimpleMap extends Component {
     };
   }
 
+  /**
+   * Handles click on the marker
+   * @date 4/1/2023 - 7:57:55 PM
+   *
+   * @param {*} marker
+   */
   handleRestaurantMarkerClick = (marker) => {
     this.setState({ selectedRestaurantMarker: marker });
   };
 
-  // A method that toggles the "showInfoWindow" property in the component's state
+  /**
+   * A method that toggles the "showInfoWindow" property in the component's state
+   * @date 4/1/2023 - 7:57:55 PM
+   */
   handleMarkerClick = () => {
     this.setState({ showInfoWindow: !this.state.showInfoWindow });
   };
 
-  // A method that sets the "showInfoWindow" property to false
+  /**
+   * A method that sets the "showInfoWindow" property to false
+   * @date 4/1/2023 - 7:57:55 PM
+   */
   handleInfoWindowClose = () => {
     this.setState({ showInfoWindow: false, selectedRestaurantMarker: null });
   };
 
-  // The render method for the component
+  /**
+   * The render method for the component
+   * @date 4/1/2023 - 7:57:55 PM
+   *
+   * @returns {*}
+   */
   render() {
-
-    // console.log("filteredRestaurantsWithinDistance:");
-    console.log(this.props.filteredRestaurantsWithinDistance);
-
     return (
       // Use the LoadScript component to load the Google Maps API with the provided API key
       <LoadScript googleMapsApiKey="AIzaSyDGlFQgWtdKStDPPWSahOj9PQoXDP6aIpo">
-        {/* {console.log("In simple map: " + this.props.filteredRestaurantsWithinDistance.length + " restaurants")} */}
 
         {/* Use the GoogleMap component to display the map */}
         <GoogleMap
@@ -68,7 +87,6 @@ export default class SimpleMap extends Component {
             options={markerOptions}
           />
 
-
           {this.props.filteredRestaurantsWithinDistance.map((restaurant) => (
             <Marker
               key={restaurant.name}
@@ -76,9 +94,6 @@ export default class SimpleMap extends Component {
               onClick={() => this.handleRestaurantMarkerClick(restaurant)}
             />
           ))}
-
-
-
 
           {/* Use the InfoWindow component to display an info window on the map */}
           {/* The info window will be displayed if the "showInfoWindow" property in the component's state is true */}
@@ -89,7 +104,6 @@ export default class SimpleMap extends Component {
             >
               <div>
                 <h3>{this.props.address}</h3> {/* Display the address passed in as a prop */}
-                <p>Info window content goes here.</p>
 
                 {/* Embed a Street View panorama using the Google Maps Embed API */}
                 {/* The URL of the panorama is constructed using the latitude and longitude of the center of the map passed in as props */}
@@ -124,7 +138,6 @@ export default class SimpleMap extends Component {
               </div>
             </InfoWindow>
           )}
-
 
         </GoogleMap>
       </LoadScript>

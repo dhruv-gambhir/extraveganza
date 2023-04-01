@@ -31,6 +31,13 @@ export default class ListPage extends Component {
         };
     }
 
+    /**
+     * @override
+     * @date 4/1/2023 - 8:00:10 PM
+     *
+     * @async
+     * @returns {*}
+     */
     async componentDidMount() {
         this.retrieveRestaurantsList();
     }
@@ -167,6 +174,11 @@ export default class ListPage extends Component {
         return foo;
     };
 
+
+    /**
+     * Handles scrolling
+     * @date 4/1/2023 - 8:00:10 PM
+     */
     handleListAreaScroll = () => {
         const div = this.listAreaRef.current;
         if (div.scrollTop + div.clientHeight >= div.scrollHeight) {

@@ -27,6 +27,7 @@ import DietaryRestrictionsSidebar from './scripts/Utils/DietaryRestrictionsSideb
 import NavButton from './scripts/Utils/NavButton';
 import DropdownMenu from './scripts/Utils/Dropdown';
 import MapSearch from './scripts/Utils/MapSearch';
+
 /**
  * App.js
  * @date 3/13/2023 - 2:07:26 PM
@@ -52,6 +53,7 @@ class App extends Component {
 				{ id: 2, title: 'lactose-free', selected: false, key: 'diet', imagePath: 'images/lactose-free.png' },
 				{ id: 3, title: 'gluten-free', selected: false, key: 'diet', imagePath: 'images/gluten-free.png' },
 			],
+
 			sortingChoices: [
 				{ id: 0, title: 'A - Z', selected: true, key: 'sort' },
 				{ id: 1, title: 'Z - A', selected: false, key: 'sort' },
@@ -74,13 +76,11 @@ class App extends Component {
 				isSignupValid: true,
 			}
 		};
-
-		this.myRef = createRef();
 	}
 
 	/**
 	 * @override
-	 * To retrieve user data from local storage, and also map location
+	 * To retrieve user data, map info and dietary restrictions from the local storage
 	 */
 	componentDidMount() {
 		const userToken = localStorage.getItem("userToken");
@@ -89,9 +89,7 @@ class App extends Component {
 			try {
 				const parsedUserToken = JSON.parse(userToken);
 				this.verifyUserToken(parsedUserToken);
-			} catch (error) {
-
-			}
+			} catch (error) { }
 		}
 
 		const coordsAndAddress = localStorage.getItem("coordsAndAddress");
@@ -100,9 +98,7 @@ class App extends Component {
 			try {
 				const foo = JSON.parse(coordsAndAddress);
 				this.setAddressAndCoords(foo.address, foo.lat, foo.lng);
-			} catch (error) {
-
-			}
+			} catch (error) { }
 		}
 
 		const dietaryRestrictions = localStorage.getItem("dietaryRestrictions");
@@ -111,13 +107,19 @@ class App extends Component {
 			try {
 				const foo = JSON.parse(dietaryRestrictions);
 				this.setState({ dietaryRestrictions: foo });
-			} catch (error) {
-
-			}
+			} catch (error) { }
 		}
 	}
 
-	// Verify user token
+
+	/**
+	 * Verifies the user when the page is being loaded
+	 * @date 4/1/2023 - 7:49:49 PM
+	 *
+	 * @async
+	 * @param {*} userToken
+	 * @returns {*}
+	 */
 	verifyUserToken = async (userToken) => {
 		const userInfo = this.state.userInfo;
 
@@ -132,7 +134,7 @@ class App extends Component {
 						userInfo: userInfo
 					});
 					localStorage.setItem("userToken", JSON.stringify(response.data.token));
-					return true; // Successful log in
+					return true; // Successful verification
 				}
 			})
 			.catch((error) => {
@@ -223,12 +225,12 @@ class App extends Component {
 			.finally(() => { ; });
 	};
 
+
 	/**
 	 * A function to update the user info
-	 * @param {String} username
-	 * @param {String} password
 	 * @async
-	 * @returns true if successful, else false
+	 * @param {*} newInfo
+	 * @returns {*}
 	 */
 	updateUser = async (newInfo) => {
 		const userInfo = this.state.userInfo;
@@ -243,17 +245,19 @@ class App extends Component {
 						userInfo: userInfo
 					});
 					localStorage.setItem("userToken", JSON.stringify(response.data.token));
-					return true; // Successful log in
+					return true; // Successful udpate
 				}
 			})
 			.catch((error) => {
 				console.log(error.response);
-				return false; // Failed to log in (invalid credentials)
+				return false; // Failed to update (invalid credentials)
 			});
 	};
 
+
 	/**
 	 * A function to let the user sign out of their account
+	 * @date 4/1/2023 - 7:50:56 PM
 	 */
 	signUserOut = () => {
 		const userInfo = this.state.userInfo;
@@ -365,11 +369,14 @@ class App extends Component {
 	 * @returns An HTML div for the header
 	 */
 	renderHeader() {
-		return (<div className="top-container">
-			<div className="top-title" ><span style={{ color: "white" }}>EXTRA</span><span style={{ color: "#0B963A" }}>VEGAN</span><span
-				style={{ color: "black" }} >ZA</span>
-			</div>
-		</div>);
+		return (
+			<div className="top-container">
+				<div className="top-title" >
+					<span style={{ color: "white" }}>EXTRA</span>
+					<span style={{ color: "#0B963A" }}>VEGAN</span>
+					<span style={{ color: "black" }} >ZA</span>
+				</div>
+			</div>);
 	}
 
 	/**
@@ -417,13 +424,19 @@ class App extends Component {
 							<Routes>
 								<Route path='/list' element={
 									<div className="searchbar-container">
-										<input className="searchbar searchbar-smaller" type="text" placeholder="Search Restaurant" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
+										<input
+											className="searchbar searchbar-smaller"
+											type="text"
+											placeholder="Search Restaurant"
+											onChange={(evt) => {
+												this.setState({ searchbarValue: evt.target.value });
+											}}
+										/>
 										<DropdownMenu
 											className="uid"
 											title={this.state.sortingChoices.find(x => x.selected).title}
 											list={this.state.sortingChoices}
-											resetThenSet={this.resetThenSetSortingChoices}>
-										</DropdownMenu>
+											resetThenSet={this.resetThenSetSortingChoices} />
 									</div>
 								} />
 								<Route path='/map' element={
@@ -434,7 +447,13 @@ class App extends Component {
 								} />
 								<Route path='/*' element={
 									<div className="searchbar-container">
-										<input className="searchbar" type="text" placeholder="Search Post" onChange={(evt) => { this.setState({ searchbarValue: evt.target.value }); }} />
+										<input
+											className="searchbar"
+											type="text"
+											placeholder="Search Post"
+											onChange={(evt) => {
+												this.setState({ searchbarValue: evt.target.value });
+											}} />
 									</div>
 								} />
 							</Routes>
@@ -443,15 +462,25 @@ class App extends Component {
 								<NavButton imagePath="./images/account.png" >
 									<OverlayComponent>
 										{!this.state.userInfo.isUserLoggedIn ?
-											<LoginSignupRouter authenticateUser={this.authenticateUser} signUpUser={this.signUpUser} /> :
-											<AccountPage user={this.state.userInfo.user} deleteUserAccount={this.deleteUserAccount} updateUser={this.updateUser} signUserOut={this.signUserOut} />}
+											<LoginSignupRouter
+												authenticateUser={this.authenticateUser}
+												signUpUser={this.signUpUser} /> :
+											<AccountPage
+												user={this.state.userInfo.user}
+												deleteUserAccount={this.deleteUserAccount}
+												updateUser={this.updateUser}
+												signUserOut={this.signUserOut} />}
 									</OverlayComponent>
 								</NavButton>
 								<NavButton imagePath='./images/help.png' >
-									<OverlayComponent><HelpPage /></OverlayComponent>
+									<OverlayComponent>
+										<HelpPage />
+									</OverlayComponent>
 								</NavButton>
-								<NavButton imagePath='./images/settings.png' fun={() => { }}>
-									<OverlayComponent><SettingsPage resetAddressAndCoords={this.resetAddressAndCoords} resetApp={this.resetApp} /></OverlayComponent>
+								<NavButton imagePath='./images/settings.png'>
+									<OverlayComponent>
+										<SettingsPage resetAddressAndCoords={this.resetAddressAndCoords} resetApp={this.resetApp} />
+									</OverlayComponent>
 								</NavButton>
 							</div>
 						</div>
@@ -462,16 +491,20 @@ class App extends Component {
 								< Navigate to={"/map"} />
 							} />
 							<Route path='/list' element={
-								< ListPage sortingChoice={this.state.sortingChoice} dietaryRestrictions={this.state.dietaryRestrictions} searchbarValue={this.state.searchbarValue} />
+								< ListPage
+									sortingChoice={this.state.sortingChoice}
+									dietaryRestrictions={this.state.dietaryRestrictions}
+									searchbarValue={this.state.searchbarValue} />
 							} />
 							<Route path='/map' element={
-								<MapPage mapSearchInfo={this.state.mapSearchInfo} dietaryRestrictions={this.state.dietaryRestrictions} />} />
+								<MapPage
+									mapSearchInfo={this.state.mapSearchInfo}
+									dietaryRestrictions={this.state.dietaryRestrictions} />} />
 
 							<Route path='/community' element={
 								< CommunityPage searchbarValue={this.state.searchbarValue} />
 							} />
 						</Routes>
-
 					</div>
 				</div>
 			</Fragment>

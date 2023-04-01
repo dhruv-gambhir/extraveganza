@@ -1,6 +1,5 @@
 import { Component, Fragment } from "react";
 
-
 /**
  * A React Component for the Help Page
  * @date 3/13/2023 - 1:54:28 PM

@@ -1,6 +1,5 @@
 import { Component, Fragment } from "react";
 
-
 /**
  * A React Component to render the Settings Page
  * @date 3/13/2023 - 1:55:12 PM
