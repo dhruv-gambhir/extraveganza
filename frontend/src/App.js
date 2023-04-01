@@ -86,22 +86,34 @@ class App extends Component {
 		const userToken = localStorage.getItem("userToken");
 
 		if (userToken) {
-			const parsedUserToken = JSON.parse(userToken);
-			this.verifyUserToken(parsedUserToken);
+			try {
+				const parsedUserToken = JSON.parse(userToken);
+				this.verifyUserToken(parsedUserToken);
+			} catch (error) {
+
+			}
 		}
 
 		const coordsAndAddress = localStorage.getItem("coordsAndAddress");
 
 		if (coordsAndAddress) {
-			const foo = JSON.parse(coordsAndAddress);
-			this.setAddressAndCoords(foo.address, foo.lat, foo.lng);
+			try {
+				const foo = JSON.parse(coordsAndAddress);
+				this.setAddressAndCoords(foo.address, foo.lat, foo.lng);
+			} catch (error) {
+
+			}
 		}
 
 		const dietaryRestrictions = localStorage.getItem("dietaryRestrictions");
 
-		if (dietaryRestrictions && JSON.parse(dietaryRestrictions).length == 4) {
-			const foo = JSON.parse(dietaryRestrictions);
-			this.setState({ dietaryRestrictions: foo });
+		if (dietaryRestrictions && JSON.parse(dietaryRestrictions).length === 4) {
+			try {
+				const foo = JSON.parse(dietaryRestrictions);
+				this.setState({ dietaryRestrictions: foo });
+			} catch (error) {
+
+			}
 		}
 	}
 
