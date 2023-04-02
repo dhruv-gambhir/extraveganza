@@ -152,7 +152,7 @@ export default class AccountPage extends Component {
 								onClick={() => {
 									if (!this.state.showDeleteConfirmation) {
 										this.setState({ showDeleteConfirmation: true });
-										setTimeout(() => { this.handleCancelDelete(); }, 1000);
+										setTimeout(() => { this.handleCancelDelete(); }, 5000);
 									}
 									else {
 										this.handleDeleteConfirmation();
