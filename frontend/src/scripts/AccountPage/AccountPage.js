@@ -25,6 +25,7 @@ export default class AccountPage extends Component {
 		this.state = {
 			newUsername: this.props.user.username,
 			newPassword: "",
+			confirmPassword: "",
 			showWarning: false,
 			showDeleteConfirmation: false // add this property
 
@@ -101,12 +102,6 @@ export default class AccountPage extends Component {
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
-								<div className="account-setting-label-description">
-									{this.state.showWarning ?
-										"Password must have at least one uppercase, one lowercase, one digit, and one special character" : ""}
-								</div>
-							</AccountSettingComponent>
-							<AccountSettingComponent>
 								{/* checking whether can update username */}
 								<button
 									className="account-save-button"
@@ -116,58 +111,58 @@ export default class AccountPage extends Component {
 											username: this.props.user.username,
 											newUsername: this.state.newUsername,
 										};
-										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword)) {
+										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword) &&
+											this.state.newPassword.localeCompare(this.state.confirmPassword === 0) &&
+											this.state.newPassword !== '') {
 											newInfo.newPassword = this.state.newPassword;
 										}
-										else {
+										else if (this.state.newPassword !== '' || this.state.newPassword.localeCompare(this.state.confirmPassword) !== 0) {
 											this.setState({ showWarning: true });
-											return; // do not call updateUser if password does not meet the requirements
 										}
-										this.setState({ showWarning: false }); // reset warning state
+
 										this.props.updateUser(newInfo)
 											.then(updatedUser => {
-												console.log("Password change successful");
-												// display a success message to the user
-												alert("Password change successful");
+												if (newInfo.newPassword)
+													alert(`Username: ${newInfo.newUsername}\nPassword changed successful!`);
+												else
+													alert(`Username: ${newInfo.newUsername}`);
 												// do something with the updated user information, if necessary
+												this.setState({ showWarning: false });
 											})
 											.catch(error => {
-												console.error(`Password change failed: ${error}`);
+												console.error(`Password or username changed failed: ${error}`);
 												// display an error message to the user, if necessary
 											});
 									}}
 								>
 									Save Settings
 								</button>
-
-
 							</AccountSettingComponent>
+
+							<AccountSettingComponent>
+								<div className="account-setting-label-description">
+									{this.state.showWarning ?
+										"Password must have at least one uppercase, one lowercase, one digit, and one special character" : ""}
+								</div>
+							</AccountSettingComponent>
+
 						</div>
-						<div className="account-page-deletes-account-container">
+						<div className="account-page-delete-account-container">
 							<div
 								className="login-submit-label account-page-button account-page-delete-account"
-								onClick={() => this.setState({ showDeleteConfirmation: true })} // show confirmation dialog
+								onClick={() => {
+									if (!this.state.showDeleteConfirmation) {
+										this.setState({ showDeleteConfirmation: true });
+										setTimeout(() => { this.handleCancelDelete(); }, 1000);
+									}
+									else {
+										this.handleDeleteConfirmation();
+									}
+								}} // show confirmation dialog
 							>
-								DELETE ACCOUNT
+								{!this.state.showDeleteConfirmation ? "DELETE ACCOUNT" : "ARE YOU SURE"}
 							</div>
 						</div>
-
-						{this.state.showDeleteConfirmation && (
-							<div className="overlay-content">
-								<div className="overlay-content-header">Confirm account deletion</div>
-								<div className="overlay-content-body">
-									<p>Are you sure you want to delete your account?</p>
-									<div className="account-page-button" onClick={() => this.handleDeleteConfirmation()}>
-										Yes
-									</div>
-									<div className="account-page-button" onClick={() => this.handleCancelDelete()}>
-										No
-									</div>
-								</div>
-							</div>
-						)}
-
-
 					</div>
 				</div>
 			</Fragment>
