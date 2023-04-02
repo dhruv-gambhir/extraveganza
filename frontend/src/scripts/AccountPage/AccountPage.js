@@ -27,33 +27,9 @@ export default class AccountPage extends Component {
 			newPassword: "",
 			confirmPassword: "",
 			showWarning: false,
-			showDeleteConfirmation: false // add this property
-
+			showDeleteConfirmation: false
 		};
 	}
-
-	handleDeleteConfirmation() {
-		// call the deleteUserAccount function passed as a prop to delete the user account
-		this.props.deleteUserAccount()
-			.then(() => {
-				console.log("Account deletion successful");
-				// display a success message to the user
-				alert("Account deletion successful");
-				// do something else after deleting the user account, if necessary
-			})
-			.catch(error => {
-				console.error(`Account deletion failed: ${error}`);
-				// display an error message to the user, if necessary
-			});
-		// hide the confirmation dialog
-		this.setState({ showDeleteConfirmation: false });
-	}
-
-	handleCancelDelete() {
-		this.setState({ showDeleteConfirmation: false });
-	}
-
-
 
 	/**
 	 * Renders the component's content
@@ -92,6 +68,7 @@ export default class AccountPage extends Component {
 								</input>
 							</AccountSettingComponent>
 							<AccountSettingComponent>
+
 								<div className="account-setting-label">
 									Re-enter password
 								</div>
@@ -100,22 +77,23 @@ export default class AccountPage extends Component {
 									value={this.state.confirmPassword}
 									onChange={evt => this.setState({ confirmPassword: evt.target.value })}>
 								</input>
+
 							</AccountSettingComponent>
 							<AccountSettingComponent>
 								{/* checking whether can update username */}
 								<button
 									className="account-save-button"
-									disabled={this.state.newPassword !== this.state.confirmPassword} // disable button if passwords don't match
 									onClick={() => {
-										const newInfo = {
+										var newInfo = {
 											username: this.props.user.username,
 											newUsername: this.state.newUsername,
 										};
+
 										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword) &&
 											this.state.newPassword.localeCompare(this.state.confirmPassword === 0) &&
 											this.state.newPassword !== '') {
 											newInfo.newPassword = this.state.newPassword;
-										}
+
 										else if (this.state.newPassword !== '' || this.state.newPassword.localeCompare(this.state.confirmPassword) !== 0) {
 											this.setState({ showWarning: true });
 										}
@@ -168,7 +146,6 @@ export default class AccountPage extends Component {
 			</Fragment>
 		);
 	}
-
 }
 
 AccountPage.propTypes = {
