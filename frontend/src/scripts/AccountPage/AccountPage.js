@@ -93,7 +93,7 @@ export default class AccountPage extends Component {
 											this.state.newPassword.localeCompare(this.state.confirmPassword === 0) &&
 											this.state.newPassword !== '') {
 											newInfo.newPassword = this.state.newPassword;
-
+										}
 										else if (this.state.newPassword !== '' || this.state.newPassword.localeCompare(this.state.confirmPassword) !== 0) {
 											this.setState({ showWarning: true });
 										}
