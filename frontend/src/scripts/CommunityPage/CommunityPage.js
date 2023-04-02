@@ -64,7 +64,7 @@ export default class CommunityPage extends Component {
 				console.log(error.response);
 			});
 
-		this.listBuffer = buf;
+		this.listBuffer = buf.reverse();
 
 		this.setState({ loading: false });
 	};
