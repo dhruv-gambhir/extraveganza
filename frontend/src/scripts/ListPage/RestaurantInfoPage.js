@@ -39,16 +39,16 @@ export default class RestaurantInfoPage extends Component {
 				glutenFree: this.props.dietaryRestrictions.glutenFree
 			},
 			description: this.props.description ? this.props.description : "No description	",
-			rating: this.props.rating ? this.props.rating : '?',
+			rating: this.props.rating ? this.props.rating : Math.round(Math.random() * 5),
 			location: { lat: this.props.location.lat, lng: this.props.location.lng, address: this.props.location.address },
 			menu: [
-				{ name: "Happy Pizza", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "冰淇淋冰淇淋", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "豚骨ラーメン", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Kay Eff See", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Curry Laksa", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "순두부찌개", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
-				{ name: "Maggi mee", description: "Lorem ipsum dolor sit amet ".repeat(Math.random() * 10 + 1), dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Happy Pizza", description: "A pizza but with a twist, baked with our secret ingredient and secret sauce, this pizza is sure to make you happy", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Oreo Soft Serve", description: "Dairy-free soft serve, made with your choice of almond, nut, oat, cashew milk and more.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Tonkotsu Ramen", description: "Pork bone broth, without the pork. Made with our secret sauce, this Tonkotsu Ramen will blow your mind off with how unmeaty this Tonkotsu broth taste.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Kay Eff See", description: "Our spin on your all time favourite fried chicken, but 100% chicken free. Now you can enjoy your childhood harm-free.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Curry Laksa", description: "A Singaporean favourite (defintely not stolen from Malaysia). Rice vermicelli in thick curry, topped with 'taugeh', mock meat, eggs, and veggies.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Soondubu Jjigae", description: "Hot and spicy Korean soft tofu soup, with veggies, and protein, served with rice and kimchi.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
+				{ name: "Tofurkey", description: "Thanksgiving, but no turkey? Fare not my child. BEHOLD! TOFURKEY! Tastes like turkey, smells like turkey, feels like turkey, but it's not turkey. Who could've guessed?", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 			]
 		};
 		this.restaurantInfo = info;

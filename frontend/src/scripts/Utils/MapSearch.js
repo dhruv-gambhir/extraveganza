@@ -62,7 +62,7 @@ function MapSearch(props) {
 						type="text"
 						id="input"
 						name="input"
-						placeholder='Search Location'
+						placeholder='Search Current Location'
 						value={searchVal}
 						onChange={handleChange}
 						onKeyDown={
