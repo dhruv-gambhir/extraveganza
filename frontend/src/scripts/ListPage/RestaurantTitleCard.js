@@ -166,9 +166,9 @@ export default class RestaurantTitleCard extends Component {
 						<div className="list-page-card-text-header">
 							{this.props.restaurantName}
 						</div>
-						{/* <div className="list-page-card-text-description">
-							{(this.props.location.address && this.props.location.address.length !== 0) ? this.props.location.address : ("x: " + this.props.location.lng + ", y: " + this.props.location.lat)}
-						</div> */}
+						<div className="list-page-card-text-description">
+							{(this.props.address && this.props.address.length !== 0) ? this.props.address : ("Address: " + this.props.address)}
+						</div>
 					</div>
 					<div className="list-page-card-select">
 						<FontAwesome name="angle-down" size="2x" />

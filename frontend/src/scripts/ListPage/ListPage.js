@@ -88,7 +88,8 @@ export default class ListPage extends Component {
         };
         const description = ""; // No description provided
         const rating = restaurant.rating;
-        const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address };
+        const full_address = restaurant.address_block ? restaurant.address_block + " " + restaurant.address_street + ", Singapore " + restaurant.address_postal : restaurant.address_street + " Singapore " + restaurant.address_postal
+        const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address};
         // Menu is not loaded for this section
         var rest = {
             key: id,
@@ -96,7 +97,8 @@ export default class ListPage extends Component {
             dietaryRestrictions: dietaryRestrictions,
             description: description,
             rating: rating,
-            location: location
+            location: location,
+            address: full_address
         };
         return rest;
     };
