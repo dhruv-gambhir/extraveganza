@@ -88,8 +88,7 @@ export default class ListPage extends Component {
         };
         const description = ""; // No description provided
         const rating = restaurant.rating;
-        const full_address = restaurant.address_block ? restaurant.address_block + " " + restaurant.address_street + ", Singapore " + restaurant.address_postal : restaurant.address_street + " Singapore " + restaurant.address_postal
-        const location = { lat: restaurant.y, lng: restaurant.x, address: restaurant.address};
+        const full_address = restaurant.address_block ? restaurant.address_block + " " + restaurant.address_street + ", Singapore " + restaurant.address_postal : restaurant.address_street + " Singapore " + restaurant.address_postal;
         // Menu is not loaded for this section
         var rest = {
             key: id,
@@ -97,7 +96,6 @@ export default class ListPage extends Component {
             dietaryRestrictions: dietaryRestrictions,
             description: description,
             rating: rating,
-            location: location,
             address: full_address
         };
         return rest;
@@ -172,7 +170,7 @@ export default class ListPage extends Component {
      */
     filterRestaurantsBySearchQuery = (arr) => {
         var foo = arr;
-        foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.location.address && bar.location.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
+        foo = foo.filter((bar) => (bar.restaurantName.toLowerCase().includes(this.props.searchbarValue.toLowerCase())) || (bar.address && bar.address.toLowerCase().includes(this.props.searchbarValue.toLowerCase())));
         return foo;
     };
 

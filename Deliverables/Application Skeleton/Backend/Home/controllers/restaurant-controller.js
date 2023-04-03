@@ -27,7 +27,7 @@ export const getRestaurants = async (res) => {
  * @returns String confirmation message
  */
 export const addRestaurant = async (req, res) => {
-    const{name,location} = req.body;
+    const{name} = req.body;
 
     let existingRestaurant;
 

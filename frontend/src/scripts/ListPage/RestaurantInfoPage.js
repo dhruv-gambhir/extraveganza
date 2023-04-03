@@ -41,7 +41,6 @@ export default class RestaurantInfoPage extends Component {
 			address: this.props.address,
 			description: this.props.description ? this.props.description : "No description	",
 			rating: this.props.rating ? this.props.rating : Math.round(Math.random() * 5),
-			location: { lat: this.props.location.lat, lng: this.props.location.lng, address: this.props.location.address },
 			menu: [
 				{ name: "Happy Pizza", description: "A pizza but with a twist, baked with our secret ingredient and secret sauce, this pizza is sure to make you happy", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
 				{ name: "Oreo Soft Serve", description: "Dairy-free soft serve, made with your choice of almond, nut, oat, cashew milk and more.", dietaryRestrictions: "vegan", price: (Math.random() * 69).toFixed(2) },
@@ -91,7 +90,7 @@ export default class RestaurantInfoPage extends Component {
 								{restaurantInfo.dietaryRestrictions.glutenFree && <img className='restaurant-header-restrictions-img gluten-free' src='/images/gluten-free.png' alt='not found' />}
 							</div>
 							<div className='restaurant-header-text-description'>
-								{(restaurantInfo.location.address && restaurantInfo.location.address.length !== 0) ? restaurantInfo.location.address : ("Address: " + restaurantInfo.address)}
+								{(restaurantInfo.address && restaurantInfo.address.length !== 0) ? restaurantInfo.address : ("Address: " + restaurantInfo.address)}
 							</div>
 						</div>
 						<div className='restaurant-header-rate-container'>
