@@ -18,7 +18,19 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address: {
+    address_block: {
+        type: String,
+        required: true,
+    },
+    address_building:{
+        type: String,
+        required: true,
+    },
+    address_postal:{
+        type: String,
+        required: true,
+    },
+    address_street:{
         type: String,
         required: true,
     },
@@ -55,7 +67,10 @@ const RestaurantSchema = new mongoose.Schema({
  * @property {number} x.required - x coordinate of the restaurant
  * @property {number} y.required - y coordinate of the restaurant
  * @property {string} name.required - name of the restaurant
- * @property {string} address.required - address of the restaurant
+ * @property {string} address_block.required - address block of the restaurant
+ * @property {string} address_building.required - address building of the restaurant
+ * @property {string} address_postal.required - address postal of the restaurant
+ * @property {string} address_street - address street of the restaurant
  * @property {number} vegan.required - vegan options of the restaurant
  * @property {number} vegetarian.required - vegetarian options of the restaurant
  * @property {number} glutenFree.required - gluten free options of the restaurant
