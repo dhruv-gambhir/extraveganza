@@ -38,6 +38,7 @@ export default class RestaurantInfoPage extends Component {
 				lactoseFree: this.props.dietaryRestrictions.lactoseFree,
 				glutenFree: this.props.dietaryRestrictions.glutenFree
 			},
+			address: this.props.address,
 			description: this.props.description ? this.props.description : "No description	",
 			rating: this.props.rating ? this.props.rating : Math.round(Math.random() * 5),
 			location: { lat: this.props.location.lat, lng: this.props.location.lng, address: this.props.location.address },
@@ -90,7 +91,7 @@ export default class RestaurantInfoPage extends Component {
 								{restaurantInfo.dietaryRestrictions.glutenFree && <img className='restaurant-header-restrictions-img gluten-free' src='/images/gluten-free.png' alt='not found' />}
 							</div>
 							<div className='restaurant-header-text-description'>
-								{(restaurantInfo.location.address && restaurantInfo.location.address.length !== 0) ? restaurantInfo.location.address : ("x: " + restaurantInfo.location.lng + ", y: " + restaurantInfo.location.lat)}
+								{(restaurantInfo.location.address && restaurantInfo.location.address.length !== 0) ? restaurantInfo.location.address : ("Address: " + restaurantInfo.address)}
 							</div>
 						</div>
 						<div className='restaurant-header-rate-container'>
