@@ -51,6 +51,10 @@ export default class RestaurantTitleCard extends Component {
 	 * @date 4/1/2023 - 8:05:22 PM
 	 */
 	toggleIsSharing = () => {
+		if (localStorage.getItem("userToken") == null) {
+			alert("0.o User is not signed in");
+			return;
+		}
 		this.setState(prevState => ({
 			isChildRendered: !prevState.isChildRendered,
 			isSharing: !prevState.isSharing
