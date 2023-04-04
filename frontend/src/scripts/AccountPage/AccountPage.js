@@ -111,7 +111,7 @@ export default class AccountPage extends Component {
 										};
 
 										if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/.test(this.state.newPassword) &&
-											this.state.newPassword.localeCompare(this.state.confirmPassword === 0) &&
+											this.state.newPassword.localeCompare(this.state.confirmPassword)===0 &&
 											this.state.newPassword !== '') {
 											newInfo.newPassword = this.state.newPassword;
 										}
@@ -121,6 +121,7 @@ export default class AccountPage extends Component {
 
 										this.props.updateUser(newInfo)
 											.then(updatedUser => {
+												console.log(newInfo)
 												if (newInfo.newPassword)
 													alert(`Username: ${newInfo.newUsername}\nPassword changed successful!`);
 												else
