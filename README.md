@@ -6,7 +6,7 @@ Brought to you by:
 
 extraVEGANza is a web application for finding restaurants that fit your dietary restrictions, including veganism, vegetarianism, lactose-free diet, and gluten-free diet.
 
-Made with MERN tech stack (MongoDB, Express.js, React.js, Node.js), databases [`data.gov.sg`](data.gov.sg) and [`OneMap`](onemap.gov.sg/docs)
+Made with MERN tech stack (MongoDB, Express.js, React.js, Node.js), databases [`data.gov.sg`](http://data.gov.sg) and [`OneMap`](http://onemap.gov.sg/docs)
 
 ## Features
 ### Map View
